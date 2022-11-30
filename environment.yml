@@ -8,6 +8,11 @@ dependencies:
   - jupyterlab
   - IPython
   - ipywidgets
+  - ipykernel
+  - nbformat
+  - line_profiler
+  - memory_profiler
+  - nb_conda_kernels
   - h5py
   - gwsurrogate
   - pip
