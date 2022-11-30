@@ -11,7 +11,9 @@ dependencies:
   - h5py
   - gwsurrogate
   - pip
+  - jupyterlab
+  - mpl-interactions
+  - ipympl
   - pip:
     - NRSur7dq2
     - notebook
-    - ipympl
