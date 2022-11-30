@@ -9,9 +9,9 @@ dependencies:
   - IPython
   - ipywidgets
   - h5py
-  - ffmpeg
   - gwsurrogate
   - pip
   - pip:
     - NRSur7dq2
     - notebook
+    - ipympl
