@@ -4,17 +4,14 @@ channels:
 dependencies:
   - python=3.8
   - numpy
-  - scipy
   - matplotlib
   - jupyterlab
   - IPython
   - ipywidgets
   - h5py
   - ffmpeg
-  - lalsuite
   - gwsurrogate
   - pip
   - pip:
     - NRSur7dq2
-    - palettable
-    - forked-rompy
+    - notebook
