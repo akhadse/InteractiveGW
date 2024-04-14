@@ -76,12 +76,14 @@ def generate_video_for_varying_param(input_dict):
         a0.set_ylabel(f"Real(h_{l}{m})")
         a0.legend()
         a0.legend(loc='upper left')
+        a0.grid(axis='x')
         
         a1.plot(t,np.real(h0[(l,m)]), label='real_initial_parameter', color='red', linewidth='0.8')
         a1.plot(t,np.real(h[(l,m)]), label='real_current_parameter')
         a1.set_xlim((-200,50))
         a1.set_ylim((y_min,y_max))
         a1.set_xlabel("Time")
+        a1.grid(axis='x')
         #-----------------------------------------------------------------------------------------------------------------------------
 
         a2.plot(t,np.imag(h0[(l,m)]), label='imag_initial_parameter', color='red', linewidth='0.8')
@@ -90,12 +92,14 @@ def generate_video_for_varying_param(input_dict):
         a2.set_ylim((y_min,y_max))  
         a2.set_xlabel("Time")
         a2.set_ylabel(f"Imag(h_{l}{m})")
+        a2.grid(axis='x')
         
         a3.plot(t,np.imag(h0[(l,m)]), label='imag_initial_parameter', color='red', linewidth='0.8')
         a3.plot(t,np.imag(h[(l,m)]), label='imag_current_parameter')
         a3.set_xlim((-200,50))
         a3.set_ylim((y_min,y_max))
         a3.set_xlabel("Time")
+        a3.grid(axis='x')
 
         #-----------------------------------------------------------------------------------------------------------------------------
         a4.plot(t,np.abs(h0[(l,m)]), label='abs_initial_parameter', color='red', linewidth='0.8')
@@ -104,16 +108,20 @@ def generate_video_for_varying_param(input_dict):
         a4.set_ylim((0.,y_max))   
         a4.set_xlabel("Time")
         a4.set_ylabel(f"Abs(h_{l}{m})")
+        a4.grid(axis='x')
         
         a5.plot(t,np.abs(h0[(l,m)]), label='abs_initial_parameter', color='red', linewidth='0.8')
         a5.plot(t,np.abs(h[(l,m)]), label='abs_current_parameter')
         a5.set_xlim((-200,50))
         a5.set_ylim((0.,y_max))
         a5.set_xlabel("Time")
+        a5.grid(axis='x')
 
 
         plt.suptitle(f"h_{l}{m} for {choose_parameter_to_vary} = {param_val:.2f}", fontsize=26)
+
         f.tight_layout()
+        
         f.savefig('temp.png')
 
         img = cv2.imread('temp.png')
