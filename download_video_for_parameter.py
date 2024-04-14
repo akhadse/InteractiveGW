@@ -18,7 +18,7 @@ chiBz = 0.
 choose_parameter_to_vary     = 'q'     # Choose from 'q', 'chiAx', 'chiAy', 'chiAz', 'chiBx', 'chiBy', 'chiBz'
 parameter_start_value        = 1.
 parameter_end_value          = 6.
-parameter_steps              = 1*10 # performs at around 5 steps/second
+parameter_steps              = 20*24 # takes around 17.6 seconds to generate 1 second of video OR 0.7 seconds per parameter step
 
 l=2
 m=2
@@ -34,7 +34,7 @@ user_input = {"q":q,
 
 # Surrogate parameters
 f_low = 0
-times = np.arange(-4299,99,0.1)
+times = np.arange(-4299,99,1)
 sur   = gwsurrogate.LoadSurrogate('NRSur7dq4')
 
 

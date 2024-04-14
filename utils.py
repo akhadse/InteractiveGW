@@ -62,27 +62,57 @@ def generate_video_for_varying_param(input_dict):
             h_max_initial_param = np.max(np.abs(h[(l,m)]))
             h0 = h
 
-        f, (a0, a1) = plt.subplots(1, 2, figsize=figsize, gridspec_kw={'width_ratios': [3, 1]})
-        a0.plot(t,np.real(h0[(l,m)]), label='real_initial_parameter', color='red', linewidth='0.8')
-        a0.plot(t,np.real(h[(l,m)]), label='real_current_parameter')
-        
+            y_max = 1.1*h_max_initial_param
+            y_min = -y_max
+
+        f, ((a0, a1), (a2, a3), (a4, a5)) = plt.subplots(3, 2, figsize=figsize, gridspec_kw={'width_ratios': [3, 1]})
+
+        #-----------------------------------------------------------------------------------------------------------------------------
+        a0.plot(t,np.real(h0[(l,m)]), label='Initial_parameter', color='red', linewidth='0.8')
+        a0.plot(t,np.real(h[(l,m)]), label='Current_parameter')
         a0.set_xlim((t[0],t[-1]))
-        a0.set_ylim((-1.2*h_max_initial_param,1.2*h_max_initial_param))
-        
+        a0.set_ylim((y_min,y_max))
         a0.set_xlabel("Time")
-        a0.set_ylabel(f"h_{l}{m}")
+        a0.set_ylabel(f"Real(h_{l}{m})")
         a0.legend()
         a0.legend(loc='upper left')
         
         a1.plot(t,np.real(h0[(l,m)]), label='real_initial_parameter', color='red', linewidth='0.8')
         a1.plot(t,np.real(h[(l,m)]), label='real_current_parameter')
-        
         a1.set_xlim((-200,50))
-        a1.set_ylim((-1.2*h_max_initial_param,1.2*h_max_initial_param))
-        
+        a1.set_ylim((y_min,y_max))
         a1.set_xlabel("Time")
+        #-----------------------------------------------------------------------------------------------------------------------------
+
+        a2.plot(t,np.imag(h0[(l,m)]), label='imag_initial_parameter', color='red', linewidth='0.8')
+        a2.plot(t,np.imag(h[(l,m)]), label='imag_current_parameter')
+        a2.set_xlim((t[0],t[-1]))
+        a2.set_ylim((y_min,y_max))  
+        a2.set_xlabel("Time")
+        a2.set_ylabel(f"Imag(h_{l}{m})")
         
-        plt.suptitle(f"{choose_parameter_to_vary} = {param_val:.2f}", fontsize=26)
+        a3.plot(t,np.imag(h0[(l,m)]), label='imag_initial_parameter', color='red', linewidth='0.8')
+        a3.plot(t,np.imag(h[(l,m)]), label='imag_current_parameter')
+        a3.set_xlim((-200,50))
+        a3.set_ylim((y_min,y_max))
+        a3.set_xlabel("Time")
+
+        #-----------------------------------------------------------------------------------------------------------------------------
+        a4.plot(t,np.abs(h0[(l,m)]), label='abs_initial_parameter', color='red', linewidth='0.8')
+        a4.plot(t,np.abs(h[(l,m)]), label='abs_current_parameter')
+        a4.set_xlim((t[0],t[-1]))
+        a4.set_ylim((0.,y_max))   
+        a4.set_xlabel("Time")
+        a4.set_ylabel(f"Abs(h_{l}{m})")
+        
+        a5.plot(t,np.abs(h0[(l,m)]), label='abs_initial_parameter', color='red', linewidth='0.8')
+        a5.plot(t,np.abs(h[(l,m)]), label='abs_current_parameter')
+        a5.set_xlim((-200,50))
+        a5.set_ylim((0.,y_max))
+        a5.set_xlabel("Time")
+
+
+        plt.suptitle(f"h_{l}{m} for {choose_parameter_to_vary} = {param_val:.2f}", fontsize=26)
         f.tight_layout()
         f.savefig('temp.png')
 
