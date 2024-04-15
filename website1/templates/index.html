@@ -4,12 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>This is the title of the website tab!</title>
+
+    <style>
+        label {
+            display: inline-block;
+            width: 200px; /* Adjusted width to match the other input fields */
+            margin-bottom: 5px;
+        }
+        select,
+        input[type="text"] {
+            width: 204px; /* Adjusted width to match the other input fields */
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-left: 200px; /* Adjusted margin-left to match the label width */
+        }
+
+        .variableparam-group {
+            display: inline-block;
+            margin-bottom: 10px; /* Additional margin bottom for spacing between chi-group elements */
+            vertical-align: top; /* Aligns chi-group elements to the top */
+        }
+
+        .lm-group {
+            display: inline-block;
+            margin-bottom: 10px; /* Additional margin bottom for spacing between chi-group elements */
+            vertical-align: top; /* Aligns chi-group elements to the top */
+        }
+
+        .advanced-settings {
+            background-color: #f0f0f0; /* Background color for advanced settings */
+            padding: 10px;
+            margin-top: 20px; /* Add margin to separate from previous elements */
+            border-radius: 5px; /* Rounded corners */
+        }
+        .advanced-settings label {
+            color: #ff4500; /* Text color for labels in advanced settings */
+            width: 150px; /* Width for labels in advanced settings */
+        }
+        .advanced-settings input[type="text"] {
+            width: 150px; /* Width for input boxes in advanced settings */
+        }
+
+        
+    </style>
+
 </head>
 <body>
-    <h2>Enter Parameter</h2>
+    <h2>Enter Input Parameters</h2>
     <form action="/result" method="post">
-        <input type="text" name="parameter" required>
+
+        <label for="choose_parameter_to_vary">Choose a Parameter to vary</label>
+        <select id="choose_parameter_to_vary" name="choose_parameter_to_vary" >
+            <option value="q" selected>q</option>
+            <option value="ChiAx">ChiAx</option>
+            <option value="ChiAy">ChiAy</option>
+            <option value="ChiAz">ChiAz</option>
+            <option value="ChiBx">ChiBx</option>
+            <option value="ChiBy">ChiBy</option>
+            <option value="ChiBz">ChiBz</option>
+
+        </select>
+        <br>
+
+        <div class="variableparam-group">
+            <label for="parameter_start_value">Parameter start value</label>
+            <input type="text" id="parameter_start_value" name="parameter_start_value" value="1.0" required>
+        </div>
+        <div class="variableparam-group">
+            <label for="parameter_end_value">Parameter end value</label>
+            <input type="text" id="parameter_end_value" name="parameter_end_value" value="6.0" required>
+        </div>
+        <div class="variableparam-group">
+            <label for="parameter_steps">Number of parameter steps</label>
+            <input type="text" id="parameter_steps" name="parameter_steps" value="480" required>
+        </div>
+
+        <br>
+
+        <div class="lm-group">
+            <label for="l">l</label>
+            <input type="text" id="l" name="l" value="2" required>
+        </div>
+        <div class="lm-group">
+            <label for="m">m</label>
+            <input type="text" id="m" name="m" value="2" required>
+        </div>
+
+
+        <br>
+        <br>     
+
+        <label for="q">Mass Ratio (q)</label>
+        <input type="text" id="q" name="q" value="1.0" required><br>
+
+        <label for="ChiAx">ChiAx</label>
+        <input type="text" id="ChiAx" name="ChiAx" value="0.0" required><br>
+        
+        <label for="ChiAy">ChiAy</label>
+        <input type="text" id="ChiAy" name="ChiAy" value="0.0" required><br>
+        
+        <label for="ChiAz">ChiAz</label>
+        <input type="text" id="ChiAz" name="ChiAz" value="0.0" required><br>
+        
+        <label for="ChiBx">ChiBx</label>
+        <input type="text" id="ChiBx" name="ChiBx" value="0.0" required><br>
+        
+        <label for="ChiBy">ChiBy</label>
+        <input type="text" id="ChiBy" name="ChiBy" value="0.0" required><br>
+        
+        <label for="ChiBz">ChiBz</label>
+        <input type="text" id="ChiBz" name="ChiBz" value="0.0" required><br>
+
         <input type="submit" value="Submit">
+
+
+        <!-- Additional Advanced Settings Section -->
+        <div class="advanced-settings">
+            <h3>Advanced Settings</h3>
+            <label for="video_width">Video width</label>
+            <input type="text" id="video_width" name="video_width" value="1500" required><br>
+            
+            <label for="video_height">Video height</label>
+            <input type="text" id="video_height" name="video_height" value="700" required><br>
+            
+            <label for="video_fps">Video fps</label>
+            <input type="text" id="video_fps" name="video_fps" value="24.0" required><br>
+
+            <label for="video_name">Video name</label>
+            <input type="text" id="video_name" name="video_name" value="h_lm_video.mp4" required><br>
+        </div>
     </form>
 </body>
 </html>
