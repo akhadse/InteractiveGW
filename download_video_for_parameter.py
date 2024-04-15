@@ -1,4 +1,3 @@
-import gwsurrogate
 import numpy as np
 import warnings
 warnings.filterwarnings('ignore')
@@ -18,7 +17,7 @@ chiBz = 0.
 choose_parameter_to_vary     = 'q'     # Choose from 'q', 'chiAx', 'chiAy', 'chiAz', 'chiBx', 'chiBy', 'chiBz'
 parameter_start_value        = 1.
 parameter_end_value          = 6.
-parameter_steps              = 20*24 # takes around 17.6 seconds to generate 1 second of video at 24fps (0.7 sec per parameter step)
+parameter_steps              = 1*24 # takes around 17.6 seconds to generate 1 second of video at 24fps (0.7 sec per parameter step)
 
 l=2
 m=2
@@ -34,15 +33,15 @@ user_input = {"q":q,
 
 # Surrogate parameters
 f_low = 0
-times = np.arange(-4299,99,1)
-sur   = gwsurrogate.LoadSurrogate('NRSur7dq4')
+delta_t = 1
+sur_name = "NRSur7dq4"
 
 
-surrogate_params = {"sur":sur, "f_low":f_low, "times":times }
+surrogate_params = {"sur_name":sur_name, "f_low":f_low, "delta_t":delta_t }
 #___________________________________________________________________________________________________________________________________
 
 
-# Video settings parameter
+# Video settings parameters
 video_width  = 1500
 video_height = 700
 video_fps    = 24.0
@@ -52,15 +51,16 @@ video_params = {"video_width":video_width, "video_height":video_height, "video_f
 #___________________________________________________________________________________________________________________________________
 
 
-# Figure params
-figsize       = (15,7)
-figure_params = {"figsize":figsize}
+# Figure settings parameters
+figure_width  = 15
+figure_height = 7
+figure_params = {"figure_width":figure_width, "figure_height":figure_height}
 #___________________________________________________________________________________________________________________________________
 
 
 # Other params
-allowed_params_to_vary = ['q','chiAx', 'chiAy', 'chiAz', 'chiBx', 'chiBy', 'chiBz']
-other_params           = {"allowed_params_to_vary":allowed_params_to_vary}
+
+other_params           = {}
 
 ########################################################################################################################################
 ########################################################################################################################################

@@ -63,12 +63,12 @@
         <label for="choose_parameter_to_vary">Choose a Parameter to vary</label>
         <select id="choose_parameter_to_vary" name="choose_parameter_to_vary" >
             <option value="q" selected>q</option>
-            <option value="ChiAx">ChiAx</option>
-            <option value="ChiAy">ChiAy</option>
-            <option value="ChiAz">ChiAz</option>
-            <option value="ChiBx">ChiBx</option>
-            <option value="ChiBy">ChiBy</option>
-            <option value="ChiBz">ChiBz</option>
+            <option value="chiAx">ChiAx</option>
+            <option value="chiAy">ChiAy</option>
+            <option value="chiAz">ChiAz</option>
+            <option value="chiBx">ChiBx</option>
+            <option value="chiBy">ChiBy</option>
+            <option value="chiBz">ChiBz</option>
 
         </select>
         <br>
@@ -104,23 +104,23 @@
         <label for="q">Mass Ratio (q)</label>
         <input type="text" id="q" name="q" value="1.0" required><br>
 
-        <label for="ChiAx">ChiAx</label>
-        <input type="text" id="ChiAx" name="ChiAx" value="0.0" required><br>
+        <label for="chiAx">ChiAx</label>
+        <input type="text" id="chiAx" name="chiAx" value="0.0" required><br>
         
-        <label for="ChiAy">ChiAy</label>
-        <input type="text" id="ChiAy" name="ChiAy" value="0.0" required><br>
+        <label for="chiAy">ChiAy</label>
+        <input type="text" id="chiAy" name="chiAy" value="0.0" required><br>
         
-        <label for="ChiAz">ChiAz</label>
-        <input type="text" id="ChiAz" name="ChiAz" value="0.0" required><br>
+        <label for="chiAz">ChiAz</label>
+        <input type="text" id="chiAz" name="chiAz" value="0.0" required><br>
         
-        <label for="ChiBx">ChiBx</label>
-        <input type="text" id="ChiBx" name="ChiBx" value="0.0" required><br>
+        <label for="chiBx">ChiBx</label>
+        <input type="text" id="chiBx" name="chiBx" value="0.0" required><br>
         
-        <label for="ChiBy">ChiBy</label>
-        <input type="text" id="ChiBy" name="ChiBy" value="0.0" required><br>
+        <label for="chiBy">ChiBy</label>
+        <input type="text" id="chiBy" name="chiBy" value="0.0" required><br>
         
-        <label for="ChiBz">ChiBz</label>
-        <input type="text" id="ChiBz" name="ChiBz" value="0.0" required><br>
+        <label for="chiBz">ChiBz</label>
+        <input type="text" id="chiBz" name="chiBz" value="0.0" required><br>
 
         <input type="submit" value="Submit">
 
@@ -128,6 +128,21 @@
         <!-- Additional Advanced Settings Section -->
         <div class="advanced-settings">
             <h3>Advanced Settings</h3>
+
+            <!-- Surrogate parameters -->
+            <label for="f_low">f_low</label>
+            <input type="text" id="f_low" name="f_low" value="0.0" required><br>
+
+            <label for="delta_t">delta_t</label>
+            <input type="text" id="delta_t" name="delta_t" value="1" required><br>
+
+            <label for="sur_name">sur_name</label>
+            <input type="text" id="sur_name" name="sur_name" value="NRSur7dq4" required><br>
+
+            <!-- Horizontal line -->
+            <hr class="horizontal-line">
+
+            <!-- Video settings parameters -->
             <label for="video_width">Video width</label>
             <input type="text" id="video_width" name="video_width" value="1500" required><br>
             
@@ -139,6 +154,21 @@
 
             <label for="video_name">Video name</label>
             <input type="text" id="video_name" name="video_name" value="h_lm_video.mp4" required><br>
+
+            <!-- Horizontal line -->
+            <hr class="horizontal-line">
+
+            <!-- Figure settings parameters -->
+            <label for="figure_width">Figure width</label>
+            <input type="text" id="figure_width" name="figure_width" value="15" required><br>
+
+            <label for="figure_height">Figure height</label>
+            <input type="text" id="figure_height" name="figure_height" value="7" required><br>
+
+            <!-- Horizontal line -->
+            <hr class="horizontal-line">
+
+
         </div>
     </form>
 </body>

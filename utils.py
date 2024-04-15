@@ -3,11 +3,15 @@ import matplotlib.pyplot as plt
 import warnings
 warnings.filterwarnings('ignore')
 import cv2
-
+import gwsurrogate
 
 
 def generate_video_for_varying_param(input_dict):
-
+    
+    ################
+    allowed_params_to_vary = ['q','chiAx', 'chiAy', 'chiAz', 'chiBx', 'chiBy', 'chiBz']
+    ################
+    
     user_input       = input_dict["user_input"]
     surrogate_params = input_dict["surrogate_params"]
     video_params     = input_dict["video_params"]
@@ -20,7 +24,10 @@ def generate_video_for_varying_param(input_dict):
     video_fps = video_params["video_fps"]
     video_name = video_params["video_name"]
 
-    figsize = figure_params["figsize"]
+    figure_width = figure_params["figure_width"]
+    figure_height = figure_params["figure_height"]
+    figsize       = (figure_width,figure_height)
+
 
     # Initialize video writer
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
@@ -37,12 +44,14 @@ def generate_video_for_varying_param(input_dict):
     m=user_input["m"]
 
     # Surrogate parameters
-    sur   = surrogate_params["sur"]
+    sur_name   = surrogate_params["sur_name"]  
     f_low = surrogate_params["f_low"]
-    times = surrogate_params["times"]
+    delta_t = surrogate_params["delta_t"]
+    
+    sur   = gwsurrogate.LoadSurrogate(sur_name)
+    times = np.arange(-4299,99,delta_t)
 
-    # 
-    allowed_params_to_vary = other_params["allowed_params_to_vary"]
+    #
     fixed_params = [i for i in allowed_params_to_vary if i!=choose_parameter_to_vary]
 
     parameter_to_vary_values = np.linspace(parameter_start_value,parameter_end_value,parameter_steps)
