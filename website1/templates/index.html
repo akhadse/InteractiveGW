@@ -75,26 +75,26 @@
 
         <div class="variableparam-group">
             <label for="parameter_start_value">Parameter start value</label>
-            <input type="text" id="parameter_start_value" name="parameter_start_value" value="1.0" required>
+            <input type="number" id="parameter_start_value" name="parameter_start_value" value="1.0" step="any" required><br>
         </div>
         <div class="variableparam-group">
             <label for="parameter_end_value">Parameter end value</label>
-            <input type="text" id="parameter_end_value" name="parameter_end_value" value="6.0" required>
+            <input type="number" id="parameter_end_value" name="parameter_end_value" value="6.0" step="any" required><br>
         </div>
         <div class="variableparam-group">
             <label for="parameter_steps">Number of parameter steps</label>
-            <input type="text" id="parameter_steps" name="parameter_steps" value="480" required>
+            <input type="number" id="parameter_steps" name="parameter_steps" value="480" required>
         </div>
 
         <br>
 
         <div class="lm-group">
             <label for="l">l</label>
-            <input type="text" id="l" name="l" value="2" required>
+            <input type="number" id="l" name="l" value="2" required>
         </div>
         <div class="lm-group">
             <label for="m">m</label>
-            <input type="text" id="m" name="m" value="2" required>
+            <input type="number" id="m" name="m" value="2" required>
         </div>
 
 
@@ -102,25 +102,25 @@
         <br>     
 
         <label for="q">Mass Ratio (q)</label>
-        <input type="text" id="q" name="q" value="1.0" required><br>
+        <input type="number" id="q" name="q" value="1.0" step="any" required><br>
 
         <label for="chiAx">ChiAx</label>
-        <input type="text" id="chiAx" name="chiAx" value="0.0" required><br>
+        <input type="number" id="chiAx" name="chiAx" value="0.0" step="any" required><br>
         
         <label for="chiAy">ChiAy</label>
-        <input type="text" id="chiAy" name="chiAy" value="0.0" required><br>
+        <input type="number" id="chiAy" name="chiAy" value="0.0" step="any" required><br>
         
         <label for="chiAz">ChiAz</label>
-        <input type="text" id="chiAz" name="chiAz" value="0.0" required><br>
+        <input type="number" id="chiAz" name="chiAz" value="0.0" step="any" required><br>
         
         <label for="chiBx">ChiBx</label>
-        <input type="text" id="chiBx" name="chiBx" value="0.0" required><br>
+        <input type="number" id="chiBx" name="chiBx" value="0.0" step="any" required><br>
         
         <label for="chiBy">ChiBy</label>
-        <input type="text" id="chiBy" name="chiBy" value="0.0" required><br>
+        <input type="number" id="chiBy" name="chiBy" value="0.0" step="any" required><br>
         
         <label for="chiBz">ChiBz</label>
-        <input type="text" id="chiBz" name="chiBz" value="0.0" required><br>
+        <input type="number" id="chiBz" name="chiBz" value="0.0" step="any" required><br>
 
         <input type="submit" value="Submit">
 
@@ -131,10 +131,10 @@
 
             <!-- Surrogate parameters -->
             <label for="f_low">f_low</label>
-            <input type="text" id="f_low" name="f_low" value="0.0" required><br>
+            <input type="number" id="f_low" name="f_low" value="0.0" step="any" required><br>
 
             <label for="delta_t">delta_t</label>
-            <input type="text" id="delta_t" name="delta_t" value="1" required><br>
+            <input type="number" id="delta_t" name="delta_t" value="1" step="any" required><br>
 
             <label for="sur_name">sur_name</label>
             <input type="text" id="sur_name" name="sur_name" value="NRSur7dq4" required><br>
@@ -144,13 +144,13 @@
 
             <!-- Video settings parameters -->
             <label for="video_width">Video width</label>
-            <input type="text" id="video_width" name="video_width" value="1500" required><br>
+            <input type="text" id="video_width" name="video_width" value="1500" step="any" required><br>
             
             <label for="video_height">Video height</label>
-            <input type="text" id="video_height" name="video_height" value="700" required><br>
+            <input type="number" id="video_height" name="video_height" value="700" step="any" required><br>
             
             <label for="video_fps">Video fps</label>
-            <input type="text" id="video_fps" name="video_fps" value="24.0" required><br>
+            <input type="number" id="video_fps" name="video_fps" value="24.0" step="any" required><br>
 
             <label for="video_name">Video name</label>
             <input type="text" id="video_name" name="video_name" value="h_lm_video.mp4" required><br>
@@ -160,10 +160,10 @@
 
             <!-- Figure settings parameters -->
             <label for="figure_width">Figure width</label>
-            <input type="text" id="figure_width" name="figure_width" value="15" required><br>
+            <input type="number" id="figure_width" name="figure_width" value="15" step="any" required><br>
 
             <label for="figure_height">Figure height</label>
-            <input type="text" id="figure_height" name="figure_height" value="7" required><br>
+            <input type="number" id="figure_height" name="figure_height" value="7" step="any" required><br>
 
             <!-- Horizontal line -->
             <hr class="horizontal-line">
