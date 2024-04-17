@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>This is the title of the website tab!</title>
+
+    <style>
+        label {
+            display: inline-block;
+            width: 200px; /* Adjusted width to match the other input fields */
+            margin-bottom: 5px;
+        }
+        select,
+        input[type="text"] {
+            width: 204px; /* Adjusted width to match the other input fields */
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-left: 200px; /* Adjusted margin-left to match the label width */
+        }
+
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 70vh;
+        }
+        .loading-gif {
+            width: 700px; /* Adjust the width of the GIF */
+        }
+
+        .center {
+            text-align: center;
+        }
+        
+        .center h1 {
+            color:black;
+            font-size: 48px;
+            font-weight: bold;
+        }
+
+        .center nav ul {
+            text-align: center;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .center nav ul li {
+            display: inline;
+            margin-right: 60px;
+            
+        }
+
+        .center nav ul li a {
+            color: red;
+            font-size: 28px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="center">
+        <header>
+            <h1>PlayGW</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/interactive_GW">Interactive GW</a></li>
+                    <li><a href="/download_GW">Download videos</a></li>
+                </ul>
+            </nav>
+        </header>
+    </div>
+    <!-- Horizontal line -->
+    <hr class="horizontal-line">
+
+    <div class="loading-container">
+        <!-- Replace 'loading.gif' with the path to your loading GIF -->
+        <img class="loading-gif" src="https://svs.gsfc.nasa.gov/vis/a010000/a013000/a013043/SMBH_Sim_ThinTilt_Palindrome.gif" alt="Loading...">
+    </div>
+
+
+</body>
+</html>
