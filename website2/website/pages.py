@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from .utils import generate_video_for_varying_param
+from .utils import generate_video_for_varying_param,generate_sur_GW_for_param 
 
 pages = Blueprint('pages', __name__)
 
@@ -68,9 +68,6 @@ def download_GW():
     
 
 
-import numpy as np
-from flask import jsonify
-
 @pages.route('/interactive_GW', methods=['GET', 'POST'])
 def interactive_GW():
     return render_template('interactive_GW.html')
@@ -78,12 +75,32 @@ def interactive_GW():
 
 @pages.route('/interactive_GW_update_route', methods=['POST'])
 def interactive_GW_updating_function():
-    parameter = request.form.get('parameter')
+    q = request.form.get('mass_ratio')
+    chiAx = request.form.get('chiAx')
+    chiAy = request.form.get('chiAy')
+    chiAz = request.form.get('chiAz')
+    chiBx = request.form.get('chiBx')
+    chiBy = request.form.get('chiBy')
+    chiBz = request.form.get('chiBz')
 
-    if parameter is None:
-        parameter = '5'
-    parameter = float(parameter)
-    x_values = np.arange(0, 10, 0.1)
-    y_values = np.sin(parameter * x_values)
-    x_values, y_values = x_values.tolist(), y_values.tolist()
-    return jsonify({'x_values': x_values, 'y_values': y_values})
+    if q is None: mass_ratio = 1.
+    if chiAx is None: chiAx=0.
+    if chiAy is None: chiAy=0.
+    if chiAz is None: chiAz=0.
+    if chiBx is None: chiBx=0.
+    if chiBy is None: chiBy=0.
+    if chiBz is None: chiBz=0.
+
+    q = float(q)
+    chiAx      = float(chiAx)
+    chiAy      = float(chiAy)
+    chiAz      = float(chiAz)
+    chiBx      = float(chiBx)
+    chiBy      = float(chiBy)
+    chiBz      = float(chiBz)
+
+
+    input_dict = {"q":q, "chiAx":chiAx, "chiAy":chiAy, "chiAz":chiAz, "chiBx":chiBx, "chiBy":chiBy, "chiBz":chiBz}
+
+    return generate_sur_GW_for_param(input_dict)
+

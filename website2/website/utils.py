@@ -6,7 +6,7 @@ import warnings
 warnings.filterwarnings('ignore')
 import cv2
 import gwsurrogate
-from flask import render_template
+from flask import render_template, jsonify
 
 
 def generate_video_for_varying_param(input_dict):
@@ -144,8 +144,27 @@ def generate_video_for_varying_param(input_dict):
     return 
 
 
-def interactive_GW(input_dict):
+#######################################################
+import gwsurrogate
+import numpy as np
 
-    x_values = input_dict['test_param']
-    y_values = np.sin(test_param)
+sur   = gwsurrogate.LoadSurrogate("NRSur7dq4")
+times = np.arange(-4299,99,1)
+f_low = 0
+l,m = 2,1
+#######################################################
+
+def generate_sur_GW_for_param(input_dict):
+
+    q     = input_dict["q"]
+    chiA0 = np.array([input_dict["chiAx"], input_dict["chiAy"], input_dict["chiAz"]])
+    chiB0 = np.array([input_dict["chiBx"] , input_dict["chiBy"], input_dict["chiBz"]])
+
+    t,h,dyn = sur(q, chiA0, chiB0, f_low=f_low, times=times)
+
+    h_lm = h[(l,m)]
+
+    x_values = t
+    y_values = np.real(h_lm)
+    x_values, y_values = x_values.tolist(), y_values.tolist()
     return jsonify({'x_values': x_values, 'y_values': y_values})
