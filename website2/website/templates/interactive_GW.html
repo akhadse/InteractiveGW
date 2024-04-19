@@ -83,6 +83,30 @@
         width: 300px; /* Adjust the width as needed */
     }
 
+    #l_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #m_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
     #mass_ratio_slider_value {
         display: inline-block;
         width: 30px; /* Adjust the width as needed */
@@ -208,7 +232,8 @@
 
     <script>
         var graphDiv = document.getElementById('GW_interactive_graph');
-    
+        const l     = 2;
+        const m     = 2;
         const mass_ratio = 1;
         const chiAx = 0;
         const chiAy = 0;
@@ -222,19 +247,25 @@
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz
+            body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&l=' + l + '&m=' + m
         })
         .then(response => response.json())
         .then(data => {
     
             var layout = {
-            margin: { t: 0, r: 0, b: 0, l: 0, pad:0 },
+            margin: { t: 30, r: 30, b: 30, l: 30 },
             xaxis: {
-                range: [-4299,99]
+                range: [-4299, 99]
             },
             yaxis: {
                 range: [-0.5, 0.50]
-            }
+            },
+            title: "h_" + l + m,
+            font: {
+            family: 'Arial, sans-serif',
+            size: 15, // Adjust font size as needed
+            weight: 'bold' // Make the title bold
+        }
         };
 
         var trace1 = {
@@ -253,6 +284,16 @@
         Plotly.newPlot(graphDiv, [trace1, trace2], layout);
         });
 </script>
+
+    <label for="l_slider">l:</label>
+    <input type="range" min="2" max="4" value="2" step="1" class="slider" id="l_slider">
+    <span id="l_slider_value">2</span>
+    <br>
+
+    <label for="m_slider">m:</label>
+    <input type="range" min="-4" max="4" value="2" step="1" class="slider" id="m_slider">
+    <span id="m_slider_value">2</span>
+    <br>
 
 
     <label for="mass_ratio_slider">Mass Ratio:</label>
@@ -291,11 +332,9 @@
     <br>
 
 
-
-
-
-
 <script>
+    var l_slider            = document.getElementById("l_slider");
+    var m_slider            = document.getElementById("m_slider");
     var mass_ratio_slider   = document.getElementById("mass_ratio_slider");
     var chiAx_slider        = document.getElementById("chiAx_slider");
     var chiAy_slider        = document.getElementById("chiAy_slider");
@@ -305,10 +344,43 @@
     var chiBz_slider        = document.getElementById("chiBz_slider");
 
     var graphDiv = document.getElementById('GW_interactive_graph');
+    
+    l_slider.addEventListener('input', function () {
+        l_slider_value.textContent = l_slider.value;
+        updateGraph({
+        l : l_slider.value,
+        m : m_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+    });
+    });
+
+    m_slider.addEventListener('input', function () {
+        m_slider_value.textContent = m_slider.value;
+        updateGraph({
+        l : l_slider.value,
+        m : m_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+    });
+    });
+
 
     mass_ratio_slider.addEventListener('input', function () {
         mass_ratio_slider_value.textContent = mass_ratio_slider.value;
         updateGraph({
+        l : l_slider.value,
+        m : m_slider.value,
         mass_ratio: mass_ratio_slider.value,
         chiAx: chiAx_slider.value,
         chiAy: chiAy_slider.value,
@@ -322,6 +394,8 @@
     chiAx_slider.addEventListener('input', function () {
         chiAx_slider_value.textContent = chiAx_slider.value;
         updateGraph({
+        l : l_slider.value,
+        m : m_slider.value,
         mass_ratio: mass_ratio_slider.value,
         chiAx: chiAx_slider.value,
         chiAy: chiAy_slider.value,
@@ -335,6 +409,8 @@
     chiAy_slider.addEventListener('input', function () {
         chiAy_slider_value.textContent = chiAy_slider.value;
         updateGraph({
+        l : l_slider.value,
+        m : m_slider.value,
         mass_ratio: mass_ratio_slider.value,
         chiAx: chiAx_slider.value,
         chiAy: chiAy_slider.value,
@@ -348,6 +424,8 @@
     chiAz_slider.addEventListener('input', function () {
         chiAz_slider_value.textContent = chiAz_slider.value;
         updateGraph({
+        l : l_slider.value,
+        m : m_slider.value,
         mass_ratio: mass_ratio_slider.value,
         chiAx: chiAx_slider.value,
         chiAy: chiAy_slider.value,
@@ -361,6 +439,8 @@
     chiBx_slider.addEventListener('input', function () {
         chiBx_slider_value.textContent = chiBx_slider.value;
         updateGraph({
+        l : l_slider.value,
+        m : m_slider.value,
         mass_ratio: mass_ratio_slider.value,
         chiAx: chiAx_slider.value,
         chiAy: chiAy_slider.value,
@@ -374,6 +454,8 @@
     chiBy_slider.addEventListener('input', function () {
         chiBy_slider_value.textContent = chiBy_slider.value;
         updateGraph({
+        l : l_slider.value,
+        m : m_slider.value,
         mass_ratio: mass_ratio_slider.value,
         chiAx: chiAx_slider.value,
         chiAy: chiAy_slider.value,
@@ -387,6 +469,8 @@
     chiBz_slider.addEventListener('input', function () {
         chiBz_slider_value.textContent = chiBz_slider.value;
         updateGraph({
+        l : l_slider.value,
+        m : m_slider.value,
         mass_ratio: mass_ratio_slider.value,
         chiAx: chiAx_slider.value,
         chiAy: chiAy_slider.value,
@@ -399,6 +483,8 @@
 
 
     function updateGraph(sliderValues) {
+        const l     = sliderValues.l;
+        const m     = sliderValues.m;
         const mass_ratio = sliderValues.mass_ratio;
         const chiAx = sliderValues.chiAx;
         const chiAy = sliderValues.chiAy;
@@ -413,20 +499,26 @@
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz
+            body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&l=' + l + '&m=' + m
         })
         .then(response => response.json())
         .then(data => {
             var layout = {
-            margin: { t: 0, r: 0, b: 0, l: 0, pad:0 },
+            margin: { t: 30, r: 30, b: 30, l: 30 },
             xaxis: {
-                range: [-4299,99]
+                range: [-4299, 99]
             },
             yaxis: {
                 range: [-0.5, 0.50]
-            }
+            },
+            title: "h_" + l + m,
+            font: {
+            family: 'Arial, sans-serif',
+            size: 15, // Adjust font size as needed
+            weight: 'bold' // Make the title bold
+        }
         };
-
+        
         var trace1 = {
             x: data.times,
             y: data.h_lm_real,

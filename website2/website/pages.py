@@ -75,6 +75,8 @@ def interactive_GW():
 
 @pages.route('/interactive_GW_update_route', methods=['POST'])
 def interactive_GW_updating_function():
+    l = request.form.get('l')
+    m = request.form.get('m')
     q = request.form.get('mass_ratio')
     chiAx = request.form.get('chiAx')
     chiAy = request.form.get('chiAy')
@@ -83,6 +85,8 @@ def interactive_GW_updating_function():
     chiBy = request.form.get('chiBy')
     chiBz = request.form.get('chiBz')
 
+    if l is None: l=2
+    if m is None: m=2
     if q is None: mass_ratio = 1.
     if chiAx is None: chiAx=0.
     if chiAy is None: chiAy=0.
@@ -91,6 +95,8 @@ def interactive_GW_updating_function():
     if chiBy is None: chiBy=0.
     if chiBz is None: chiBz=0.
 
+    l = int(l)
+    m = int(m)
     q = float(q)
     chiAx      = float(chiAx)
     chiAy      = float(chiAy)
@@ -99,8 +105,7 @@ def interactive_GW_updating_function():
     chiBy      = float(chiBy)
     chiBz      = float(chiBz)
 
-
-    input_dict = {"q":q, "chiAx":chiAx, "chiAy":chiAy, "chiAz":chiAz, "chiBx":chiBx, "chiBy":chiBy, "chiBz":chiBz}
+    input_dict = {"q":q, "chiAx":chiAx, "chiAy":chiAy, "chiAz":chiAz, "chiBx":chiBx, "chiBy":chiBy, "chiBz":chiBz, "l":l, "m":m}
 
     return generate_sur_GW_for_param(input_dict)
 

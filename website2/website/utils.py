@@ -151,7 +151,6 @@ import numpy as np
 sur   = gwsurrogate.LoadSurrogate("NRSur7dq4")
 times = np.arange(-4299,99,1)
 f_low = 0
-l,m = 2,0
 #######################################################
 
 def generate_sur_GW_for_param(input_dict):
@@ -161,6 +160,9 @@ def generate_sur_GW_for_param(input_dict):
     chiB0 = np.array([input_dict["chiBx"] , input_dict["chiBy"], input_dict["chiBz"]])
 
     t,h,dyn = sur(q, chiA0, chiB0, f_low=f_low, times=times)
+
+    l = input_dict["l"]
+    m = input_dict["m"]
 
     h_lm = h[(l,m)]
 
