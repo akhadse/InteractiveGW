@@ -151,7 +151,7 @@ import numpy as np
 sur   = gwsurrogate.LoadSurrogate("NRSur7dq4")
 times = np.arange(-4299,99,1)
 f_low = 0
-l,m = 2,2
+l,m = 2,0
 #######################################################
 
 def generate_sur_GW_for_param(input_dict):
@@ -164,7 +164,9 @@ def generate_sur_GW_for_param(input_dict):
 
     h_lm = h[(l,m)]
 
-    x_values = t
-    y_values = np.real(h_lm)
-    x_values, y_values = x_values.tolist(), y_values.tolist()
-    return jsonify({'x_values': x_values, 'y_values': y_values})
+    h_lm_real = np.real(h_lm)
+    h_lm_real = h_lm_real.tolist()
+    h_lm_imag = np.imag(h_lm)
+    h_lm_imag = h_lm_imag.tolist()
+    t = t.tolist()
+    return jsonify({'times':t, 'h_lm_real': h_lm_real, 'h_lm_imag':h_lm_imag})

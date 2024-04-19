@@ -8,6 +8,8 @@
 
     <style>
 
+        
+
         h1 {color: darkmagenta; /* Change 'blue' to the color you desire */
                 }
         label {
@@ -58,6 +60,126 @@
             font-weight: bold;
             text-decoration: none;
         }
+
+        #mass_ratio_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
+        #chiAx_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
+        #chiAy_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
+        #chiAz_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
+        #chiBx_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
+        #chiBy_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
+        #chiBz_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
+
+    #mass_ratio_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #chiAx_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #chiAy_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #chiAz_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #chiBx_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #chiBx_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #chiBy_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #chiBz_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+
     </style>
 
 
@@ -80,66 +202,98 @@
     <!-- Horizontal line -->
     <hr class="horizontal-line">
 
-    <h1>Generate GW for BBH parameters</h1>
-
-    <label for="mass_ratio_slider">Mass Ratio:</label>
-    <input type="range" min="1" max="6" value="1" class="slider" id="mass_ratio_slider">
-    <br>
-
-    <label for="chiAx_slider">ChiAx :</label>
-    <input type="range" min="-1" max="1" value="0" class="slider" id="chiAx_slider">
-    <br>
-
-    <label for="chiAy_slider">ChiAy :</label>
-    <input type="range" min="-1" max="1" value="0" class="slider" id="chiAy_slider">
-    <br>
-    
-    <label for="chiAz_slider">ChiAz :</label>
-    <input type="range" min="-1" max="1" value="0" class="slider" id="chiAz_slider">
-    <br>
-    
-    <label for="chiBx_slider">ChiBx :</label>
-    <input type="range" min="-1" max="1" value="0" class="slider" id="chiBx_slider">
-    <br>
-    
-    <label for="chiBy_slider">ChiBy :</label>
-    <input type="range" min="-1" max="1" value="0" class="slider" id="chiBy_slider">
-    <br>
-    
-    <label for="chiBz_slider">ChiBz :</label>
-    <input type="range" min="-1" max="1" value="0" class="slider" id="chiBz_slider">
-    <br>
 
     <div id="GW_interactive_graph"></div>
 
 
-<script>
-    var graphDiv = document.getElementById('GW_interactive_graph');
+    <script>
+        var graphDiv = document.getElementById('GW_interactive_graph');
+    
+        const mass_ratio = 1;
+        const chiAx = 0;
+        const chiAy = 0;
+        const chiAz = 0;
+        const chiBx = 0;
+        const chiBy = 0;
+        const chiBz = 0;
+    
+        fetch('/interactive_GW_update_route', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz
+        })
+        .then(response => response.json())
+        .then(data => {
+    
+            var layout = {
+            margin: { t: 0, r: 0, b: 0, l: 0, pad:0 },
+            xaxis: {
+                range: [-4299,99]
+            },
+            yaxis: {
+                range: [-0.5, 0.50]
+            }
+        };
 
-    const mass_ratio = 1;
-    const chiAx = 0;
-    const chiAy = 0;
-    const chiAz = 0;
-    const chiBx = 0;
-    const chiBy = 0;
-    const chiBz = 0;
-
-    fetch('/interactive_GW_update_route', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz
-    })
-    .then(response => response.json())
-    .then(data => {
-        Plotly.newPlot(graphDiv, [{
-            x: data.x_values,
-            y: data.y_values,
-            type: 'scatter'
-        }]);
-    });
+        var trace1 = {
+            x: data.times,
+            y: data.h_lm_real,
+            type: 'scatter',
+            name: 'Real'
+        };
+        var trace2 = {
+            x: data.times,
+            y: data.h_lm_imag,
+            type: 'scatter',
+            name: 'Imag'
+        };
+        
+        Plotly.newPlot(graphDiv, [trace1, trace2], layout);
+        });
 </script>
+
+
+    <label for="mass_ratio_slider">Mass Ratio:</label>
+    <input type="range" min="1" max="6" value="1" step="0.1" class="slider" id="mass_ratio_slider">
+    <span id="mass_ratio_slider_value">0</span>
+    <br>
+
+    <label for="chiAx_slider">ChiAx :</label>
+    <input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiAx_slider">
+    <span id="chiAx_slider_value">0</span>
+    <br>
+
+    <label for="chiAy_slider">ChiAy :</label>
+    <input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiAy_slider">
+    <span id="chiAy_slider_value">0</span>
+    <br>
+    
+    <label for="chiAz_slider">ChiAz :</label>
+    <input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiAz_slider">
+    <span id="chiAz_slider_value">0</span>
+    <br>
+    
+    <label for="chiBx_slider">ChiBx :</label>
+    <input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiBx_slider">
+    <span id="chiBx_slider_value">0</span>
+    <br>
+    
+    <label for="chiBy_slider">ChiBy :</label>
+    <input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiBy_slider">
+    <span id="chiBy_slider_value">0</span>
+    <br>
+    
+    <label for="chiBz_slider">ChiBz :</label>
+    <input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiBz_slider">
+    <span id="chiBz_slider_value">0</span>
+    <br>
+
+
+
+
+
 
 <script>
     var mass_ratio_slider   = document.getElementById("mass_ratio_slider");
@@ -153,6 +307,7 @@
     var graphDiv = document.getElementById('GW_interactive_graph');
 
     mass_ratio_slider.addEventListener('input', function () {
+        mass_ratio_slider_value.textContent = mass_ratio_slider.value;
         updateGraph({
         mass_ratio: mass_ratio_slider.value,
         chiAx: chiAx_slider.value,
@@ -165,6 +320,7 @@
     });
 
     chiAx_slider.addEventListener('input', function () {
+        chiAx_slider_value.textContent = chiAx_slider.value;
         updateGraph({
         mass_ratio: mass_ratio_slider.value,
         chiAx: chiAx_slider.value,
@@ -177,6 +333,7 @@
     });
 
     chiAy_slider.addEventListener('input', function () {
+        chiAy_slider_value.textContent = chiAy_slider.value;
         updateGraph({
         mass_ratio: mass_ratio_slider.value,
         chiAx: chiAx_slider.value,
@@ -189,6 +346,7 @@
     });
 
     chiAz_slider.addEventListener('input', function () {
+        chiAz_slider_value.textContent = chiAz_slider.value;
         updateGraph({
         mass_ratio: mass_ratio_slider.value,
         chiAx: chiAx_slider.value,
@@ -201,6 +359,7 @@
     });
 
     chiBx_slider.addEventListener('input', function () {
+        chiBx_slider_value.textContent = chiBx_slider.value;
         updateGraph({
         mass_ratio: mass_ratio_slider.value,
         chiAx: chiAx_slider.value,
@@ -213,6 +372,7 @@
     });
 
     chiBy_slider.addEventListener('input', function () {
+        chiBy_slider_value.textContent = chiBy_slider.value;
         updateGraph({
         mass_ratio: mass_ratio_slider.value,
         chiAx: chiAx_slider.value,
@@ -225,6 +385,7 @@
     });
 
     chiBz_slider.addEventListener('input', function () {
+        chiBz_slider_value.textContent = chiBz_slider.value;
         updateGraph({
         mass_ratio: mass_ratio_slider.value,
         chiAx: chiAx_slider.value,
@@ -256,14 +417,32 @@
         })
         .then(response => response.json())
         .then(data => {
-            Plotly.newPlot(graphDiv, [{
-                x: data.x_values,
-                y: data.y_values,
-                type: 'scatter'
-            }]);
+            var layout = {
+            margin: { t: 0, r: 0, b: 0, l: 0, pad:0 },
+            xaxis: {
+                range: [-4299,99]
+            },
+            yaxis: {
+                range: [-0.5, 0.50]
+            }
+        };
+
+        var trace1 = {
+            x: data.times,
+            y: data.h_lm_real,
+            type: 'scatter',
+            name: 'Real'
+        };
+        var trace2 = {
+            x: data.times,
+            y: data.h_lm_imag,
+            type: 'scatter',
+            name: 'Imag'
+        };
+        
+        Plotly.newPlot(graphDiv, [trace1, trace2], layout);;
         });
     }
-
 updateGraph(sliderValues);
 </script>
 </body>
