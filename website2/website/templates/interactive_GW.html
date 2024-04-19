@@ -112,6 +112,35 @@
 
     <div id="GW_interactive_graph"></div>
 
+
+<script>
+    var graphDiv = document.getElementById('GW_interactive_graph');
+
+    const mass_ratio = 1;
+    const chiAx = 0;
+    const chiAy = 0;
+    const chiAz = 0;
+    const chiBx = 0;
+    const chiBy = 0;
+    const chiBz = 0;
+
+    fetch('/interactive_GW_update_route', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz
+    })
+    .then(response => response.json())
+    .then(data => {
+        Plotly.newPlot(graphDiv, [{
+            x: data.x_values,
+            y: data.y_values,
+            type: 'scatter'
+        }]);
+    });
+</script>
+
 <script>
     var mass_ratio_slider   = document.getElementById("mass_ratio_slider");
     var chiAx_slider        = document.getElementById("chiAx_slider");

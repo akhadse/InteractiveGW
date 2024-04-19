@@ -151,7 +151,7 @@ import numpy as np
 sur   = gwsurrogate.LoadSurrogate("NRSur7dq4")
 times = np.arange(-4299,99,1)
 f_low = 0
-l,m = 2,1
+l,m = 2,2
 #######################################################
 
 def generate_sur_GW_for_param(input_dict):
