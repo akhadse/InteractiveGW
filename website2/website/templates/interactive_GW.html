@@ -252,36 +252,69 @@
         .then(response => response.json())
         .then(data => {
     
-            var layout = {
-            margin: { t: 30, r: 30, b: 30, l: 30 },
-            xaxis: {
-                range: [-4299, 99]
-            },
-            yaxis: {
-                range: [-0.5, 0.50]
-            },
-            title: "h_" + l + m,
-            font: {
-            family: 'Arial, sans-serif',
-            size: 15, // Adjust font size as needed
-            weight: 'bold' // Make the title bold
-        }
-        };
 
         var trace1 = {
             x: data.times,
             y: data.h_lm_real,
             type: 'scatter',
-            name: 'Real'
-        };
+            name: 'Real',
+            marker: {
+            color: 'red'  // Set color for trace1
+                 }
+            };
         var trace2 = {
+            x: data.times,
+            y: data.h_lm_real,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'Real',
+            marker: {
+            color: 'red'  // Set color for trace1
+                 }
+            };
+        var trace3 = {
             x: data.times,
             y: data.h_lm_imag,
             type: 'scatter',
-            name: 'Imag'
-        };
+            name: 'Imag',
+            marker: {
+            color: 'blue'  // Set color for trace1
+                 }
+            };
+        var trace4 = {
+            x: data.times,
+            y: data.h_lm_imag,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'Imag',
+            marker: {
+            color: 'blue'  // Set color for trace1
+                 }
+            };
+        var trace5 = {
+            x: data.times,
+            y: data.h_lm_abs,
+            type: 'scatter',
+            name: 'abs',
+            marker: {
+            color: 'green'  // Set color for trace1
+                 }
+            };
         
-        Plotly.newPlot(graphDiv, [trace1, trace2], layout);
+
+        var data = [trace1, trace2,trace3,trace4,trace5];
+        var layout = {
+            title: "h_" + l + m,
+  xaxis: {domain: [0, 0.7]},
+  yaxis: {range:[-0.5, 0.50]},
+  yaxis2: {range: [-0.5, 0.50]},
+  xaxis2: {domain: [0.7, 1], range: [-300, 50]}
+};
+
+        Plotly.newPlot(graphDiv, data, layout);
+
         });
 </script>
 
@@ -503,36 +536,70 @@
         })
         .then(response => response.json())
         .then(data => {
-            var layout = {
-            margin: { t: 30, r: 30, b: 30, l: 30 },
-            xaxis: {
-                range: [-4299, 99]
-            },
-            yaxis: {
-                range: [-0.5, 0.50]
-            },
-            title: "h_" + l + m,
-            font: {
-            family: 'Arial, sans-serif',
-            size: 15, // Adjust font size as needed
-            weight: 'bold' // Make the title bold
-        }
-        };
-        
+            
+       
         var trace1 = {
             x: data.times,
             y: data.h_lm_real,
             type: 'scatter',
-            name: 'Real'
-        };
+            name: 'Real',
+            marker: {
+            color: 'red'  // Set color for trace1
+                 }
+            };
         var trace2 = {
+            x: data.times,
+            y: data.h_lm_real,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'Real',
+            marker: {
+            color: 'red'  // Set color for trace1
+                 }
+            };
+        var trace3 = {
             x: data.times,
             y: data.h_lm_imag,
             type: 'scatter',
-            name: 'Imag'
-        };
+            name: 'Imag',
+            marker: {
+            color: 'blue'  // Set color for trace1
+                 }
+            };
+        var trace4 = {
+            x: data.times,
+            y: data.h_lm_imag,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'Imag',
+            marker: {
+            color: 'blue'  // Set color for trace1
+                 }
+            };
+        var trace5 = {
+            x: data.times,
+            y: data.h_lm_abs,
+            type: 'scatter',
+            name: 'abs',
+            marker: {
+            color: 'green'  // Set color for trace1
+                 }
+            };
         
-        Plotly.newPlot(graphDiv, [trace1, trace2], layout);;
+
+        var data = [trace1, trace2,trace3,trace4,trace5];
+        var layout = {
+            title: "h_" + l + m,
+  xaxis: {domain: [0, 0.7]},
+  yaxis: {range:[-0.5, 0.50]},
+  yaxis2: {range: [-0.5, 0.50]},
+  xaxis2: {domain: [0.7, 1], range: [-300, 50]}
+};
+
+        Plotly.newPlot(graphDiv, data, layout);
+
         });
     }
 updateGraph(sliderValues);

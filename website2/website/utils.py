@@ -170,5 +170,7 @@ def generate_sur_GW_for_param(input_dict):
     h_lm_real = h_lm_real.tolist()
     h_lm_imag = np.imag(h_lm)
     h_lm_imag = h_lm_imag.tolist()
+    h_lm_abs  = np.abs(h_lm)
+    h_lm_abs  = h_lm_abs.tolist()
     t = t.tolist()
-    return jsonify({'times':t, 'h_lm_real': h_lm_real, 'h_lm_imag':h_lm_imag})
+    return jsonify({'times':t, 'h_lm_real': h_lm_real, 'h_lm_imag':h_lm_imag, 'h_lm_abs':h_lm_abs})
