@@ -25,8 +25,9 @@ def generate_video_for_varying_param(input_dict):
     video_fps = video_params["video_fps"]
     video_name = video_params["video_name"]
 
-    figure_width = figure_params["figure_width"]
-    figure_height = figure_params["figure_height"]
+    DPI = 100 # dots per inch
+    figure_width = video_width/DPI
+    figure_height = video_height/DPI
     figsize       = (figure_width,figure_height)
 
     # Initialize video writer
