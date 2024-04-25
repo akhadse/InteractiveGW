@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
 from .utils import generate_video_for_varying_param,generate_sur_h_lm_for_param, generate_strain_for_param
 
 pages = Blueprint('pages', __name__)
@@ -9,8 +9,35 @@ def home():
 
 #______________________________________________________________________
 
-@pages.route('/download_GW', methods=['GET', 'POST'])
-def download_GW():
+@pages.route('/download_videos', methods=['GET', 'POST'])
+def download_videos():
+    return render_template('download_videos.html')
+
+@pages.route('/download_h_lm_', methods=['GET', 'POST'])
+def download_h_lm_():
+    return redirect(url_for('pages.download_h_lm'))
+
+@pages.route('/download_strain_', methods=['GET', 'POST'])
+def download_strain_():
+    return redirect(url_for('pages.download_strain'))
+
+#______________________________________________________________________
+
+@pages.route('/download_strain', methods=['GET', 'POST'])
+def download_strain():
+
+    if request.method == 'POST':
+        print("=================")
+        print("Started making video -----")
+        print("=================")  
+    else:
+        return render_template('download_strain.html')
+    
+#______________________________________________________________________
+
+
+@pages.route('/download_h_lm', methods=['GET', 'POST'])
+def download_h_lm():
 
     if request.method == 'POST':
         print("=================")
@@ -61,7 +88,7 @@ def download_GW():
         return render_template('base.html')
 
     else:
-        return render_template('download_GW.html')
+        return render_template('download_h_lm.html')
     
 #______________________________________________________________________
 

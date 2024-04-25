@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>This is the title of the website tab!</title>
+    <title>Download Strain</title>
 
     <style>
+
+h1 {
+            color: darkmagenta; /* Change 'blue' to the color you desire */
+        }
         label {
             display: inline-block;
             width: 200px; /* Adjusted width to match the other input fields */
@@ -26,15 +30,30 @@
             margin-left: 200px; /* Adjusted margin-left to match the label width */
         }
 
-        .loading-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 70vh;
+        .variableparam-group {
+            display: inline-block;
+            margin-bottom: 10px; /* Additional margin bottom for spacing between chi-group elements */
+            vertical-align: top; /* Aligns chi-group elements to the top */
         }
-        .loading-gif {
-            width: 700px; /* Adjust the width of the GIF */
+
+        .lm-group {
+            display: inline-block;
+            margin-bottom: 10px; /* Additional margin bottom for spacing between chi-group elements */
+            vertical-align: top; /* Aligns chi-group elements to the top */
+        }
+
+        .advanced-settings {
+            background-color: #f0f0f0; /* Background color for advanced settings */
+            padding: 10px;
+            margin-top: 20px; /* Add margin to separate from previous elements */
+            border-radius: 5px; /* Rounded corners */
+        }
+        .advanced-settings label {
+            color: #ff4500; /* Text color for labels in advanced settings */
+            width: 150px; /* Width for labels in advanced settings */
+        }
+        .advanced-settings input[type="text"] {
+            width: 150px; /* Width for input boxes in advanced settings */
         }
 
         .center {
@@ -66,12 +85,6 @@
             text-decoration: none;
         }
 
-
-figcaption {
-            font-style: italic;
-            /* Additional styling can be added here */
-        }
-
     </style>
 
 </head>
@@ -92,14 +105,10 @@ figcaption {
     <!-- Horizontal line -->
     <hr class="horizontal-line">
 
-    <div class="loading-container">
-        <!-- Replace 'loading.gif' with the path to your loading GIF -->
-        <img class="loading-gif" src="https://svs.gsfc.nasa.gov/vis/a010000/a013000/a013043/SMBH_Sim_ThinTilt_Palindrome.gif" alt="Loading...">
-        <figcaption>GIF Credit - NASA</figcaption>
-    </div>
 
+    <h1>
+        Download Strain here!!
+    </h1>
 
-    
-
-</body>
-</html>
+      </body>
+      </html>
