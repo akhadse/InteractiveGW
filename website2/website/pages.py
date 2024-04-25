@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from .utils import generate_video_for_varying_param,generate_sur_GW_for_param 
+from .utils import generate_video_for_varying_param,generate_sur_h_lm_for_param 
 
 pages = Blueprint('pages', __name__)
 
@@ -7,6 +7,7 @@ pages = Blueprint('pages', __name__)
 def home():
     return render_template('base.html')
 
+#______________________________________________________________________
 
 @pages.route('/download_GW', methods=['GET', 'POST'])
 def download_GW():
@@ -62,15 +63,22 @@ def download_GW():
     else:
         return render_template('download_GW.html')
     
+#______________________________________________________________________
 
 
-@pages.route('/interactive_GW', methods=['GET', 'POST'])
-def interactive_GW():
-    return render_template('interactive_GW.html')
+@pages.route('/interactive_strain', methods=['GET', 'POST'])
+def interactive_strain():
+    return render_template('interactive_strain.html')
+
+#______________________________________________________________________
 
 
-@pages.route('/interactive_GW_update_route', methods=['POST'])
-def interactive_GW_updating_function():
+@pages.route('/interactive_h_lm', methods=['GET', 'POST'])
+def interactive_h_lm():
+    return render_template('interactive_h_lm.html')
+
+@pages.route('/interactive_h_lm_update_route', methods=['POST'])
+def interactive_h_lm_updating_function():
     l = request.form.get('l')
     m = request.form.get('m')
     q = request.form.get('mass_ratio')
@@ -103,5 +111,4 @@ def interactive_GW_updating_function():
 
     input_dict = {"q":q, "chiAx":chiAx, "chiAy":chiAy, "chiAz":chiAz, "chiBx":chiBx, "chiBy":chiBy, "chiBz":chiBz, "l":l, "m":m}
 
-    return generate_sur_GW_for_param(input_dict)
-
+    return generate_sur_h_lm_for_param(input_dict)

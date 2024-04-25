@@ -217,7 +217,8 @@
             <nav>
                 <ul>
                     <li><a href="/">Home</a></li>
-                    <li><a href="/interactive_GW">Interactive GW</a></li>
+                    <li><a href="/interactive_strain">Interactive GW strain</a></li>
+                    <li><a href="/interactive_h_lm">Interactive h_lm modes</a></li>
                     <li><a href="/download_GW">Download videos</a></li>
                 </ul>
             </nav>
@@ -242,7 +243,7 @@
         const chiBy = 0;
         const chiBz = 0;
     
-        fetch('/interactive_GW_update_route', {
+        fetch('/interactive_h_lm_update_route', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -551,7 +552,7 @@
         const chiBz = sliderValues.chiBz;
 
 
-        fetch('/interactive_GW_update_route', {
+        fetch('/interactive_h_lm_update_route', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

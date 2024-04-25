@@ -154,7 +154,7 @@ times = np.arange(-4299,99,1)
 f_low = 0
 #######################################################
 
-def generate_sur_GW_for_param(input_dict):
+def generate_sur_h_lm_for_param(input_dict):
 
     q     = input_dict["q"]
     chiA0 = np.array([input_dict["chiAx"], input_dict["chiAy"], input_dict["chiAz"]])
