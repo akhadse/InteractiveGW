@@ -42,10 +42,6 @@ def download_GW():
         video_fps = float(form_data["video_fps"])
         video_name = str(form_data["video_name"])
 
-        figure_width = float(form_data["figure_width"])
-        figure_height = float(form_data["figure_height"])
-
-
         user_input = {"q":q, 
               "chiAx":chiAx, "chiAy":chiAy, "chiAz":chiAz, 
               "chiBx":chiBx, "chiBy":chiBy, "chiBz":chiBz, 
@@ -54,7 +50,7 @@ def download_GW():
               "parameter_steps":parameter_steps, "l":l, "m":m}
         surrogate_params = {"sur_name":sur_name, "f_low":f_low, "delta_t":delta_t }
         video_params = {"video_width":video_width, "video_height":video_height, "video_fps":video_fps, "video_name":video_name }
-        figure_params = {"figure_width":figure_width, "figure_height":figure_height}
+        figure_params = {}
         input_dict = {"user_input":user_input, "surrogate_params":surrogate_params, "video_params":video_params,"figure_params":figure_params}
         
         output = generate_video_for_varying_param(input_dict)
