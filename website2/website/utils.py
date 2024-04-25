@@ -175,3 +175,27 @@ def generate_sur_h_lm_for_param(input_dict):
     h_lm_abs  = h_lm_abs.tolist()
     t = t.tolist()
     return jsonify({'times':t, 'h_lm_real': h_lm_real, 'h_lm_imag':h_lm_imag, 'h_lm_abs':h_lm_abs})
+
+
+
+def generate_strain_for_param(input_dict):
+
+    q     = input_dict["q"]
+    chiA0 = np.array([input_dict["chiAx"], input_dict["chiAy"], input_dict["chiAz"]])
+    chiB0 = np.array([input_dict["chiBx"] , input_dict["chiBy"], input_dict["chiBz"]])
+
+    inclination = input_dict["inclination"] *np.pi/180
+    phi_ref     = input_dict["phi_ref"] *np.pi/180
+
+    t,h,dyn = sur(q, chiA0, chiB0, inclination=inclination,phi_ref=phi_ref, f_low=f_low, times=times)
+
+    h_plus  =  np.real(h) 
+    h_cross = -np.imag(h)
+    h_abs   =  np.abs(h)
+
+    h_plus  = h_plus.tolist()
+    h_cross = h_cross.tolist()
+    h_abs   = h_abs.tolist()
+    t       = t.tolist()
+
+    return jsonify({'times':t, 'h_plus': h_plus, 'h_cross':h_cross, 'h_abs':h_abs})

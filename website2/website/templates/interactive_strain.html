@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>This is the title of the website tab!</title>
+    <title>Interactive_Strain</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <style>
+
+        
+
+        h1 {color: darkmagenta; /* Change 'blue' to the color you desire */
+                }
         label {
             display: inline-block;
             width: 200px; /* Adjusted width to match the other input fields */
@@ -24,17 +30,6 @@
             border: none;
             cursor: pointer;
             margin-left: 200px; /* Adjusted margin-left to match the label width */
-        }
-
-        .loading-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 70vh;
-        }
-        .loading-gif {
-            width: 700px; /* Adjust the width of the GIF */
         }
 
         .center {
@@ -66,16 +61,154 @@
             text-decoration: none;
         }
 
+        #mass_ratio_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
+        #chiAx_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
+        #chiAy_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
+        #chiAz_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
+        #chiBx_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
+        #chiBy_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
+        #chiBz_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
 
-figcaption {
-            font-style: italic;
-            /* Additional styling can be added here */
-        }
+    #inclination_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #phi_ref_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #mass_ratio_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #chiAx_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #chiAy_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #chiAz_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #chiBx_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #chiBx_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #chiBy_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    #chiBz_slider_value {
+        display: inline-block;
+        width: 30px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
 
     </style>
 
 </head>
 <body>
+
     <div class="center">
         <header>
             <h1>PlayGW</h1>
@@ -92,9 +225,431 @@ figcaption {
     <!-- Horizontal line -->
     <hr class="horizontal-line">
 
+    <div id="strain_interactive_graph"></div>
+
+    <script>
+        var graphDiv = document.getElementById('strain_interactive_graph');
+        const inclination = 0;
+        const phi_ref     = 0;
+        const mass_ratio = 1;
+        const chiAx = 0;
+        const chiAy = 0;
+        const chiAz = 0;
+        const chiBx = 0;
+        const chiBy = 0;
+        const chiBz = 0;
+
+        fetch('/interactive_strain_update_route', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&inclination=' + inclination + '&phi_ref=' + phi_ref
+        })
+        .then(response => response.json())
+        .then(data => {
+
+        var trace1 = {
+            x: data.times,
+            y: data.h_plus,
+            type: 'scatter',
+            name: 'h_plus',
+            marker: {
+            color: 'red'  // Set color for trace1
+                 },
+            showlegend: true
+            };
+        var trace2 = {
+            x: data.times,
+            y: data.h_plus,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'h_cross',
+            marker: {
+            color: 'red'  // Set color for trace1
+                 },
+            showlegend: false
+            };
+        var trace3 = {
+            x: data.times,
+            y: data.h_cross,
+            type: 'scatter',
+            name: 'h_cross',
+            marker: {
+            color: 'blue'  // Set color for trace1
+                 },
+            showlegend: true
+            };
+        var trace4 = {
+            x: data.times,
+            y: data.h_cross,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'h_cross',
+            marker: {
+            color: 'blue'  // Set color for trace1
+                 },
+            showlegend: false
+            };
+        var trace5 = {
+            x: data.times,
+            y: data.h_abs,
+            type: 'scatter',
+            name: 'abs',
+            marker: {
+            color: 'green'  // Set color for trace1
+                 },
+            showlegend: true
+            };
+        var trace6 = {
+            x: data.times,
+            y: data.h_abs,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'abs',
+            marker: {
+            color: 'green'  // Set color for trace1
+                 },
+            showlegend: false
+            };
+        
+
+        var data = [trace1, trace2,trace3,trace4,trace5, trace6];
+        var layout = {
+        title: {
+            text: "rh/M",
+            font: {
+                size: 30,
+                color:'blue',
+                bold:true
+            }
+        },
+  xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
+  yaxis: {range:[-0.5, 0.50]},
+  yaxis2: {range: [-0.5, 0.50]},
+  xaxis2: {domain: [0.7, 1], range: [-300, 50],title: 'Time before merger (M)'}
+};
+
+        Plotly.newPlot(graphDiv, data, layout);
+
+        });
+</script>
 
 
+
+
+<label for="inclination_slider">Inclination:</label>
+<input type="range" min="0" max="180" value="0" step="1" class="slider" id="inclination_slider">
+<span id="inclination_slider_value">0</span>
+<br>
+
+<label for="phi_ref_slider">Phi_ref:</label>
+<input type="range" min="0" max="360" value="0" step="1" class="slider" id="phi_ref_slider">
+<span id="phi_ref_slider_value">0</span>
+<br>
+
+<label for="mass_ratio_slider">Mass Ratio:</label>
+<input type="range" min="1" max="6" value="1" step="0.1" class="slider" id="mass_ratio_slider">
+<span id="mass_ratio_slider_value">0</span>
+<br>
+
+<label for="chiAx_slider">ChiAx :</label>
+<input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiAx_slider">
+<span id="chiAx_slider_value">0</span>
+<br>
+
+<label for="chiAy_slider">ChiAy :</label>
+<input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiAy_slider">
+<span id="chiAy_slider_value">0</span>
+<br>
+
+<label for="chiAz_slider">ChiAz :</label>
+<input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiAz_slider">
+<span id="chiAz_slider_value">0</span>
+<br>
+
+<label for="chiBx_slider">ChiBx :</label>
+<input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiBx_slider">
+<span id="chiBx_slider_value">0</span>
+<br>
+
+<label for="chiBy_slider">ChiBy :</label>
+<input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiBy_slider">
+<span id="chiBy_slider_value">0</span>
+<br>
+
+<label for="chiBz_slider">ChiBz :</label>
+<input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiBz_slider">
+<span id="chiBz_slider_value">0</span>
+<br>
+
+
+<script>
+    var inclination_slider  = document.getElementById("inclination_slider");
+    var phi_ref_slider      = document.getElementById("phi_ref_slider");
+    var mass_ratio_slider   = document.getElementById("mass_ratio_slider");
+    var chiAx_slider        = document.getElementById("chiAx_slider");
+    var chiAy_slider        = document.getElementById("chiAy_slider");
+    var chiAz_slider        = document.getElementById("chiAz_slider");
+    var chiBx_slider        = document.getElementById("chiBx_slider");
+    var chiBy_slider        = document.getElementById("chiBy_slider");
+    var chiBz_slider        = document.getElementById("chiBz_slider");
+
+    var graphDiv = document.getElementById('strain_interactive_graph');
     
+    inclination_slider.addEventListener('input', function () {
+        inclination_slider_value.textContent = inclination_slider.value;
+        updateGraph({
+        inclination : inclination_slider.value,
+        phi_ref     : phi_ref_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+    });
+    });
+
+    phi_ref_slider.addEventListener('input', function () {
+        phi_ref_slider_value.textContent = phi_ref_slider.value;
+        updateGraph({
+        inclination : inclination_slider.value,
+        phi_ref     : phi_ref_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+    });
+    });
+
+    mass_ratio_slider.addEventListener('input', function () {
+        mass_ratio_slider_value.textContent = mass_ratio_slider.value;
+        updateGraph({
+        inclination : inclination_slider.value,
+        phi_ref     : phi_ref_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+    });
+    });
+
+    chiAx_slider.addEventListener('input', function () {
+        chiAx_slider_value.textContent = chiAx_slider.value;
+        updateGraph({
+        inclination : inclination_slider.value,
+        phi_ref     : phi_ref_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+    });
+    });
+
+    chiAy_slider.addEventListener('input', function () {
+        chiAy_slider_value.textContent = chiAy_slider.value;
+        updateGraph({
+        inclination : inclination_slider.value,
+        phi_ref     : phi_ref_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+    });
+    });
+
+    chiAz_slider.addEventListener('input', function () {
+        chiAz_slider_value.textContent = chiAz_slider.value;
+        updateGraph({
+        inclination : inclination_slider.value,
+        phi_ref     : phi_ref_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+    });
+    });
+
+    chiBx_slider.addEventListener('input', function () {
+        chiBx_slider_value.textContent = chiBx_slider.value;
+        updateGraph({
+        inclination : inclination_slider.value,
+        phi_ref     : phi_ref_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+    });
+    });
+
+    chiBy_slider.addEventListener('input', function () {
+        chiBy_slider_value.textContent = chiBy_slider.value;
+        updateGraph({
+        inclination : inclination_slider.value,
+        phi_ref     : phi_ref_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+    });
+    });
+
+    chiBz_slider.addEventListener('input', function () {
+        chiBz_slider_value.textContent = chiBz_slider.value;
+        updateGraph({
+        inclination : inclination_slider.value,
+        phi_ref     : phi_ref_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+    });
+    });
+
+
+    function updateGraph(sliderValues) {
+        const inclination = sliderValues.inclination;
+        const phi_ref     = sliderValues.phi_ref;
+        const mass_ratio = sliderValues.mass_ratio;
+        const chiAx = sliderValues.chiAx;
+        const chiAy = sliderValues.chiAy;
+        const chiAz = sliderValues.chiAz;
+        const chiBx = sliderValues.chiBx;
+        const chiBy = sliderValues.chiBy;
+        const chiBz = sliderValues.chiBz;
+
+
+        fetch('/interactive_strain_update_route', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&inclination=' + inclination + '&phi_ref=' + phi_ref
+        })
+        .then(response => response.json())
+        .then(data => {
+
+        var trace1 = {
+            x: data.times,
+            y: data.h_plus,
+            type: 'scatter',
+            name: 'h_plus',
+            marker: {
+            color: 'red'  // Set color for trace1
+                 },
+            showlegend: true
+            };
+        var trace2 = {
+            x: data.times,
+            y: data.h_plus,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'h_cross',
+            marker: {
+            color: 'red'  // Set color for trace1
+                 },
+            showlegend: false
+            };
+        var trace3 = {
+            x: data.times,
+            y: data.h_cross,
+            type: 'scatter',
+            name: 'h_cross',
+            marker: {
+            color: 'blue'  // Set color for trace1
+                 },
+            showlegend: true
+            };
+        var trace4 = {
+            x: data.times,
+            y: data.h_cross,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'h_cross',
+            marker: {
+            color: 'blue'  // Set color for trace1
+                 },
+            showlegend: false
+            };
+        var trace5 = {
+            x: data.times,
+            y: data.h_abs,
+            type: 'scatter',
+            name: 'abs',
+            marker: {
+            color: 'green'  // Set color for trace1
+                 },
+            showlegend: true
+            };
+        var trace6 = {
+            x: data.times,
+            y: data.h_abs,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'abs',
+            marker: {
+            color: 'green'  // Set color for trace1
+                 },
+            showlegend: false
+            };
+        
+
+        var data = [trace1, trace2,trace3,trace4,trace5, trace6];
+        var layout = {
+        title: {
+            text: "rh/M",
+            font: {
+                size: 30,
+                color:'blue',
+                bold:true
+            }
+        },
+  xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
+  yaxis: {range:[-0.5, 0.50]},
+  yaxis2: {range: [-0.5, 0.50]},
+  xaxis2: {domain: [0.7, 1], range: [-300, 50],title: 'Time before merger (M)'}
+};
+
+        Plotly.newPlot(graphDiv, data, layout);
+        });
+    }
+updateGraph(sliderValues);
+</script>
+</body>
+</html>
+
 
 </body>
 </html>
