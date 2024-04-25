@@ -260,7 +260,8 @@
             name: 'Real',
             marker: {
             color: 'red'  // Set color for trace1
-                 }
+                 },
+            showlegend: true
             };
         var trace2 = {
             x: data.times,
@@ -271,7 +272,8 @@
             name: 'Real',
             marker: {
             color: 'red'  // Set color for trace1
-                 }
+                 },
+            showlegend: false
             };
         var trace3 = {
             x: data.times,
@@ -280,7 +282,8 @@
             name: 'Imag',
             marker: {
             color: 'blue'  // Set color for trace1
-                 }
+                 },
+            showlegend: true
             };
         var trace4 = {
             x: data.times,
@@ -291,7 +294,8 @@
             name: 'Imag',
             marker: {
             color: 'blue'  // Set color for trace1
-                 }
+                 },
+            showlegend: false
             };
         var trace5 = {
             x: data.times,
@@ -300,17 +304,37 @@
             name: 'abs',
             marker: {
             color: 'green'  // Set color for trace1
-                 }
+                 },
+            showlegend: true
+            };
+        var trace6 = {
+            x: data.times,
+            y: data.h_lm_abs,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'abs',
+            marker: {
+            color: 'green'  // Set color for trace1
+                 },
+            showlegend: false
             };
         
 
-        var data = [trace1, trace2,trace3,trace4,trace5];
+        var data = [trace1, trace2,trace3,trace4,trace5, trace6];
         var layout = {
-            title: "h_" + l + m,
-  xaxis: {domain: [0, 0.7]},
+        title: {
+            text: "h_" + l + m,
+            font: {
+                size: 30,
+                color:'blue',
+                bold:true
+            }
+        },
+  xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
   yaxis: {range:[-0.5, 0.50]},
   yaxis2: {range: [-0.5, 0.50]},
-  xaxis2: {domain: [0.7, 1], range: [-300, 50]}
+  xaxis2: {domain: [0.7, 1], range: [-300, 50],title: 'Time before merger (M)'}
 };
 
         Plotly.newPlot(graphDiv, data, layout);
@@ -545,7 +569,8 @@
             name: 'Real',
             marker: {
             color: 'red'  // Set color for trace1
-                 }
+                 },
+            showlegend: true
             };
         var trace2 = {
             x: data.times,
@@ -556,7 +581,8 @@
             name: 'Real',
             marker: {
             color: 'red'  // Set color for trace1
-                 }
+                 },
+            showlegend: false
             };
         var trace3 = {
             x: data.times,
@@ -565,7 +591,8 @@
             name: 'Imag',
             marker: {
             color: 'blue'  // Set color for trace1
-                 }
+                 },
+            showlegend: true
             };
         var trace4 = {
             x: data.times,
@@ -576,7 +603,8 @@
             name: 'Imag',
             marker: {
             color: 'blue'  // Set color for trace1
-                 }
+                 },
+            showlegend: false
             };
         var trace5 = {
             x: data.times,
@@ -585,17 +613,36 @@
             name: 'abs',
             marker: {
             color: 'green'  // Set color for trace1
-                 }
+                 },
+            showlegend: true
             };
-        
+        var trace6 = {
+            x: data.times,
+            y: data.h_lm_abs,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'abs',
+            marker: {
+            color: 'green'  // Set color for trace1
+                 },
+            showlegend: false
+            };
 
-        var data = [trace1, trace2,trace3,trace4,trace5];
+        var data = [trace1, trace2,trace3,trace4,trace5, trace6];
         var layout = {
-            title: "h_" + l + m,
-  xaxis: {domain: [0, 0.7]},
+        title: {
+            text: "h_" + l + m,
+            font: {
+                size: 30,
+                color:'blue',
+                bold:true
+            }
+        },
+  xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
   yaxis: {range:[-0.5, 0.50]},
   yaxis2: {range: [-0.5, 0.50]},
-  xaxis2: {domain: [0.7, 1], range: [-300, 50]}
+  xaxis2: {domain: [0.7, 1], range: [-300, 50],title: 'Time before merger (M)'}
 };
 
         Plotly.newPlot(graphDiv, data, layout);
