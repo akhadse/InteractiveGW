@@ -9,6 +9,13 @@ def home():
 
 #______________________________________________________________________
 
+@pages.route('/test_page', methods=['GET', 'POST'])
+def test_page():
+    return render_template('test_page.html')
+
+#______________________________________________________________________
+
+
 @pages.route('/download_videos', methods=['GET', 'POST'])
 def download_videos():
     return render_template('download_videos.html')

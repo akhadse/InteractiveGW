@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D Vector Plotter</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    #input-container {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+    }
+
+    #container {
+      height: 700px; /* Adjust the height as needed */
+      width: 700px; /* Adjust the width as needed */
+      
+      border: 2px solid black; /* Add a border */
+      position: relative; /* Position absolutely */
+      top: 50px; /* Adjust top position */
+      left: 100px; /* Adjust left position */
+    }
+
+  </style>
+</head>
+<body>
+  <div id="input-container">
+    <label for="x">X:</label>
+    <input type="range" id="x" name="x" min="-1" max="1" value="0" step="0.1" oninput="updateVector()">
+    <span id="xValue">0</span><br>
+
+    <label for="y">Y:</label>
+    <input type="range" id="y" name="y" min="-1" max="1" value="0" step="0.1" oninput="updateVector()">
+    <span id="yValue">0</span><br>
+
+    <label for="z">Z:</label>
+    <input type="range" id="z" name="z" min="-1" max="1" value="1" step="0.1" oninput="updateVector()">
+    <span id="zValue">1</span><br>
+
+    <label for="radius">Sphere Radius:</label>
+    <input type="range" id="radius" name="radius" min="0" max="0.5" value="0.25" step="0.01" oninput="updateVector()">
+    <span id="radiusValue">0.25</span><br>
+  </div>
+
+  <div id="container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+  <script>
+    // Initialize variables for user inputs
+    let x = 0, y = 0, z = 1, radius = 0.25;
+
+    // Function to update vector and sphere based on user input
+    function updateVector() {
+
+      x = parseFloat(document.getElementById('x').value);
+      y = parseFloat(document.getElementById('y').value);
+      z = parseFloat(document.getElementById('z').value);
+      radius = parseFloat(document.getElementById('radius').value);
+
+      xValue.textContent = x;
+      yValue.textContent = y;
+      zValue.textContent = z;
+      radiusValue.textContent = radius;
+
+      // Remove the previous vector and sphere
+      scene.remove(vector);
+      scene.remove(sphere);
+
+      // Create a new vector
+      let origin = new THREE.Vector3(-1, 0, 0); // Adjusted origin point
+      let end = new THREE.Vector3(x, y, z); // Adjusted end point
+      let magnitude = end.length();
+      let arrowHelper = new THREE.ArrowHelper(end.clone().normalize(), origin, magnitude, 0xff0000);
+      vector = arrowHelper;
+      scene.add(vector);
+
+      // Create a new sphere
+      let geometry = new THREE.SphereGeometry(radius, 32, 32);
+      let material = new THREE.MeshBasicMaterial({ color: 0x00000, transparent: true, opacity: 1 });
+      sphere = new THREE.Mesh(geometry, material);
+      sphere.position.set(-1, 0, 0);
+      scene.add(sphere);
+    }
+
+    // Setup scene
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xffffff); // White background
+    const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer();
+    const container = document.getElementById('container');
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    renderer.setSize(width, height);
+    document.getElementById('container').appendChild(renderer.domElement);
+
+
+    // Create axes
+    const axesHelper = new THREE.AxesHelper(5);
+    scene.add(axesHelper);
+
+    // Create grid lines for x, y, and z axes
+    const gridX = new THREE.GridHelper(10, 10);
+    gridX.rotation.x = Math.PI / 2;
+    scene.add(gridX);
+
+    const gridY = new THREE.GridHelper(10, 10);
+    gridY.position.y = 5;
+    scene.add(gridY);
+
+    const gridZ = new THREE.GridHelper(10, 10);
+    gridZ.rotation.z = Math.PI / 2;
+    scene.add(gridZ);
+
+    // Initial vector
+    let vector = new THREE.ArrowHelper(new THREE.Vector3(-1, 0, 5), new THREE.Vector3(-1, 0, 0), 1, 0xff0000); // Adjusted initial vector
+    scene.add(vector);
+
+    // Initial sphere
+    let sphere = new THREE.Mesh(new THREE.SphereGeometry(0.25, 32, 32), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 1 }));
+    sphere.position.set(-1, 0, 0);
+    scene.add(sphere);
+
+    // Initial sphere2
+    let sphere2 = new THREE.Mesh(new THREE.SphereGeometry(.5, 32, 32), new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 1 }));
+    sphere2.position.set(3, 0, 0);
+    scene.add(sphere2);
+
+    // Camera setup
+    camera.position.set(-3,1,5);
+    camera.lookAt(0, 0, 0);
+
+    // Setup controls
+    const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+    // Render loop
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>
