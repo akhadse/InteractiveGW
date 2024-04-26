@@ -226,13 +226,15 @@
 
 .button {
     display: flex;
-    padding: 10px 10px;
-    font-size: 18px;
+    height: 100%;
+    padding: 40px 30px;
+    font-size: 32px;
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
     text-decoration: none;
+    line-height: 2.5vh;
   }
   .button:hover {
     background-color: #45a049;
@@ -241,12 +243,24 @@
   .button-container {
     text-align: center; /* Center align the buttons */
 }
-.center_button {
+.reset_button {
     display: flex;
-    justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
     height: 4vh; /* Set the height of the container to full viewport height */
+    margin-left: 570px;
 }
+
+
+
+#animation_container {
+      height: 350px; /* Adjust the height as needed */
+      width: 900px; /* Adjust the width as needed */
+      
+      border: 2px solid black; /* Add a border */
+      position: relative; /* Position absolutely */
+      top: -290px; /* Adjust top position */
+      left: 850px; /* Adjust left position */
+    }
 
 
 
@@ -391,7 +405,7 @@
         });
 </script>
 
-<div class="center_button">
+<div class="reset_button">
     <button type="submit" class="button" id="resetAxisButton">Reset Axis?</button>
 </div>
 
@@ -442,6 +456,8 @@
     <br>
 
 
+<div id="animation_container"></div>
+
 <!-- Additional Advanced Settings Section -->
 <div class="advanced-settings">
     <h3>Advanced Settings</h3>
@@ -458,7 +474,10 @@
 
 </div>
 
-    
+<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+
+
 <script>
     var l_slider            = document.getElementById("l_slider");
     var m_slider            = document.getElementById("m_slider");
@@ -472,7 +491,6 @@
     var t_start             = document.getElementById("t_start");
     var t_end               = document.getElementById("t_end");
     var resetAxisButton     = document.getElementById("resetAxisButton");    
-
 
 
     var graphDiv = document.getElementById('GW_interactive_graph');
@@ -682,6 +700,68 @@
     });
 
 
+// Setup scene
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xffffff); // White background
+const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer();
+const container = document.getElementById('animation_container');
+const width = container.clientWidth;
+const height = container.clientHeight;
+
+renderer.setSize(width, height);
+document.getElementById('animation_container').appendChild(renderer.domElement);    
+
+// Create axes
+const axesHelper = new THREE.AxesHelper(5);
+scene.add(axesHelper);
+
+// Create grid lines for x, y, and z axes
+const gridX = new THREE.GridHelper(70, 70);
+scene.add(gridX);
+
+const gridY = new THREE.GridHelper(70, 70);
+scene.add(gridY);
+
+const gridZ = new THREE.GridHelper(70, 70);
+scene.add(gridZ);
+
+// Initial vector
+let BHASpinVec = new THREE.ArrowHelper(new THREE.Vector3(0,1,0), new THREE.Vector3(3,0,0), 3, 0xff0000, 0.7, 0.7); // Adjusted initial vector
+BHASpinVec.line.material.linewidth = 5;
+scene.add(BHASpinVec);
+
+// Initial vector
+let BHBSpinVec = new THREE.ArrowHelper(new THREE.Vector3(0,1, 0), new THREE.Vector3(-3,0,0), 3, 0xff0000, 0.7, 0.7); // Adjusted initial vector
+BHBSpinVec.line.material.linewidth = 5;
+scene.add(BHBSpinVec);
+
+// Initial sphere
+let BHAsphere = new THREE.Mesh(new THREE.SphereGeometry(1, 32, 32), new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: .7 }));
+BHAsphere.position.set(3, 0, 0);
+scene.add(BHAsphere);
+
+// Initial sphere2
+let BHBsphere = new THREE.Mesh(new THREE.SphereGeometry(0.167, 32, 32), new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: .7 }));
+BHBsphere.position.set(-3, 0, 0);
+scene.add(BHBsphere);
+
+// Camera setup
+camera.position.set(7,3.5,-10.5);
+camera.lookAt(0, 0, 0);
+
+// Setup controls
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+// Render loop
+function animate() {
+  requestAnimationFrame(animate);
+  renderer.render(scene, camera);
+}
+animate();
+
+
+
 function reset_axis_function(sliderValues) {
     const l = sliderValues.l;
     const m = sliderValues.m;
@@ -824,7 +904,53 @@ function reset_axis_function(sliderValues) {
         Plotly.newPlot(graphDiv, data, layout);
 
         });
+        
+
+        BHAradius = 1;
+        BHBradius = BHAradius/mass_ratio;   
+
+        scene.remove(BHASpinVec);
+        scene.remove(BHBSpinVec);
+        scene.remove(BHAsphere);
+        scene.remove(BHBsphere);    
+
+
+        // Create a BHA spin vector
+        let BHASpinVecOrigin = new THREE.Vector3(3, 0, 0); // Adjusted origin point
+        let BHASpinVec_ = new THREE.Vector3(chiAx,chiAy,chiAz); // Adjusted end point
+        let BHASpinVecMag = 3*BHASpinVec_.length();
+        let arrowHelperA = new THREE.ArrowHelper(BHASpinVec_, BHASpinVecOrigin, BHASpinVecMag, 0xff0000, 0.7, 0.7);
+        BHASpinVec = arrowHelperA;
+        BHASpinVec.line.material.linewidth = 5;
+        scene.add(BHASpinVec);
+
+        // Create a BHB spin vector
+        let BHBSpinVecOrigin = new THREE.Vector3(-3, 0, 0); // Adjusted origin point
+        let BHBSpinVec_ = new THREE.Vector3(chiBx,chiBy,chiBz); // Adjusted end point
+        let BHBSpinVecMag = 3*BHBSpinVec_.length();
+        let arrowHelperB = new THREE.ArrowHelper(BHBSpinVec_, BHBSpinVecOrigin, BHBSpinVecMag, 0xff0000, 0.7, 0.7);
+        BHBSpinVec = arrowHelperB;
+        BHBSpinVec.line.material.linewidth = 5;
+        scene.add(BHBSpinVec);
+
+
+        BHAsphere = new THREE.Mesh(new THREE.SphereGeometry(BHAradius, 32, 32), new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: .7 }));
+        BHAsphere.position.set(3, 0, 0);
+        scene.add(BHAsphere);
+
+        BHBsphere = new THREE.Mesh(new THREE.SphereGeometry(BHBradius, 32, 32), new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: .7 }));
+        BHBsphere.position.set(-3, 0, 0);
+        scene.add(BHBsphere);
+
+       
     }
+
+
+
+
+
+    
+    
 updateGraph(sliderValues);
 </script>
 </body>
