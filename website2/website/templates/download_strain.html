@@ -95,9 +95,9 @@ h1 {
             <nav>
                 <ul>
                     <li><a href="/">Home</a></li>
-                    <li><a href="/interactive_strain">Interactive GW strain</a></li>
-                    <li><a href="/interactive_h_lm">Interactive h_lm modes</a></li>
-                    <li><a href="/download_videos">!!Download Videos!!</a></li>
+                    <li><a href="/interactive_strain">GW strain</a></li>
+                    <li><a href="/interactive_h_lm">h_lm modes</a></li>
+                    <li><a href="/download_videos">Download Videos</a></li>
                 </ul>
             </nav>
         </header>
@@ -106,9 +106,108 @@ h1 {
     <hr class="horizontal-line">
 
 
-    <h1>
-        Download Strain here!!
-    </h1>
+    <h1>Enter BBH Parameters</h1>
+    <form action="/download_strain" method="post">
 
-      </body>
-      </html>
+
+        <label for="choose_parameter_to_vary">Choose a Parameter to vary</label>
+        <select id="choose_parameter_to_vary" name="choose_parameter_to_vary" >
+            <option value="q" selected>q</option>
+            <option value="chiAx">ChiAx</option>
+            <option value="chiAy">ChiAy</option>
+            <option value="chiAz">ChiAz</option>
+            <option value="chiBx">ChiBx</option>
+            <option value="chiBy">ChiBy</option>
+            <option value="chiBz">ChiBz</option>
+            <option value="inclination">Inclination</option>
+            <option value="phi_ref">phi_ref</option>
+        </select>
+        <br>
+
+
+        <div class="variableparam-group">
+            <label for="parameter_start_value">Parameter start value</label>
+            <input type="number" id="parameter_start_value" name="parameter_start_value" value="1.0" step="any" required><br>
+        </div>
+        <div class="variableparam-group">
+            <label for="parameter_end_value">Parameter end value</label>
+            <input type="number" id="parameter_end_value" name="parameter_end_value" value="6.0" step="any" required><br>
+        </div>
+        <div class="variableparam-group">
+            <label for="parameter_steps">Number of parameter steps</label>
+            <input type="number" id="parameter_steps" name="parameter_steps" value="480" required>
+        </div>
+        <br>
+
+        <br>
+        <br>     
+
+        <label for="inclination">Inclination (in deg)</label>
+        <input type="number" id="inclination" name="inclination" value="0.0" step="any" required><br>
+
+        <label for="phi_ref">phi_ref (in deg)</label>
+        <input type="number" id="phi_ref" name="phi_ref" value="0.0" step="any" required><br>
+        <br> 
+        <label for="q">Mass Ratio (q)</label>
+        <input type="number" id="q" name="q" value="1.0" step="any" required><br>
+
+        <label for="chiAx">ChiAx</label>
+        <input type="number" id="chiAx" name="chiAx" value="0.0" step="any" required><br>
+        
+        <label for="chiAy">ChiAy</label>
+        <input type="number" id="chiAy" name="chiAy" value="0.0" step="any" required><br>
+        
+        <label for="chiAz">ChiAz</label>
+        <input type="number" id="chiAz" name="chiAz" value="0.0" step="any" required><br>
+        
+        <label for="chiBx">ChiBx</label>
+        <input type="number" id="chiBx" name="chiBx" value="0.0" step="any" required><br>
+        
+        <label for="chiBy">ChiBy</label>
+        <input type="number" id="chiBy" name="chiBy" value="0.0" step="any" required><br>
+        
+        <label for="chiBz">ChiBz</label>
+        <input type="number" id="chiBz" name="chiBz" value="0.0" step="any" required><br>
+
+        <br> 
+
+        <input type="submit" value="Submit">
+
+        <!-- Additional Advanced Settings Section -->
+        <div class="advanced-settings">
+            <h3>Advanced Settings</h3>
+
+            <!-- Surrogate parameters -->
+            <label for="f_low">f_low</label>
+            <input type="number" id="f_low" name="f_low" value="0.0" step="any" required><br>
+
+            <label for="delta_t">delta_t</label>
+            <input type="number" id="delta_t" name="delta_t" value="1" step="any" required><br>
+
+            <label for="sur_name">sur_name</label>
+            <input type="text" id="sur_name" name="sur_name" value="NRSur7dq4" required><br>
+
+            <!-- Horizontal line -->
+            <hr class="horizontal-line">
+
+            <!-- Video settings parameters -->
+            <label for="video_width">Video width</label>
+            <input type="text" id="video_width" name="video_width" value="1500" required><br>
+            
+            <label for="video_height">Video height</label>
+            <input type="number" id="video_height" name="video_height" value="700" required><br>
+            
+            <label for="video_fps">Video fps</label>
+            <input type="number" id="video_fps" name="video_fps" value="24.0" step="any" required><br>
+
+            <label for="video_name">Video name</label>
+            <input type="text" id="video_name" name="video_name" value="strain_video.mp4" required><br>
+
+            <!-- Horizontal line -->
+            <hr class="horizontal-line">
+
+
+        </div>
+    </form>
+</body>
+</html>
