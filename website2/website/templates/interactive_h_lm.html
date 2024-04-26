@@ -223,6 +223,35 @@
         margin-bottom: 10px;
 }
 
+
+.button {
+    display: flex;
+    padding: 10px 10px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .button:hover {
+    background-color: #45a049;
+  }
+
+  .button-container {
+    text-align: center; /* Center align the buttons */
+}
+.center_button {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 4vh; /* Set the height of the container to full viewport height */
+}
+
+
+
+
+
     </style>
 
 
@@ -272,6 +301,9 @@
         .then(response => response.json())
         .then(data => {
     
+        h_abs = data.h_lm_abs;
+        y_max = 1.2 * Math.max(...h_abs);
+        y_min = -y_max;
 
         var trace1 = {
             x: data.times,
@@ -352,8 +384,8 @@
             }
         },
   xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
-  yaxis: {range:[-0.5, 0.50]},
-  yaxis2: {range: [-0.5, 0.50]},
+  yaxis: {range:[y_min, y_max]},
+  yaxis2: {range: [y_min, y_max]},
   xaxis2: {domain: [0.7, 1], range: [-300, 50],title: 'Time before merger (M)'}
 };
 
@@ -361,6 +393,10 @@
 
         });
 </script>
+
+<div class="center_button">
+    <button type="submit" class="button" id="resetAxisButton">Reset Axis?</button>
+</div>
 
     <label for="l_slider">l:</label>
     <input type="range" min="2" max="4" value="2" step="1" class="slider" id="l_slider">
@@ -438,6 +474,9 @@
     var chiBz_slider        = document.getElementById("chiBz_slider");
     var t_start             = document.getElementById("t_start");
     var t_end               = document.getElementById("t_end");
+    var resetAxisButton     = document.getElementById("resetAxisButton");    
+
+
 
     var graphDiv = document.getElementById('GW_interactive_graph');
     
@@ -629,6 +668,55 @@
     });
     });
 
+    resetAxisButton.addEventListener('click', function () {
+    reset_axis_function({
+        l : l_slider.value,
+        m : m_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
+    });
+    });
+
+
+function reset_axis_function(sliderValues) {
+    const l = sliderValues.l;
+    const m = sliderValues.m;
+    const mass_ratio = sliderValues.mass_ratio;
+    const chiAx = sliderValues.chiAx;
+    const chiAy = sliderValues.chiAy;
+    const chiAz = sliderValues.chiAz;
+    const chiBx = sliderValues.chiBx;
+    const chiBy = sliderValues.chiBy;
+    const chiBz = sliderValues.chiBz;
+    const t_start = sliderValues.t_start;
+    const t_end = sliderValues.t_end;
+
+    fetch('/interactive_h_lm_update_route', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&l=' + l + '&m=' + m
+    })
+    .then(response => response.json())
+    .then(data => {
+        h_abs = data.h_lm_abs;
+        y_max = 1.2 * Math.max(...h_abs);
+        y_min = -y_max;
+
+        updateGraph(sliderValues);
+    });
+}
+
+
+
     function updateGraph(sliderValues) {
         const l     = sliderValues.l;
         const m     = sliderValues.m;
@@ -732,8 +820,8 @@
             }
         },
   xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
-  yaxis: {range:[-0.5, 0.50]},
-  yaxis2: {range: [-0.5, 0.50]},
+  yaxis: {range:[y_min,y_max]},
+  yaxis2: {range: [y_min,y_max]},
   xaxis2: {domain: [0.7, 1], range: [t_start, t_end],title: 'Time before merger (M)'}
 };
         Plotly.newPlot(graphDiv, data, layout);
