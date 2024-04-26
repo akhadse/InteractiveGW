@@ -101,6 +101,17 @@ h1 {
   .button:hover {
     background-color: #45a049;
   }
+
+  .button-container {
+    text-align: center; /* Center align the buttons */
+}
+.center_button {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 50vh; /* Set the height of the container to full viewport height */
+}
+
     </style>
 
 </head>
@@ -121,11 +132,13 @@ h1 {
     <!-- Horizontal line -->
     <hr class="horizontal-line">
 
+    <div class="center_button">
+        <form action="#" method="post" class="button-container">
+            <button type="submit" class="button" formaction="/download_strain_">Download Strain</button>
+            <button type="submit" class="button" formaction="/download_h_lm_">Download h_lm mode</button>
+        </form>
+    </div>
 
-    <form action="#" method="post">
-        <button type="submit" class="button" formaction="/download_strain_">Download Strain</button>
-        <button type="submit" class="button" formaction="/download_h_lm_">Download h_lm mode</button>
-    </form>
 
 
       </body>

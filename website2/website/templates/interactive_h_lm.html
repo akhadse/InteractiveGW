@@ -202,6 +202,27 @@
     }
 
 
+    .advanced-settings {
+            background-color: #f0f0f0; /* Background color for advanced settings */
+            padding: 10px;
+            margin-top: 20px; /* Add margin to separate from previous elements */
+            border-radius: 5px; /* Rounded corners */
+        }
+        .advanced-settings label {
+            display: inline-block;
+            color: #ff4500; /* Text color for labels in advanced settings */
+            width: 200px; /* Width for labels in advanced settings */
+        }
+        .advanced-settings input[type="text"] {
+            width: 50px; /* Width for input boxes in advanced settings */
+        }
+
+        .advanced-settings input[type="number"] {
+        width: 80px; /* Adjusted width for input fields */
+        padding: 5px;
+        margin-bottom: 10px;
+}
+
     </style>
 
 
@@ -354,7 +375,7 @@
 
     <label for="mass_ratio_slider">Mass Ratio:</label>
     <input type="range" min="1" max="6" value="1" step="0.1" class="slider" id="mass_ratio_slider">
-    <span id="mass_ratio_slider_value">0</span>
+    <span id="mass_ratio_slider_value">1</span>
     <br>
 
     <label for="chiAx_slider">ChiAx :</label>
@@ -388,6 +409,23 @@
     <br>
 
 
+<!-- Additional Advanced Settings Section -->
+<div class="advanced-settings">
+    <h3>Advanced Settings</h3>
+
+    <!-- Surrogate parameters -->
+    <label for="t_start">Start time (For zoomed plot)</label>
+    <input type="number" id="t_start" name="t_start" value="-300" step="any" required><br>
+
+    <label for="t_end">End time (For zoomed plot)</label>
+    <input type="number" id="t_end" name="t_end" value="50" step="any" required><br>
+
+    <!-- Horizontal line -->
+    <hr class="horizontal-line">
+
+</div>
+
+    
 <script>
     var l_slider            = document.getElementById("l_slider");
     var m_slider            = document.getElementById("m_slider");
@@ -398,6 +436,8 @@
     var chiBx_slider        = document.getElementById("chiBx_slider");
     var chiBy_slider        = document.getElementById("chiBy_slider");
     var chiBz_slider        = document.getElementById("chiBz_slider");
+    var t_start             = document.getElementById("t_start");
+    var t_end               = document.getElementById("t_end");
 
     var graphDiv = document.getElementById('GW_interactive_graph');
     
@@ -413,6 +453,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -428,6 +470,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -444,6 +488,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -459,6 +505,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -474,6 +522,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -489,6 +539,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -504,6 +556,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -519,6 +573,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -534,9 +590,44 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
+
+    t_start.addEventListener('input', function () {
+        updateGraph({
+        l : l_slider.value,
+        m : m_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
+    });
+    });
+
+
+    t_end.addEventListener('input', function () {
+        updateGraph({
+        l : l_slider.value,
+        m : m_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
+    });
+    });
 
     function updateGraph(sliderValues) {
         const l     = sliderValues.l;
@@ -548,6 +639,8 @@
         const chiBx = sliderValues.chiBx;
         const chiBy = sliderValues.chiBy;
         const chiBz = sliderValues.chiBz;
+        const t_start = sliderValues.t_start;
+        const t_end   = sliderValues.t_end;
 
 
         fetch('/interactive_h_lm_update_route', {
@@ -641,9 +734,8 @@
   xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
   yaxis: {range:[-0.5, 0.50]},
   yaxis2: {range: [-0.5, 0.50]},
-  xaxis2: {domain: [0.7, 1], range: [-300, 50],title: 'Time before merger (M)'}
+  xaxis2: {domain: [0.7, 1], range: [t_start, t_end],title: 'Time before merger (M)'}
 };
-
         Plotly.newPlot(graphDiv, data, layout);
 
         });

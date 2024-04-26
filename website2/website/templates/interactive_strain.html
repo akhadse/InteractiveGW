@@ -203,6 +203,51 @@
         border-radius: 5px;
     }
 
+    .advanced-settings {
+            background-color: #f0f0f0; /* Background color for advanced settings */
+            padding: 10px;
+            margin-top: 20px; /* Add margin to separate from previous elements */
+            border-radius: 5px; /* Rounded corners */
+        }
+        .advanced-settings label {
+            display: inline-block;
+            color: #ff4500; /* Text color for labels in advanced settings */
+            width: 200px; /* Width for labels in advanced settings */
+        }
+        .advanced-settings input[type="text"] {
+            width: 50px; /* Width for input boxes in advanced settings */
+        }
+
+        .advanced-settings input[type="number"] {
+        width: 80px; /* Adjusted width for input fields */
+        padding: 5px;
+        margin-bottom: 10px;
+}
+
+
+.button {
+    display: flex;
+    padding: 10px 10px;
+    font-size: 18px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .button:hover {
+    background-color: #45a049;
+  }
+
+  .button-container {
+    text-align: center; /* Center align the buttons */
+}
+.center_button {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 4vh; /* Set the height of the container to full viewport height */
+}
 
     </style>
 
@@ -228,6 +273,7 @@
     <div id="strain_interactive_graph"></div>
 
     <script>
+
         var graphDiv = document.getElementById('strain_interactive_graph');
         const inclination = 0;
         const phi_ref     = 0;
@@ -248,6 +294,10 @@
         })
         .then(response => response.json())
         .then(data => {
+
+        h_abs = data.h_abs;
+        y_max = 1.2 * Math.max(...h_abs);
+        y_min = -y_max;
 
         var trace1 = {
             x: data.times,
@@ -328,8 +378,8 @@
             }
         },
   xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
-  yaxis: {range:[-0.5, 0.50]},
-  yaxis2: {range: [-0.5, 0.50]},
+  yaxis: {range:[y_min, y_max]},
+  yaxis2: {range: [y_min, y_max]},
   xaxis2: {domain: [0.7, 1], range: [-300, 50],title: 'Time before merger (M)'}
 };
 
@@ -339,7 +389,9 @@
 </script>
 
 
-
+<div class="center_button">
+        <button type="submit" class="button" id="resetAxisButton">Reset Axis?</button>
+</div>
 
 <label for="inclination_slider">Inclination:</label>
 <input type="range" min="0" max="180" value="0" step="1" class="slider" id="inclination_slider">
@@ -353,7 +405,7 @@
 
 <label for="mass_ratio_slider">Mass Ratio:</label>
 <input type="range" min="1" max="6" value="1" step="0.1" class="slider" id="mass_ratio_slider">
-<span id="mass_ratio_slider_value">0</span>
+<span id="mass_ratio_slider_value">1</span>
 <br>
 
 <label for="chiAx_slider">ChiAx :</label>
@@ -386,8 +438,24 @@
 <span id="chiBz_slider_value">0</span>
 <br>
 
+<!-- Additional Advanced Settings Section -->
+<div class="advanced-settings">
+    <h3>Advanced Settings</h3>
+
+    <!-- Surrogate parameters -->
+    <label for="t_start">Start time (For zoomed plot)</label>
+    <input type="number" id="t_start" name="t_start" value="-300" step="any" required><br>
+
+    <label for="t_end">End time (For zoomed plot)</label>
+    <input type="number" id="t_end" name="t_end" value="50" step="any" required><br>
+
+    <!-- Horizontal line -->
+    <hr class="horizontal-line">
+
+</div>
 
 <script>
+
     var inclination_slider  = document.getElementById("inclination_slider");
     var phi_ref_slider      = document.getElementById("phi_ref_slider");
     var mass_ratio_slider   = document.getElementById("mass_ratio_slider");
@@ -397,6 +465,9 @@
     var chiBx_slider        = document.getElementById("chiBx_slider");
     var chiBy_slider        = document.getElementById("chiBy_slider");
     var chiBz_slider        = document.getElementById("chiBz_slider");
+    var t_start             = document.getElementById("t_start");
+    var t_end               = document.getElementById("t_end");
+    var resetAxisButton     = document.getElementById("resetAxisButton");    
 
     var graphDiv = document.getElementById('strain_interactive_graph');
     
@@ -412,6 +483,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -427,6 +500,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -442,6 +517,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -457,6 +534,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -472,6 +551,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -487,6 +568,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -502,6 +585,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -517,6 +602,8 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
@@ -532,9 +619,88 @@
         chiBx: chiBx_slider.value,
         chiBy: chiBy_slider.value,
         chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
     });
     });
 
+    t_start.addEventListener('input', function () {
+        updateGraph({
+        inclination : inclination_slider.value,
+        phi_ref     : phi_ref_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
+    });
+    });
+
+    t_end.addEventListener('input', function () {
+        updateGraph({
+        inclination : inclination_slider.value,
+        phi_ref     : phi_ref_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+        t_start:t_start.value,
+        t_end  :t_end.value,
+    });
+    });
+
+    resetAxisButton.addEventListener('click', function () {
+    reset_axis_function({
+        inclination: inclination_slider.value,
+        phi_ref: phi_ref_slider.value,
+        mass_ratio: mass_ratio_slider.value,
+        chiAx: chiAx_slider.value,
+        chiAy: chiAy_slider.value,
+        chiAz: chiAz_slider.value,
+        chiBx: chiBx_slider.value,
+        chiBy: chiBy_slider.value,
+        chiBz: chiBz_slider.value,
+        t_start: t_start.value,
+        t_end: t_end.value,
+    });
+});
+
+function reset_axis_function(sliderValues) {
+    const inclination = sliderValues.inclination;
+    const phi_ref = sliderValues.phi_ref;
+    const mass_ratio = sliderValues.mass_ratio;
+    const chiAx = sliderValues.chiAx;
+    const chiAy = sliderValues.chiAy;
+    const chiAz = sliderValues.chiAz;
+    const chiBx = sliderValues.chiBx;
+    const chiBy = sliderValues.chiBy;
+    const chiBz = sliderValues.chiBz;
+    const t_start = sliderValues.t_start;
+    const t_end = sliderValues.t_end;
+
+    fetch('/interactive_strain_update_route', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&inclination=' + inclination + '&phi_ref=' + phi_ref
+    })
+    .then(response => response.json())
+    .then(data => {
+        h_abs = data.h_abs;
+        y_max = 1.2 * Math.max(...h_abs);
+        y_min = -y_max;
+
+        updateGraph(sliderValues);
+    });
+}
 
     function updateGraph(sliderValues) {
         const inclination = sliderValues.inclination;
@@ -546,6 +712,8 @@
         const chiBx = sliderValues.chiBx;
         const chiBy = sliderValues.chiBy;
         const chiBz = sliderValues.chiBz;
+        const t_start = sliderValues.t_start;
+        const t_end   = sliderValues.t_end;
 
 
         fetch('/interactive_strain_update_route', {
@@ -637,18 +805,17 @@
             }
         },
   xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
-  yaxis: {range:[-0.5, 0.50]},
-  yaxis2: {range: [-0.5, 0.50]},
-  xaxis2: {domain: [0.7, 1], range: [-300, 50],title: 'Time before merger (M)'}
+  yaxis: {range:[y_min,y_max]},
+  yaxis2: {range: [y_min,y_max]},
+  xaxis2: {domain: [0.7, 1], range: [t_start, t_end],title: 'Time before merger (M)'}
 };
 
         Plotly.newPlot(graphDiv, data, layout);
         });
     }
+    
 updateGraph(sliderValues);
 </script>
-</body>
-</html>
 
 
 </body>
