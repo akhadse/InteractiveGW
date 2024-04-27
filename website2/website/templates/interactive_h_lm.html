@@ -59,6 +59,14 @@
             text-decoration: none;
         }
 
+        #l_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
+
+        #m_slider {
+        width: 300px; /* Adjust the width as needed */
+    }
+
         #mass_ratio_slider {
         width: 300px; /* Adjust the width as needed */
     }
@@ -226,15 +234,15 @@
 
 .button {
     display: flex;
-    height: 100%;
-    padding: 40px 30px;
+    justify-content: center;
+    height: 80px;
+    width:250px;
     font-size: 32px;
     background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
-    text-decoration: none;
-    line-height: 2.5vh;
+    line-height: 8vh;
   }
   .button:hover {
     background-color: #45a049;
@@ -243,25 +251,43 @@
   .button-container {
     text-align: center; /* Center align the buttons */
 }
-.reset_button {
-    display: flex;
-    align-items: center; /* Center vertically */
-    height: 4vh; /* Set the height of the container to full viewport height */
-    margin-left: 570px;
+.reset_axis_button {
+    margin-left: 525px;
 }
 
+.reset_camera_button {
+    margin-left: 525px;
+    margin-top: 20px
+}
 
+#GW_interactive_graph{
+    height: 25%; /* Adjust the height as needed */
+      width: 100%; /* Adjust the width as needed */
+      
+      position: relative; /* Position absolutely */
+      top: 0px; /* Adjust top position */
+      left: 0px; /* Adjust left position */
+}
+
+#slider_box{
+      height: 30%; /* Adjust the height as needed */
+      width: 25%; /* Adjust the width as needed */
+      
+      position: relative; /* Position absolutely */
+      top: -180px; /* Adjust top position */
+      left: 30px; /* Adjust left position */
+
+}
 
 #animation_container {
       height: 350px; /* Adjust the height as needed */
-      width: 900px; /* Adjust the width as needed */
+      width: 1000px; /* Adjust the width as needed */
       
-      border: 2px solid black; /* Add a border */
       position: relative; /* Position absolutely */
-      top: -290px; /* Adjust top position */
-      left: 850px; /* Adjust left position */
+      top: -555px; /* Adjust top position */
+      left: 805px; /* Adjust left position */
+      <!-- border: 2px solid black; -->
     }
-
 
 .slider {
   -webkit-appearance: none;
@@ -269,6 +295,7 @@
   height: 5px;
   background: red; /* Remove the default track color */
   outline: blue; /* Remove the outline */
+  margin-bottom: 18px;
 }
 
 .slider::-webkit-slider-thumb {
@@ -312,6 +339,7 @@
 
 label {
         margin-right: -100px; /* Adjust this value as needed */
+        font-size: 20px;
     }
 
 </style>
@@ -454,9 +482,15 @@ label {
         });
 </script>
 
-<div class="reset_button">
-    <button type="submit" class="button" id="resetAxisButton">Reset Axis?</button>
+<div class="reset_axis_button">
+    <button type="submit" class="button" id="reset_axis_button">Reset Axis?</button>
 </div>
+
+<div class="reset_camera_button">
+    <button type="submit" class="button" id="reset_camera_button">Reset Camera?</button>
+</div>
+
+<div id="slider_box">
 
     <label for="l_slider">l:</label>
     <input type="range" min="2" max="4" value="2" step="1" class="slider" id="l_slider">
@@ -467,7 +501,6 @@ label {
     <input type="range" min="-4" max="4" value="2" step="1" class="slider" id="m_slider">
     <span id="m_slider_value">2</span>
     <br>
-
 
     <label for="mass_ratio_slider">Mass Ratio:</label>
     <input type="range" min="1" max="6" value="2.4" step="0.1" class="slider mass_ratio_slider" id="mass_ratio_slider">
@@ -503,7 +536,8 @@ label {
     <input type="range" min="-1" max="1" value="0.5" step="0.1" class="slider chiBz_slider" id="chiBz_slider">
     <span id="chiBz_slider_value">0.5</span>
     <br>
-    
+
+</div>
 
 <div id="animation_container"></div>
 
@@ -539,7 +573,8 @@ label {
     var chiBz_slider        = document.getElementById("chiBz_slider");
     var t_start             = document.getElementById("t_start");
     var t_end               = document.getElementById("t_end");
-    var resetAxisButton     = document.getElementById("resetAxisButton");    
+    var reset_axis_button     = document.getElementById("reset_axis_button");
+    var reset_camera_button = document.getElementById("reset_camera_button")
 
 
     var graphDiv = document.getElementById('GW_interactive_graph');
@@ -732,7 +767,7 @@ label {
     });
     });
 
-    resetAxisButton.addEventListener('click', function () {
+    reset_axis_button.addEventListener('click', function () {
     reset_axis_function({
         l : l_slider.value,
         m : m_slider.value,
@@ -1006,13 +1041,21 @@ function reset_axis_function(sliderValues) {
        
     }
 
-
-
-
-
-    
-    
 updateGraph(sliderValues);
 </script>
+
+<script>
+    var reset_camera_button = document.getElementById("reset_camera_button");
+
+    // Add event listener to the reset camera button
+    reset_camera_button.addEventListener("click", function() {
+        // Reset camera position and controls
+        camera.position.set(-6,-8,2.5);
+        camera.lookAt(0, 0, 0);
+        camera.up.set(0, 0, 1);
+        controls.reset();
+    });
+</script>
+
 </body>
 </html>
