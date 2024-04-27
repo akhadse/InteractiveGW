@@ -345,13 +345,13 @@ label {
         var graphDiv = document.getElementById('strain_interactive_graph');
         const inclination = 0;
         const phi_ref     = 0;
-        const mass_ratio = 1;
+        const mass_ratio = 2.4;
         const chiAx = 0;
-        const chiAy = 0;
-        const chiAz = 0;
-        const chiBx = 0;
-        const chiBy = 0;
-        const chiBz = 0;
+        const chiAy = 0.5;
+        const chiAz = 0.6;
+        const chiBx = 0.3;
+        const chiBy = -0.3;
+        const chiBz = 0.5;
 
         fetch('/interactive_strain_update_route', {
             method: 'POST',
