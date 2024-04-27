@@ -343,13 +343,13 @@ label {
         var graphDiv = document.getElementById('GW_interactive_graph');
         const l     = 2;
         const m     = 2;
-        const mass_ratio = 1;
+        const mass_ratio = 2.4;
         const chiAx = 0;
-        const chiAy = 0;
-        const chiAz = 0;
-        const chiBx = 0;
-        const chiBy = 0;
-        const chiBz = 0;
+        const chiAy = 0.5;
+        const chiAz = 0.6;
+        const chiBx = 0.3;
+        const chiBy = -0.3;
+        const chiBz = 0.5;
     
         fetch('/interactive_h_lm_update_route', {
             method: 'POST',
@@ -470,40 +470,40 @@ label {
 
 
     <label for="mass_ratio_slider">Mass Ratio:</label>
-    <input type="range" min="1" max="6" value="1" step="0.1" class="slider mass_ratio_slider" id="mass_ratio_slider">
-    <span id="mass_ratio_slider_value">1</span>
+    <input type="range" min="1" max="6" value="2.4" step="0.1" class="slider mass_ratio_slider" id="mass_ratio_slider">
+    <span id="mass_ratio_slider_value">2.4</span>
     <br>
-
+    
     <label for="chiAx_slider">ChiAx :</label>
     <input type="range" min="-1" max="1" value="0" step="0.1" class="slider chiAx_slider" id="chiAx_slider">
     <span id="chiAx_slider_value">0</span>
     <br>
-
+    
     <label for="chiAy_slider">ChiAy :</label>
-    <input type="range" min="-1" max="1" value="0" step="0.1" class="slider chiAy_slider" id="chiAy_slider">
-    <span id="chiAy_slider_value">0</span>
+    <input type="range" min="-1" max="1" value="0.5" step="0.1" class="slider chiAy_slider" id="chiAy_slider">
+    <span id="chiAy_slider_value">0.5</span>
     <br>
     
     <label for="chiAz_slider">ChiAz :</label>
-    <input type="range" min="-1" max="1" value="0" step="0.1" class="slider chiAz_slider" id="chiAz_slider">
-    <span id="chiAz_slider_value">0</span>
+    <input type="range" min="-1" max="1" value="0.6" step="0.1" class="slider chiAz_slider" id="chiAz_slider">
+    <span id="chiAz_slider_value">0.6</span>
     <br>
     
     <label for="chiBx_slider">ChiBx :</label>
-    <input type="range" min="-1" max="1" value="0" step="0.1" class="slider chiBx_slider" id="chiBx_slider">
-    <span id="chiBx_slider_value">0</span>
+    <input type="range" min="-1" max="1" value="0.3" step="0.1" class="slider chiBx_slider" id="chiBx_slider">
+    <span id="chiBx_slider_value">0.3</span>
     <br>
     
     <label for="chiBy_slider">ChiBy :</label>
-    <input type="range" min="-1" max="1" value="0" step="0.1" class="slider chiBy_slider" id="chiBy_slider">
-    <span id="chiBy_slider_value">0</span>
+    <input type="range" min="-1" max="1" value="-0.3" step="0.1" class="slider chiBy_slider" id="chiBy_slider">
+    <span id="chiBy_slider_value">-0.3</span>
     <br>
     
     <label for="chiBz_slider">ChiBz :</label>
-    <input type="range" min="-1" max="1" value="0" step="0.1" class="slider chiBz_slider" id="chiBz_slider">
-    <span id="chiBz_slider_value">0</span>
+    <input type="range" min="-1" max="1" value="0.5" step="0.1" class="slider chiBz_slider" id="chiBz_slider">
+    <span id="chiBz_slider_value">0.5</span>
     <br>
-
+    
 
 <div id="animation_container"></div>
 
@@ -767,13 +767,8 @@ scene.add(axesHelper);
 
 // Create grid lines for x, y, and z axes
 const gridX = new THREE.GridHelper(70, 70);
+gridX.rotation.x = Math.PI / 2;
 scene.add(gridX);
-
-const gridY = new THREE.GridHelper(70, 70);
-scene.add(gridY);
-
-const gridZ = new THREE.GridHelper(70, 70);
-scene.add(gridZ);
 
 
 // X axis
@@ -792,12 +787,12 @@ Z_axis_vec.line.material.linewidth = 4;
 scene.add(Z_axis_vec);
 
 // Initial vector
-let BHASpinVec = new THREE.ArrowHelper(new THREE.Vector3(0,1,0), new THREE.Vector3(3,0,0), 3, 0xff0000, 0.7, 0.7); // Adjusted initial vector
+let BHASpinVec = new THREE.ArrowHelper(new THREE.Vector3(0,0.5,0.6), new THREE.Vector3(3,0,0), 3*0.78102, 0xff0000, 0.7, 0.7); // Adjusted initial vector
 BHASpinVec.line.material.linewidth = 5;
 scene.add(BHASpinVec);
 
 // Initial vector
-let BHBSpinVec = new THREE.ArrowHelper(new THREE.Vector3(0,1, 0), new THREE.Vector3(-3,0,0), 3, 0xff0000, 0.7, 0.7); // Adjusted initial vector
+let BHBSpinVec = new THREE.ArrowHelper(new THREE.Vector3(0.3,-0.3,0.5), new THREE.Vector3(-3,0,0), 3*0.65574, 0xff0000, 0.7, 0.7); // Adjusted initial vector
 BHBSpinVec.line.material.linewidth = 5;
 scene.add(BHBSpinVec);
 
@@ -807,13 +802,14 @@ BHAsphere.position.set(3, 0, 0);
 scene.add(BHAsphere);
 
 // Initial sphere2
-let BHBsphere = new THREE.Mesh(new THREE.SphereGeometry(0.167, 32, 32), new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: .7 }));
+let BHBsphere = new THREE.Mesh(new THREE.SphereGeometry(0.4167, 32, 32), new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: .7 }));
 BHBsphere.position.set(-3, 0, 0);
 scene.add(BHBsphere);
 
 // Camera setup
-camera.position.set(7,3.5,-10.5);
+camera.position.set(-6,-8,2.5);
 camera.lookAt(0, 0, 0);
+camera.up.set(0, 0, 1);
 
 // Setup controls
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
