@@ -89,9 +89,10 @@
         width: 300px; /* Adjust the width as needed */
     }
 
-    #l_slider_value {
+
+    .slider_value_box{
         display: inline-block;
-        width: 30px; /* Adjust the width as needed */
+        width: 45px; /* Adjust the width as needed */
         padding: 1px;
         margin-left: 10px;
         background-color: #f0f0f0;
@@ -100,115 +101,6 @@
         border: 1px solid #ccc;
         border-radius: 5px;
     }
-
-    #m_slider_value {
-        display: inline-block;
-        width: 30px; /* Adjust the width as needed */
-        padding: 1px;
-        margin-left: 10px;
-        background-color: #f0f0f0;
-        font-size: 18px; /* Adjust the font size as needed */
-        text-align: center;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    #mass_ratio_slider_value {
-        display: inline-block;
-        width: 30px; /* Adjust the width as needed */
-        padding: 1px;
-        margin-left: 10px;
-        background-color: #f0f0f0;
-        font-size: 18px; /* Adjust the font size as needed */
-        text-align: center;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    #chiAx_slider_value {
-        display: inline-block;
-        width: 30px; /* Adjust the width as needed */
-        padding: 1px;
-        margin-left: 10px;
-        background-color: #f0f0f0;
-        font-size: 18px; /* Adjust the font size as needed */
-        text-align: center;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    #chiAy_slider_value {
-        display: inline-block;
-        width: 30px; /* Adjust the width as needed */
-        padding: 1px;
-        margin-left: 10px;
-        background-color: #f0f0f0;
-        font-size: 18px; /* Adjust the font size as needed */
-        text-align: center;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    #chiAz_slider_value {
-        display: inline-block;
-        width: 30px; /* Adjust the width as needed */
-        padding: 1px;
-        margin-left: 10px;
-        background-color: #f0f0f0;
-        font-size: 18px; /* Adjust the font size as needed */
-        text-align: center;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    #chiBx_slider_value {
-        display: inline-block;
-        width: 30px; /* Adjust the width as needed */
-        padding: 1px;
-        margin-left: 10px;
-        background-color: #f0f0f0;
-        font-size: 18px; /* Adjust the font size as needed */
-        text-align: center;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    #chiBx_slider_value {
-        display: inline-block;
-        width: 30px; /* Adjust the width as needed */
-        padding: 1px;
-        margin-left: 10px;
-        background-color: #f0f0f0;
-        font-size: 18px; /* Adjust the font size as needed */
-        text-align: center;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    #chiBy_slider_value {
-        display: inline-block;
-        width: 30px; /* Adjust the width as needed */
-        padding: 1px;
-        margin-left: 10px;
-        background-color: #f0f0f0;
-        font-size: 18px; /* Adjust the font size as needed */
-        text-align: center;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    #chiBz_slider_value {
-        display: inline-block;
-        width: 30px; /* Adjust the width as needed */
-        padding: 1px;
-        margin-left: 10px;
-        background-color: #f0f0f0;
-        font-size: 18px; /* Adjust the font size as needed */
-        text-align: center;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
 
     .advanced-settings {
             background-color: #f0f0f0; /* Background color for advanced settings */
@@ -504,37 +396,37 @@ label {
 
     <label for="mass_ratio_slider">Mass Ratio:</label>
     <input type="range" min="1" max="6" value="2.4" step="0.1" class="slider mass_ratio_slider" id="mass_ratio_slider">
-    <span id="mass_ratio_slider_value">2.4</span>
+    <span id="mass_ratio_slider_value" class="slider_value_box" >2.4</span>
     <br>
     
     <label for="chiAx_slider">ChiAx :</label>
-    <input type="range" min="-1" max="1" value="0" step="0.1" class="slider chiAx_slider" id="chiAx_slider">
-    <span id="chiAx_slider_value">0</span>
+    <input type="range" min="-1" max="1" value="0" step="0.05" class="slider chiAx_slider" id="chiAx_slider">
+    <span id="chiAx_slider_value" class="slider_value_box" >0</span>
     <br>
     
     <label for="chiAy_slider">ChiAy :</label>
-    <input type="range" min="-1" max="1" value="0.5" step="0.1" class="slider chiAy_slider" id="chiAy_slider">
-    <span id="chiAy_slider_value">0.5</span>
+    <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiAy_slider" id="chiAy_slider">
+    <span id="chiAy_slider_value" class="slider_value_box" >0.5</span>
     <br>
     
     <label for="chiAz_slider">ChiAz :</label>
-    <input type="range" min="-1" max="1" value="0.6" step="0.1" class="slider chiAz_slider" id="chiAz_slider">
-    <span id="chiAz_slider_value">0.6</span>
+    <input type="range" min="-1" max="1" value="0.6" step="0.05" class="slider chiAz_slider" id="chiAz_slider">
+    <span id="chiAz_slider_value" class="slider_value_box" >0.6</span>
     <br>
     
     <label for="chiBx_slider">ChiBx :</label>
-    <input type="range" min="-1" max="1" value="0.3" step="0.1" class="slider chiBx_slider" id="chiBx_slider">
-    <span id="chiBx_slider_value">0.3</span>
+    <input type="range" min="-1" max="1" value="0.3" step="0.05" class="slider chiBx_slider" id="chiBx_slider">
+    <span id="chiBx_slider_value" class="slider_value_box" >0.3</span>
     <br>
     
     <label for="chiBy_slider">ChiBy :</label>
-    <input type="range" min="-1" max="1" value="-0.3" step="0.1" class="slider chiBy_slider" id="chiBy_slider">
-    <span id="chiBy_slider_value">-0.3</span>
+    <input type="range" min="-1" max="1" value="-0.3" step="0.05" class="slider chiBy_slider" id="chiBy_slider">
+    <span id="chiBy_slider_value" class="slider_value_box" >-0.3</span>
     <br>
     
     <label for="chiBz_slider">ChiBz :</label>
-    <input type="range" min="-1" max="1" value="0.5" step="0.1" class="slider chiBz_slider" id="chiBz_slider">
-    <span id="chiBz_slider_value">0.5</span>
+    <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiBz_slider" id="chiBz_slider">
+    <span id="chiBz_slider_value" class="slider_value_box" >0.5</span>
     <br>
 
 </div>
