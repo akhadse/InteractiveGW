@@ -262,6 +262,62 @@
       left: 850px; /* Adjust left position */
     }
 
+
+    .slider {
+  -webkit-appearance: none;
+  width: 10%;
+  height: 5px;
+  background: red; /* Remove the default track color */
+  outline: blue; /* Remove the outline */
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px; /* Set width of the slider thumb */
+  height: 20px; /* Set height of the slider thumb */
+  background: greenyellow; /* Set background color of the slider thumb */
+  border: 2px solid #333; /* Add a border around the slider thumb */
+  border-radius: 50%; /* Make the slider thumb circular */
+  cursor: e-resize; /* Change cursor to pointer when hovering over the slider thumb */
+}
+
+.mass_ratio_slider {
+  background:blue; /* Remove the default track color */
+}
+
+.mass_ratio_slider {
+  background:blue; /* Remove the default track color */
+}
+
+
+.chiAx_slider {
+  background:red; /* Remove the default track color */
+}
+.chiAy_slider {
+  background:green; /* Remove the default track color */
+}
+.chiAz_slider {
+  background:blue; /* Remove the default track color */
+}
+.chiBx_slider {
+  background:red; /* Remove the default track color */
+}
+.chiBy_slider {
+  background:green; /* Remove the default track color */
+}
+.chiBz_slider {
+  background:blue; /* Remove the default track color */
+}
+
+label {
+        margin-right: -100px; /* Adjust this value as needed */
+    }
+
+
+
+
+
     </style>
 
 </head>
@@ -416,37 +472,37 @@
 <br>
 
 <label for="mass_ratio_slider">Mass Ratio:</label>
-<input type="range" min="1" max="6" value="1" step="0.1" class="slider" id="mass_ratio_slider">
+<input type="range" min="1" max="6" value="1" step="0.1" class="slider mass_ratio_slider" id="mass_ratio_slider">
 <span id="mass_ratio_slider_value">1</span>
 <br>
 
 <label for="chiAx_slider">ChiAx :</label>
-<input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiAx_slider">
+<input type="range" min="-1" max="1" value="0" step="0.1" class="slider chiAx_slider" id="chiAx_slider">
 <span id="chiAx_slider_value">0</span>
 <br>
 
 <label for="chiAy_slider">ChiAy :</label>
-<input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiAy_slider">
+<input type="range" min="-1" max="1" value="0" step="0.1" class="slider chiAy_slider" id="chiAy_slider">
 <span id="chiAy_slider_value">0</span>
 <br>
 
 <label for="chiAz_slider">ChiAz :</label>
-<input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiAz_slider">
+<input type="range" min="-1" max="1" value="0" step="0.1" class="slider chiAz_slider" id="chiAz_slider">
 <span id="chiAz_slider_value">0</span>
 <br>
 
 <label for="chiBx_slider">ChiBx :</label>
-<input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiBx_slider">
+<input type="range" min="-1" max="1" value="0" step="0.1" class="slider chiBx_slider" id="chiBx_slider">
 <span id="chiBx_slider_value">0</span>
 <br>
 
 <label for="chiBy_slider">ChiBy :</label>
-<input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiBy_slider">
+<input type="range" min="-1" max="1" value="0" step="0.1" class="slider chiBy_slider" id="chiBy_slider">
 <span id="chiBy_slider_value">0</span>
 <br>
 
 <label for="chiBz_slider">ChiBz :</label>
-<input type="range" min="-1" max="1" value="0" step="0.1" class="slider" id="chiBz_slider">
+<input type="range" min="-1" max="1" value="0" step="0.1" class="slider chiBz_slider" id="chiBz_slider">
 <span id="chiBz_slider_value">0</span>
 <br>
 
@@ -719,6 +775,23 @@ scene.add(gridY);
 const gridZ = new THREE.GridHelper(70, 70);
 scene.add(gridZ);
 
+
+// X axis
+let X_axis_vec = new THREE.ArrowHelper(new THREE.Vector3(1,0,0), new THREE.Vector3(-35,0,0), 70, 0xff0000, 0.007, 0.007); // Adjusted initial vector
+X_axis_vec.line.material.linewidth = 4;
+scene.add(X_axis_vec);
+
+// Y axis
+let Y_axis_vec = new THREE.ArrowHelper(new THREE.Vector3(0,1,0), new THREE.Vector3(0,-35,0), 70, 0x00ff00, 0.007, 0.007); // Adjusted initial vector
+Y_axis_vec.line.material.linewidth = 4;
+scene.add(Y_axis_vec);
+
+// Z axis
+let Z_axis_vec = new THREE.ArrowHelper(new THREE.Vector3(0,0,1), new THREE.Vector3(0,0,-35), 70, 0x0000ff, 0.007, 0.007); // Adjusted initial vector
+Z_axis_vec.line.material.linewidth = 4;
+scene.add(Z_axis_vec);
+
+
 // Initial vector
 let BHASpinVec = new THREE.ArrowHelper(new THREE.Vector3(0,1,0), new THREE.Vector3(3,0,0), 3, 0xff0000, 0.7, 0.7); // Adjusted initial vector
 BHASpinVec.line.material.linewidth = 5;
@@ -740,7 +813,7 @@ BHBsphere.position.set(-3, 0, 0);
 scene.add(BHBsphere);
 
 // Camera setup
-camera.position.set(7,3.5,-10.5);
+camera.position.set(7,3.5,-10.5);//(7,3.5,-10.5);
 camera.lookAt(0, 0, 0);
 
 // Setup controls
