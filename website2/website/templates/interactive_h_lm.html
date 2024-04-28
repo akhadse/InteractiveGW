@@ -59,37 +59,6 @@
             text-decoration: none;
         }
 
-        #l_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-
-        #m_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-
-        #mass_ratio_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-        #chiAx_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-        #chiAy_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-        #chiAz_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-        #chiBx_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-        #chiBy_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-        #chiBz_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-
-
     .slider_value_box{
         display: inline-block;
         width: 45px; /* Adjust the width as needed */
@@ -161,7 +130,7 @@
       left: 0px; /* Adjust left position */
 }
 
-#slider_box{
+#slider_container{
       height: 30%; /* Adjust the height as needed */
       width: 25%; /* Adjust the width as needed */
       
@@ -181,14 +150,15 @@
       <!-- border: 2px solid black; -->
     }
 
-.slider {
+    .slider {
   -webkit-appearance: none;
-  width: 10%;
+  width: 300px;;
   height: 5px;
   background: red; /* Remove the default track color */
   outline: blue; /* Remove the outline */
   margin-bottom: 18px;
 }
+
 
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -382,7 +352,7 @@ label {
     <button type="submit" class="button" id="reset_camera_button">Reset Camera?</button>
 </div>
 
-<div id="slider_box">
+<div id="slider_container">
 
     <label for="l_slider">l:</label>
     <input type="range" min="2" max="4" value="2" step="1" class="slider" id="l_slider">
@@ -429,6 +399,16 @@ label {
     <span id="chiBz_slider_value" class="slider_value_box" >0.5</span>
     <br>
 
+    <label for="t_start">Time min :</label>
+    <input type="range" min="-1000" max="99" value="-250" step="1" class="slider" id="t_start">
+    <span id="t_start_slider_value" class="slider_value_box" >-250</span>
+    <br>
+
+    <label for="t_end">Time max :</label>
+    <input type="range" min="-1000" max="99" value="50" step="1" class="slider" id="t_end">
+    <span id="t_end_slider_value" class="slider_value_box" >50</span>
+    <br>
+
 </div>
 
 <div id="animation_container"></div>
@@ -437,17 +417,11 @@ label {
 <div class="advanced-settings">
     <h3>Advanced Settings</h3>
 
-    <!-- Surrogate parameters -->
-    <label for="t_start">Start time (For zoomed plot)</label>
-    <input type="number" id="t_start" name="t_start" value="-300" step="any" required><br>
-
-    <label for="t_end">End time (For zoomed plot)</label>
-    <input type="number" id="t_end" name="t_end" value="50" step="any" required><br>
-
     <!-- Horizontal line -->
     <hr class="horizontal-line">
 
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
@@ -627,6 +601,7 @@ label {
 
 
     t_start.addEventListener('input', function () {
+        t_start_slider_value.textContent = t_start.value;
         updateGraph({
         l : l_slider.value,
         m : m_slider.value,
@@ -644,6 +619,7 @@ label {
 
 
     t_end.addEventListener('input', function () {
+        t_end_slider_value.textContent = t_end.value;
         updateGraph({
         l : l_slider.value,
         m : m_slider.value,
