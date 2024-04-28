@@ -749,8 +749,6 @@ function reset_axis_function(sliderValues) {
     });
 }
 
-
-
     function updateGraph(sliderValues) {
         const l     = sliderValues.l;
         const m     = sliderValues.m;
@@ -765,7 +763,7 @@ function reset_axis_function(sliderValues) {
         const t_end   = sliderValues.t_end;
 
         const chiAmag = Math.sqrt(Math.pow(chiAx, 2) + Math.pow(chiAy, 2) + Math.pow(chiAz, 2));
-        const chiBmag = Math.sqrt(Math.pow(chiBx, 2) + Math.pow(chiBy, 2) + Math.pow(chiBz, 2));
+    const chiBmag = Math.sqrt(Math.pow(chiBx, 2) + Math.pow(chiBy, 2) + Math.pow(chiBz, 2));
 
         if (chiAmag > 1 || chiBmag > 1) {
             warning.style.display = 'block';
@@ -773,12 +771,12 @@ function reset_axis_function(sliderValues) {
             warning.style.display = 'none';
         }
 
-        fetch('/interactive_strain_update_route', {
+        fetch('/interactive_h_lm_update_route', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&inclination=' + inclination + '&phi_ref=' + phi_ref
+            body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&l=' + l + '&m=' + m
         })
         .then(response => response.json())
         .then(data => {
