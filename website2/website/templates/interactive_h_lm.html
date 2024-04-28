@@ -124,7 +124,7 @@
       width: 1000px; /* Adjust the width as needed */
       
       position: relative; /* Position absolutely */
-      top: -555px; /* Adjust top position */
+      top: -595px; /* Adjust top position */
       left: 805px; /* Adjust left position */
       <!-- border: 2px solid black; -->
     }
@@ -681,6 +681,25 @@ scene.add(Y_axis_vec);
 let Z_axis_vec = new THREE.ArrowHelper(new THREE.Vector3(0,0,1), new THREE.Vector3(0,0,-35), 70, 0x0000ff, 0.007, 0.007); // Adjusted initial vector
 Z_axis_vec.line.material.linewidth = 4;
 scene.add(Z_axis_vec);
+
+
+// X axis arrow
+let X_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(1,0,0), new THREE.Vector3(0,0,0), 1.5, 0xff0000, 0.4, 0.4); // Adjusted initial vector
+X_axis_arrow.line.material.linewidth = 4;
+scene.add(X_axis_arrow);
+
+// Y axis arrow
+let Y_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(0,1,0), new THREE.Vector3(0,0,0), 1.5, 0x00ff00, 0.4, 0.4); // Adjusted initial vector
+Y_axis_arrow.line.material.linewidth = 4;
+scene.add(Y_axis_arrow);
+
+// Z axis arrow
+let Z_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(0,0,1), new THREE.Vector3(0,0,0), 1.5, 0x0000ff, 0.4, 0.4); // Adjusted initial vector
+Z_axis_arrow.line.material.linewidth = 4;
+scene.add(Z_axis_arrow);
+
+
+
 
 // Initial vector
 let BHASpinVec = new THREE.ArrowHelper(new THREE.Vector3(0,0.5,0.6), new THREE.Vector3(3,0,0), 3*0.78102, 0xff0000, 0.7, 0.7); // Adjusted initial vector
