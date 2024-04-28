@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Download_GW</title>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
     <style>
 
         h1 {
@@ -84,10 +87,50 @@
             font-weight: bold;
             text-decoration: none;
         }
+
+
+    /* Styles for the loading container */
+    .loading-container {
+        position: absolute;
+        top: 65%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 9999; /* Ensure it appears above other content */
+        padding: 100%;
+        background-color:rgba(0, 0, 0, 0.205);;
+        border-radius: 3px;
+    }
+    /* Styles for the loading GIF */
+    .loading-gif {
+        width: 750px; /* Adjust as needed */
+        height: auto; /* Maintain aspect ratio */
+    }
+    /* Styles for the text below the loading GIF */
+    .loading-text {
+        margin-top: 20px; /* Adjust as needed */
+        font-size: 48px; /* Adjust as needed */
+        font-weight: bold;
+        color: black;
+    }
+
+    div#loading {
+    display: none;
+    cursor: wait;
+    }
+
+
     </style>
 
 </head>
 <body>
+
+    <div class="loading-container" id="loading">
+        <!-- Replace 'loading.gif' with the path to your loading GIF -->
+        <img class="loading-gif" src="https://svs.gsfc.nasa.gov/vis/a010000/a013000/a013043/SMBH_Sim_ThinTilt_Palindrome.gif" alt="Loading...">
+        <p class="loading-text"> Hang tight! Universe is processing your request...</p>
+    </div>
+
     <div class="center">
         <header>
             <nav>
@@ -104,7 +147,7 @@
     <hr class="horizontal-line">
 
     <h1>Enter BBH Parameters</h1>
-    <form action="/download_h_lm" method="post">
+    <form id="parameter_form" method="post" onsubmit="return submitForm();">
 
         <label for="choose_parameter_to_vary">Choose a Parameter to vary</label>
         <select id="choose_parameter_to_vary" name="choose_parameter_to_vary" >
@@ -207,5 +250,28 @@
 
         </div>
     </form>
+
+    <script>
+        function submitForm() {
+            // Show loading image
+            $("#loading").show();
+            
+            // Make post request
+            var form = document.getElementById('parameter_form');
+            var formData = new FormData(form);
+            fetch('/download_h_lm', {
+            method: 'POST',
+            body: formData
+        }).then(response => {
+            // Handle response
+            // For example, you can redirect to a new page or show a message
+            $("#loading").hide();
+        })
+            // Prevent default form submission
+            return false;
+
+            
+        }
+    </script>
 </body>
 </html>
