@@ -61,36 +61,6 @@ h1 {color: darkmagenta; /* Change 'blue' to the color you desire */
             text-decoration: none;
         }
 
-        #inclination_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-
-        #phi_ref_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-
-        #mass_ratio_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-        #chiAx_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-        #chiAy_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-        #chiAz_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-        #chiBx_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-        #chiBy_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-        #chiBz_slider {
-        width: 300px; /* Adjust the width as needed */
-    }
-
 
     .slider_value_box{
         display: inline-block;
@@ -163,7 +133,7 @@ h1 {color: darkmagenta; /* Change 'blue' to the color you desire */
       left: 0px; /* Adjust left position */
 }
 
-#slider_box{
+#slider_container{
       height: 30%; /* Adjust the height as needed */
       width: 25%; /* Adjust the width as needed */
       
@@ -183,13 +153,13 @@ h1 {color: darkmagenta; /* Change 'blue' to the color you desire */
       <!-- border: 2px solid black; -->
     }
 
-
-    .slider {
+.slider {
   -webkit-appearance: none;
-  width: 10%;
+  width: 300px;;
   height: 5px;
   background: red; /* Remove the default track color */
   outline: blue; /* Remove the outline */
+  margin-bottom: 18px;
 }
 
 .slider::-webkit-slider-thumb {
@@ -202,6 +172,7 @@ h1 {color: darkmagenta; /* Change 'blue' to the color you desire */
   border-radius: 50%; /* Make the slider thumb circular */
   cursor: e-resize; /* Change cursor to pointer when hovering over the slider thumb */
 }
+
 
 .mass_ratio_slider {
   background:blue; /* Remove the default track color */
@@ -230,6 +201,7 @@ h1 {color: darkmagenta; /* Change 'blue' to the color you desire */
 .chiBz_slider {
   background:blue; /* Remove the default track color */
 }
+
 
 label {
         margin-right: -100px; /* Adjust this value as needed */
@@ -385,7 +357,7 @@ label {
 </div>
 
 
-<div id="slider_box">
+<div id="slider_container">
 
 <label for="inclination_slider">Inclination:</label>
 <input type="range" min="0" max="180" value="0" step="1" class="slider" id="inclination_slider">
@@ -432,7 +404,15 @@ label {
 <span id="chiBz_slider_value" class="slider_value_box" >0.5</span>
 <br>
 
+<label for="t_start">Time min :</label>
+<input type="range" min="-1000" max="99" value="-250" step="1" class="slider" id="t_start">
+<span id="t_start_slider_value" class="slider_value_box" >-250</span>
+<br>
 
+<label for="t_end">Time max :</label>
+<input type="range" min="-1000" max="99" value="50" step="1" class="slider" id="t_end">
+<span id="t_end_slider_value" class="slider_value_box" >50</span>
+<br>
 
 </div>
 
@@ -442,13 +422,6 @@ label {
 <!-- Additional Advanced Settings Section -->
 <div class="advanced-settings">
     <h3>Advanced Settings</h3>
-
-    <!-- Surrogate parameters -->
-    <label for="t_start">Start time (For zoomed plot)</label>
-    <input type="number" id="t_start" name="t_start" value="-300" step="any" required><br>
-
-    <label for="t_end">End time (For zoomed plot)</label>
-    <input type="number" id="t_end" name="t_end" value="50" step="any" required><br>
 
     <!-- Horizontal line -->
     <hr class="horizontal-line">
@@ -630,6 +603,7 @@ label {
     });
 
     t_start.addEventListener('input', function () {
+        t_start_slider_value.textContent = t_start.value;
         updateGraph({
         inclination : inclination_slider.value,
         phi_ref     : phi_ref_slider.value,
@@ -646,6 +620,7 @@ label {
     });
 
     t_end.addEventListener('input', function () {
+        t_end_slider_value.textContent = t_end.value;
         updateGraph({
         inclination : inclination_slider.value,
         phi_ref     : phi_ref_slider.value,
