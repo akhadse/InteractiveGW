@@ -74,26 +74,6 @@ h1 {color: darkmagenta; /* Change 'blue' to the color you desire */
         border-radius: 5px;
     }
 
-    .advanced-settings {
-            background-color: #f0f0f0; /* Background color for advanced settings */
-            padding: 10px;
-            margin-top: 20px; /* Add margin to separate from previous elements */
-            border-radius: 5px; /* Rounded corners */
-        }
-        .advanced-settings label {
-            display: inline-block;
-            color: #ff4500; /* Text color for labels in advanced settings */
-            width: 200px; /* Width for labels in advanced settings */
-        }
-        .advanced-settings input[type="text"] {
-            width: 50px; /* Width for input boxes in advanced settings */
-        }
-
-        .advanced-settings input[type="number"] {
-        width: 80px; /* Adjusted width for input fields */
-        padding: 5px;
-        margin-bottom: 10px;
-}
 
 
 .button {
@@ -123,6 +103,7 @@ h1 {color: darkmagenta; /* Change 'blue' to the color you desire */
     margin-left: 525px;
     margin-top: 20px
 }
+
 
 #GW_interactive_graph{
     height: 25%; /* Adjust the height as needed */
@@ -202,12 +183,26 @@ h1 {color: darkmagenta; /* Change 'blue' to the color you desire */
   background:blue; /* Remove the default track color */
 }
 
-
 label {
         margin-right: -100px; /* Adjust this value as needed */
         font-size: 20px;
     }
 
+.warning-container {
+    display: none;
+    position: absolute;
+    margin-left: 525px;
+    margin-top: 20px;
+    width: 240px;
+    height: 140px;
+    padding: 5px;
+    background-color: #ff0000;
+    color: #ffffff;
+    font-size: 26px; /* Adjust the font size as needed */
+    text-align: center;
+    font-weight: bold;
+    line-height: 3.8vh;
+  }
 
     </style>
 
@@ -356,6 +351,11 @@ label {
     <button type="submit" class="button" id="reset_camera_button">Reset Camera?</button>
 </div>
 
+<div class="warning-container" id="warning">
+    !! Warning!! <br> Magnitude of  <br> ChiA and ChiB  <br>should be less that 1 
+  </div>
+  
+
 
 <div id="slider_container">
 
@@ -418,16 +418,6 @@ label {
 
 <div id="animation_container"></div>
 
-
-<!-- Additional Advanced Settings Section -->
-<div class="advanced-settings">
-    <h3>Advanced Settings</h3>
-
-    <!-- Horizontal line -->
-    <hr class="horizontal-line">
-
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
 
@@ -445,7 +435,8 @@ label {
     var chiBz_slider        = document.getElementById("chiBz_slider");
     var t_start             = document.getElementById("t_start");
     var t_end               = document.getElementById("t_end");
-    var reset_axis_button     = document.getElementById("reset_axis_button");    
+    var reset_axis_button     = document.getElementById("reset_axis_button");
+    const warning = document.getElementById('warning');
 
     var graphDiv = document.getElementById('GW_interactive_graph');
     
@@ -769,6 +760,14 @@ function reset_axis_function(sliderValues) {
         const t_start = sliderValues.t_start;
         const t_end   = sliderValues.t_end;
 
+        const chiAmag = Math.sqrt(Math.pow(chiAx, 2) + Math.pow(chiAy, 2) + Math.pow(chiAz, 2));
+        const chiBmag = Math.sqrt(Math.pow(chiBx, 2) + Math.pow(chiBy, 2) + Math.pow(chiBz, 2));
+
+        if (chiAmag > 1 || chiBmag > 1) {
+            warning.style.display = 'block';
+        } else {
+            warning.style.display = 'none';
+        }
 
         fetch('/interactive_strain_update_route', {
             method: 'POST',
