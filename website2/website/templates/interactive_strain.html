@@ -667,6 +667,7 @@ gridX.rotation.x = Math.PI / 2;
 scene.add(gridX);
 
 
+
 // X axis
 let X_axis_vec = new THREE.ArrowHelper(new THREE.Vector3(1,0,0), new THREE.Vector3(-35,0,0), 70, 0xff0000, 0.007, 0.007); // Adjusted initial vector
 X_axis_vec.line.material.linewidth = 4;
@@ -699,9 +700,40 @@ let Z_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(0,0,1), new THREE.Vec
 Z_axis_arrow.line.material.linewidth = 4;
 scene.add(Z_axis_arrow);
 
+// X axis Name 1
+let X_axis_name_1 = new THREE.ArrowHelper(new THREE.Vector3(.5,.7,0), new THREE.Vector3(1.1,-.7,0), .5, 0xff0000, 0.007, 0.007); // Adjusted initial vector
+X_axis_name_1.line.material.linewidth = 4;
+scene.add(X_axis_name_1);
 
+// X axis  Name 2
+let X_axis_name_2 = new THREE.ArrowHelper(new THREE.Vector3(-.5,.7,0), new THREE.Vector3(1.5,-.7,0), .5, 0xff0000, 0.007, 0.007); // Adjusted initial vector
+X_axis_name_2.line.material.linewidth = 4;
+scene.add(X_axis_name_2);
 
+// Y axis Name 1
+let Y_axis_name_1 = new THREE.ArrowHelper(new THREE.Vector3(.5,.9,0), new THREE.Vector3(-.55,.8,0), .8, 0x00ff00, 0.007, 0.007); // Adjusted initial vector
+Y_axis_name_1.line.material.linewidth = 4;
+scene.add(Y_axis_name_1);
 
+// Y axis  Name 2
+let Y_axis_name_2 = new THREE.ArrowHelper(new THREE.Vector3(-.5,.7,0), new THREE.Vector3(-.35,1.25,0), .3, 0x00ff00, 0.007, 0.007); // Adjusted initial vector
+Y_axis_name_2.line.material.linewidth = 4;
+scene.add(Y_axis_name_2);
+
+// Z axis Name 1
+let Z_axis_name_1 = new THREE.ArrowHelper(new THREE.Vector3(.5,0,0), new THREE.Vector3(.5,.9,1), .4, 0x0000ff, 0.007, 0.007); // Adjusted initial vector
+Z_axis_name_1.line.material.linewidth = 4;
+scene.add(Z_axis_name_1);
+
+// Z axis Name 2
+let Z_axis_name_2 = new THREE.ArrowHelper(new THREE.Vector3(-.5,-.8,0), new THREE.Vector3(.9,.9,1), .7, 0x0000ff, 0.007, 0.007); // Adjusted initial vector
+Z_axis_name_2.line.material.linewidth = 4;
+scene.add(Z_axis_name_2);
+
+// Z axis Name 3
+let Z_axis_name_3 = new THREE.ArrowHelper(new THREE.Vector3(.5,0,0), new THREE.Vector3(.5,.36,1), .4, 0x0000ff, 0.007, 0.007); // Adjusted initial vector
+Z_axis_name_3.line.material.linewidth = 4;
+scene.add(Z_axis_name_3);
 
 // Initial vector
 let BHASpinVec = new THREE.ArrowHelper(new THREE.Vector3(0,0.5,0.6), new THREE.Vector3(3,0,0), 3*0.78102, 0xff0000, 0.7, 0.7); // Adjusted initial vector
