@@ -27,11 +27,11 @@
         }
 
         .loading-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 70vh;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
         }
         .loading-gif {
             width: 900px; /* Adjust the width of the GIF */
@@ -79,11 +79,11 @@ figcaption {
         <header>
             <nav>
                 <ul>
-                    <li><a href="/">Home</a></li>
+                    <li><a href="/" style="color: blue;">Home</a></li>
                     <li><a href="/interactive_strain">GW strain</a></li>
                     <li><a href="/interactive_h_lm">h_lm modes</a></li>
                     <li><a href="/download_videos">Download Videos</a></li>
-                    <li><a href="/test_page">==Test Page==</a></li>
+                    <!-- <li><a href="/test_page">==Test Page==</a></li> -->
                 </ul>
             </nav>
         </header>
