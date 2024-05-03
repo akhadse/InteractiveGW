@@ -125,7 +125,7 @@
 <body>
     <div class="loading-container" id="loading">
         <!-- Replace 'loading.gif' with the path to your loading GIF -->
-        <img class="loading-gif" src="https://svs.gsfc.nasa.gov/vis/a010000/a013000/a013043/SMBH_Sim_ThinTilt_Palindrome.gif" alt="Loading...">
+        <img class="loading-gif" src="nasa_GW.gif" alt="Loading...">
         <p class="loading-text"> Hang tight! Universe is processing your request...</p>
     </div>
 
@@ -260,7 +260,14 @@
             fetch('/download_strain', {
             method: 'POST',
             body: formData
+        }).then(response => {
+            // Handle response
+            // For example, you can redirect to a new page or show a message
+            $("#loading").hide();
         })
+            // Prevent default form submission
+            return false;
+
             
         }
     </script>
