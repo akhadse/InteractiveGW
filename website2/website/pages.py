@@ -137,7 +137,7 @@ def download_h_lm():
         print("=================")
         print("Done!!!")
         print("=================")
-        return render_template('base.html')
+        return render_template('video_download_link.html', video_download_link=video_download_link)
 
     else:
         return render_template('download_h_lm.html')
