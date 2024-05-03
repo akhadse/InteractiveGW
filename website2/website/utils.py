@@ -169,14 +169,6 @@ def generate_video_for_strain_for_varying_param(input_dict):
 
 
 
-
-
-
-    return
-
-
-
-
 def generate_video_for_h_lm_varying_param(input_dict):
 
     ################
@@ -309,8 +301,8 @@ def generate_video_for_h_lm_varying_param(input_dict):
     # Release video writer
     video.release()
     cv2.destroyAllWindows()
-    
-    return 
+    video_download_link = generate_presigned_url(video_name)
+    return video_download_link
 
 def generate_sur_h_lm_for_param(input_dict):
 
