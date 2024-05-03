@@ -76,11 +76,11 @@ def download_strain():
         figure_params = {}
         input_dict = {"user_input":user_input, "surrogate_params":surrogate_params, "video_params":video_params,"figure_params":figure_params}
         
-        output = generate_video_for_strain_for_varying_param(input_dict)
+        video_download_link = generate_video_for_strain_for_varying_param(input_dict)
         print("=================")
         print("Done!!!")
         print("=================")
-        return render_template('base.html')
+        return render_template('video_download_link.html', video_download_link=video_download_link)
 
     else:
         return render_template('download_strain.html')
