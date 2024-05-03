@@ -71,7 +71,39 @@ figcaption {
             font-style: italic;
             /* Additional styling can be added here */
         }
+
+
+    /* Styles for the loading container */
+    .loading-container {
+        position: absolute;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 9999; /* Ensure it appears above other content */
+        padding: 100%;
+        border-radius: 3px;
+    }
+    /* Styles for the loading GIF */
+    .loading-gif {
+        width: 550px; /* Adjust as needed */
+        height: auto; /* Maintain aspect ratio */
+    }
+    /* Styles for the text below the loading GIF */
+    .loading-text {
+        margin-top: 20px; /* Adjust as needed */
+        font-size: 48px; /* Adjust as needed */
+        font-weight: bold;
+        color: black;
+    }
+
+    div#loading {
+    cursor: wait;
+    }
+
     </style>
+
+    
 
 </head>
 <body>
@@ -91,7 +123,11 @@ figcaption {
     <!-- Horizontal line -->
     <hr class="horizontal-line">
 
-    <h1>Video Download link</h1>
-    <p>Download your video here: <a href="{{ video_download_link }}">video_download_link</a></p>
+    <div class="loading-container" id="loading">
+        <!-- Replace 'loading.gif' with the path to your loading GIF -->
+        <img class="loading-gif" src="einstein_cycling.gif" alt="Loading...">
+        <p class="loading-text"> Your video is ready! <br> <br> >>>>  <a href="{{ video_download_link }}"> download_link</a>  <<<< </p>
+    </div>
+
 </body>
 </html>
