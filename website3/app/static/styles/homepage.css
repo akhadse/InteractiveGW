@@ -15,6 +15,10 @@
     text-align: center;
 }
 
+.navbar-nav .nav-item .nav-link:hover {
+    color: rgba(2, 183, 255, 0.925);
+}
+
 .navbar-toggler {
     /* background-color: pink; */
     margin: 0px;
