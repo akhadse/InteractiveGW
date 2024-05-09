@@ -1,3 +1,36 @@
-h1 {
+.navbar-nav .nav-item {
+    /* background-color: pink; */
+    margin: 0px;
+    padding: 0px;
+}
+
+.navbar-nav .nav-item .nav-link {
     color: red;
+    font-size: 32px;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    /* background-color: aqua; */
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+
+.navbar-toggler {
+    /* background-color: pink; */
+    margin: 0px;
+    padding: 0px;
+    border: 10px solid black;
+    background-color: #00ffff; /* Blue */
+    border-radius: 15px;
+    padding: 10px 30px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar-toggler:hover {
+    background-color: #005cb3; /* Darker blue on hover */
+    color: #ffffff; /* White text on hover */
+}
+
+.horizontal-line{
+    border-top: 1px solid black;
 }
