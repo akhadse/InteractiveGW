@@ -1,0 +1,36 @@
+.interactive-plot-container {
+    background-color: aqua;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    overflow: auto;
+    height: 100%;
+    border: 5px solid royalblue;
+}
+
+.sliders-container {
+    background-color:pink;
+    font-weight: bold;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    border: 5px solid red;
+}
+
+.interactive-BHs-container {
+    background-color:yellow;
+    font-weight: bold;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    border: 5px solid black;
+}
+
+.reset-buttons-container {
+    background-color:violet;
+    font-weight: bold;
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+    border: 5px solid black;
+}

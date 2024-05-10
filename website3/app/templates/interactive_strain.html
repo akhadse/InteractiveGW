@@ -5,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/base.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/headerbar.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/homepage.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/interactive_base.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/interactive_strain.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/interactive_h_lm.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/download_videos.css') }}">
@@ -15,6 +17,11 @@
 
 </head>
 <body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
     <div class="container-fluid">
 
@@ -29,10 +36,10 @@
                     <div class="container-fluid">
                         <ul class="navbar-nav row w-100"> 
                             <li class="nav-item col">
-                                <a class="nav-link" href="/" style="color: blue;">Home</a>
+                                <a class="nav-link" href="/">Home</a>
                             </li>
                             <li class="nav-item col"> 
-                                <a class="nav-link" href="/interactive_strain">GW strain</a>
+                                <a class="nav-link" href="/interactive_strain" style="color: blue;">GW strain</a>
                             </li>
                             <li class="nav-item col">
                                 <a class="nav-link" href="/interactive_h_lm">h_lm modes</a>
@@ -57,22 +64,157 @@
     <div class="container-fluid">
 
         <div class="row">
-            <div class="interactive-plot">
+            <div class="col-md-1 col-sm-12 reset-buttons-container">
+                Reset buttons
             </div>
+            <div class="col-md-11 col-sm-12 interactive-plot-container">
+                <div id="GW_interactive_graph"></div>
+            </div>
+            
         </div>
 
+        <div class="row">
+            <div class="col-md-4 col-sm-12 sliders-container">
+                Sliders
+            </div>
 
+            <div class="col-md-8 col-sm-12 interactive-BHs-container">
+                Interactive BBHs
+            </div>
+           
+        </div>
+      
 
     </div>
 
     
+
+    <script>
+
+        var graphDiv = document.getElementById('GW_interactive_graph');
+        const inclination = 0;
+        const phi_ref     = 0;
+        const mass_ratio = 2.4;
+        const chiAx = 0;
+        const chiAy = 0.5;
+        const chiAz = 0.6;
+        const chiBx = 0.3;
+        const chiBy = -0.3;
+        const chiBz = 0.5;
+
+        fetch('/interactive_strain_update_route', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&inclination=' + inclination + '&phi_ref=' + phi_ref
+        })
+        .then(response => response.json())
+        .then(data => {
+
+        h_abs = data.h_abs;
+        y_max = 1.2 * Math.max(...h_abs);
+        y_min = -y_max;
+
+        var trace1 = {
+            x: data.times,
+            y: data.h_plus,
+            type: 'scatter',
+            name: 'h_plus',
+            marker: {
+            color: 'red'  // Set color for trace1
+                 },
+            showlegend: true
+            };
+        var trace2 = {
+            x: data.times,
+            y: data.h_plus,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'h_cross',
+            marker: {
+            color: 'red'  // Set color for trace1
+                 },
+            showlegend: false
+            };
+        var trace3 = {
+            x: data.times,
+            y: data.h_cross,
+            type: 'scatter',
+            name: 'h_cross',
+            marker: {
+            color: 'blue'  // Set color for trace1
+                 },
+            showlegend: true
+            };
+        var trace4 = {
+            x: data.times,
+            y: data.h_cross,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'h_cross',
+            marker: {
+            color: 'blue'  // Set color for trace1
+                 },
+            showlegend: false
+            };
+        var trace5 = {
+            x: data.times,
+            y: data.h_abs,
+            type: 'scatter',
+            name: 'abs',
+            marker: {
+            color: 'green'  // Set color for trace1
+                 },
+            showlegend: true
+            };
+        var trace6 = {
+            x: data.times,
+            y: data.h_abs,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'abs',
+            marker: {
+            color: 'green'  // Set color for trace1
+                 },
+            showlegend: false
+            };
+        
+
+        var data = [trace1, trace2,trace3,trace4,trace5, trace6];
+        var layout = {
+        title: {
+            text: "rh/M",
+            font: {
+                size: 30,
+                color:'blue',
+                bold:true
+            }
+        },
+  xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
+  yaxis: {range:[y_min, y_max]},
+  yaxis2: {range: [y_min, y_max]},
+  xaxis2: {domain: [0.7, 1], range: [-300, 50],title: 'Time before merger (M)'}
+};
+
+        Plotly.newPlot(graphDiv, data, layout);
+
+        });
+</script>
+
+
+
+
+
+
+
     
       <!-- jQuery (Bootstrap JS plugins depend on it) -->
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 
 </body>
 </html>
