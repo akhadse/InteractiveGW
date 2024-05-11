@@ -71,11 +71,14 @@
             <div class="col-md-12 col-sm-12 interactive-plot-container">
 
                 <div class="reset_buttons" id="reset_axis_button_container">
-                    <button type="submit" class="button" id="reset_axis_button">Reset Axis?</button>
+                    <button type="submit" class="button" id="reset_axis_button">Reset Y-axis?</button>
                 </div>
 
-                <div id="GW_interactive_graph">
+                <div class="warning-container" id="warning">
+                    !! Warning!! <br> Magnitude of  <br> ChiA and ChiB  <br>should be less that 1 
                 </div>
+
+                <div id="GW_interactive_graph"></div>
             </div>
             
         </div>
@@ -194,8 +197,124 @@
 
     </div>
 
-    
-    <script>
+
+    <script> //Get initial plot of GW strain
+        var graphDiv = document.getElementById('GW_interactive_graph');
+        const inclination = 0;
+        const phi_ref     = 0;
+        const mass_ratio = 2.4;
+        const chiAx = 0;
+        const chiAy = 0.5;
+        const chiAz = 0.6;
+        const chiBx = 0.3;
+        const chiBy = -0.3;
+        const chiBz = 0.5;
+
+        fetch('/interactive_strain_update_route', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&inclination=' + inclination + '&phi_ref=' + phi_ref
+            })
+        .then(response => response.json())
+        .then(data => {
+
+            h_abs = data.h_abs;
+            y_max = 1.2 * Math.max(...h_abs);
+            y_min = -y_max;
+
+            var trace1 = {
+                x: data.times,
+                y: data.h_plus,
+                type: 'scatter',
+                name: 'h_plus',
+                marker: {
+                color: 'red'  // Set color for trace1
+                    },
+                showlegend: true
+            };
+            var trace2 = {
+                x: data.times,
+                y: data.h_plus,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                name: 'h_cross',
+                marker: {
+                color: 'red'  // Set color for trace1
+                    },
+                showlegend: false
+            };
+            var trace3 = {
+                x: data.times,
+                y: data.h_cross,
+                type: 'scatter',
+                name: 'h_cross',
+                marker: {
+                color: 'blue'  // Set color for trace1
+                    },
+                showlegend: true
+            };
+            var trace4 = {
+                x: data.times,
+                y: data.h_cross,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                name: 'h_cross',
+                marker: {
+                color: 'blue'  // Set color for trace1
+                    },
+                showlegend: false
+            };
+            var trace5 = {
+                x: data.times,
+                y: data.h_abs,
+                type: 'scatter',
+                name: 'abs',
+                marker: {
+                color: 'green'  // Set color for trace1
+                    },
+                showlegend: true
+            };
+            var trace6 = {
+                x: data.times,
+                y: data.h_abs,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                name: 'abs',
+                marker: {
+                color: 'green'  // Set color for trace1
+                    },
+                showlegend: false
+            };
+
+            var data = [trace1, trace2,trace3,trace4,trace5, trace6];
+            var layout = {
+                title: {
+                    text: "rh/M",
+                    font: {
+                        size: 30,
+                        color:'blue',
+                        bold:true
+                    }
+                },
+                xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
+                yaxis: {range:[y_min, y_max]},
+                yaxis2: {range: [y_min, y_max]},
+                xaxis2: {domain: [0.7, 1], range: [-300, 50],title: 'Time before merger (M)'}
+                };
+
+            Plotly.newPlot(graphDiv, data, layout);
+
+        });
+
+    </script>
+
+   
+    <script> // make the strain plot interactive with slider
 
         var inclination_slider  = document.getElementById("inclination_slider");
         var phi_ref_slider      = document.getElementById("phi_ref_slider");
@@ -310,8 +429,331 @@
             info_box_t_end.style.display = 'none';
         });
 
+        var graphDiv = document.getElementById('GW_interactive_graph');
+   
+        inclination_slider.addEventListener('input', function () {
+            inclination_slider_value.textContent = inclination_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        phi_ref_slider.addEventListener('input', function () {
+            phi_ref_slider_value.textContent = phi_ref_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        mass_ratio_slider.addEventListener('input', function () {
+            mass_ratio_slider_value.textContent = mass_ratio_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        chiAx_slider.addEventListener('input', function () {
+            chiAx_slider_value.textContent = chiAx_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        chiAy_slider.addEventListener('input', function () {
+            chiAy_slider_value.textContent = chiAy_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        chiAz_slider.addEventListener('input', function () {
+            chiAz_slider_value.textContent = chiAz_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        chiBx_slider.addEventListener('input', function () {
+            chiBx_slider_value.textContent = chiBx_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        chiBy_slider.addEventListener('input', function () {
+            chiBy_slider_value.textContent = chiBy_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        chiBz_slider.addEventListener('input', function () {
+            chiBz_slider_value.textContent = chiBz_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        t_start.addEventListener('input', function () {
+            t_start_slider_value.textContent = t_start.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        t_end.addEventListener('input', function () {
+            t_end_slider_value.textContent = t_end.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        reset_axis_button.addEventListener('click', function () {
+            reset_axis_function({
+                inclination: inclination_slider.value,
+                phi_ref: phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start: t_start.value,
+                t_end: t_end.value,
+            });
+        });
 
 
+        function updateGraph(sliderValues) {
+            const inclination = sliderValues.inclination;
+            const phi_ref     = sliderValues.phi_ref;
+            const mass_ratio = sliderValues.mass_ratio;
+            const chiAx = sliderValues.chiAx;
+            const chiAy = sliderValues.chiAy;
+            const chiAz = sliderValues.chiAz;
+            const chiBx = sliderValues.chiBx;
+            const chiBy = sliderValues.chiBy;
+            const chiBz = sliderValues.chiBz;
+            const t_start = sliderValues.t_start;
+            const t_end   = sliderValues.t_end;
+
+            const chiAmag = Math.sqrt(Math.pow(chiAx, 2) + Math.pow(chiAy, 2) + Math.pow(chiAz, 2));
+            const chiBmag = Math.sqrt(Math.pow(chiBx, 2) + Math.pow(chiBy, 2) + Math.pow(chiBz, 2));
+
+            if (chiAmag > 1 || chiBmag > 1) {
+                warning.style.display = 'block';
+            } else {
+                warning.style.display = 'none';
+            }
+
+            fetch('/interactive_strain_update_route', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&inclination=' + inclination + '&phi_ref=' + phi_ref
+            })
+            .then(response => response.json())
+            .then(data => {
+
+                var trace1 = {
+                    x: data.times,
+                    y: data.h_plus,
+                    type: 'scatter',
+                    name: 'h_plus',
+                    marker: {
+                    color: 'red'  // Set color for trace1
+                        },
+                    showlegend: true
+                    };
+                var trace2 = {
+                    x: data.times,
+                    y: data.h_plus,
+                    xaxis: 'x2',
+                    yaxis: 'y2',
+                    type: 'scatter',
+                    name: 'h_cross',
+                    marker: {
+                    color: 'red'  // Set color for trace1
+                        },
+                    showlegend: false
+                    };
+                var trace3 = {
+                    x: data.times,
+                    y: data.h_cross,
+                    type: 'scatter',
+                    name: 'h_cross',
+                    marker: {
+                    color: 'blue'  // Set color for trace1
+                        },
+                    showlegend: true
+                    };
+                var trace4 = {
+                    x: data.times,
+                    y: data.h_cross,
+                    xaxis: 'x2',
+                    yaxis: 'y2',
+                    type: 'scatter',
+                    name: 'h_cross',
+                    marker: {
+                    color: 'blue'  // Set color for trace1
+                        },
+                    showlegend: false
+                    };
+                var trace5 = {
+                    x: data.times,
+                    y: data.h_abs,
+                    type: 'scatter',
+                    name: 'abs',
+                    marker: {
+                    color: 'green'  // Set color for trace1
+                        },
+                    showlegend: true
+                    };
+                var trace6 = {
+                    x: data.times,
+                    y: data.h_abs,
+                    xaxis: 'x2',
+                    yaxis: 'y2',
+                    type: 'scatter',
+                    name: 'abs',
+                    marker: {
+                    color: 'green'  // Set color for trace1
+                        },
+                    showlegend: false
+                    };
+            
+
+                var data = [trace1, trace2,trace3,trace4,trace5, trace6];
+                var layout = {
+                    title: {
+                        text: "rh/M",
+                        font: {
+                            size: 30,
+                            color:'blue',
+                            bold:true
+                            }
+                        },
+                    xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
+                    yaxis: {range:[y_min,y_max]},
+                    yaxis2: {range: [y_min,y_max]},
+                    xaxis2: {domain: [0.7, 1], range: [t_start, t_end],title: 'Time before merger (M)'}
+                    };
+
+                Plotly.newPlot(graphDiv, data, layout);
+            });
+        };
 
 </script>
 
@@ -336,118 +778,7 @@
 
     <script>
 
-        var graphDiv = document.getElementById('GW_interactive_graph');
-        const inclination = 0;
-        const phi_ref     = 0;
-        const mass_ratio = 2.4;
-        const chiAx = 0;
-        const chiAy = 0.5;
-        const chiAz = 0.6;
-        const chiBx = 0.3;
-        const chiBy = -0.3;
-        const chiBz = 0.5;
 
-        fetch('/interactive_strain_update_route', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&inclination=' + inclination + '&phi_ref=' + phi_ref
-        })
-        .then(response => response.json())
-        .then(data => {
-
-        h_abs = data.h_abs;
-        y_max = 1.2 * Math.max(...h_abs);
-        y_min = -y_max;
-
-        var trace1 = {
-            x: data.times,
-            y: data.h_plus,
-            type: 'scatter',
-            name: 'h_plus',
-            marker: {
-            color: 'red'  // Set color for trace1
-                 },
-            showlegend: true
-            };
-        var trace2 = {
-            x: data.times,
-            y: data.h_plus,
-            xaxis: 'x2',
-            yaxis: 'y2',
-            type: 'scatter',
-            name: 'h_cross',
-            marker: {
-            color: 'red'  // Set color for trace1
-                 },
-            showlegend: false
-            };
-        var trace3 = {
-            x: data.times,
-            y: data.h_cross,
-            type: 'scatter',
-            name: 'h_cross',
-            marker: {
-            color: 'blue'  // Set color for trace1
-                 },
-            showlegend: true
-            };
-        var trace4 = {
-            x: data.times,
-            y: data.h_cross,
-            xaxis: 'x2',
-            yaxis: 'y2',
-            type: 'scatter',
-            name: 'h_cross',
-            marker: {
-            color: 'blue'  // Set color for trace1
-                 },
-            showlegend: false
-            };
-        var trace5 = {
-            x: data.times,
-            y: data.h_abs,
-            type: 'scatter',
-            name: 'abs',
-            marker: {
-            color: 'green'  // Set color for trace1
-                 },
-            showlegend: true
-            };
-        var trace6 = {
-            x: data.times,
-            y: data.h_abs,
-            xaxis: 'x2',
-            yaxis: 'y2',
-            type: 'scatter',
-            name: 'abs',
-            marker: {
-            color: 'green'  // Set color for trace1
-                 },
-            showlegend: false
-            };
-        
-
-        var data = [trace1, trace2,trace3,trace4,trace5, trace6];
-        var layout = {
-        title: {
-            text: "rh/M",
-            font: {
-                size: 30,
-                color:'blue',
-                bold:true
-            }
-        },
-  xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
-  yaxis: {range:[y_min, y_max]},
-  yaxis2: {range: [y_min, y_max]},
-  xaxis2: {domain: [0.7, 1], range: [-300, 50],title: 'Time before merger (M)'}
-};
-
-        Plotly.newPlot(graphDiv, data, layout);
-
-        });
 </script>
 
 
