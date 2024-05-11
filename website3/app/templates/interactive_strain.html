@@ -324,7 +324,7 @@
         var chiBz_slider        = document.getElementById("chiBz_slider");
         var t_start             = document.getElementById("t_start");
         var t_end               = document.getElementById("t_end");
-        var reset_axis_button     = document.getElementById("reset_axis_button");
+        var reset_axis_button   = document.getElementById("reset_axis_button");
         const warning = document.getElementById('warning');
     
         var inclination_slider_text = document.getElementById("inclination_slider_text")
@@ -630,6 +630,36 @@
                 t_end: t_end.value,
             });
         });
+
+        function reset_axis_function(sliderValues) {
+            const inclination = sliderValues.inclination;
+            const phi_ref = sliderValues.phi_ref;
+            const mass_ratio = sliderValues.mass_ratio;
+            const chiAx = sliderValues.chiAx;
+            const chiAy = sliderValues.chiAy;
+            const chiAz = sliderValues.chiAz;
+            const chiBx = sliderValues.chiBx;
+            const chiBy = sliderValues.chiBy;
+            const chiBz = sliderValues.chiBz;
+            const t_start = sliderValues.t_start;
+            const t_end = sliderValues.t_end;
+
+            fetch('/interactive_strain_update_route', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&inclination=' + inclination + '&phi_ref=' + phi_ref
+            })
+            .then(response => response.json())
+            .then(data => {
+                h_abs = data.h_abs;
+                y_max = 1.2 * Math.max(...h_abs);
+                y_min = -y_max;
+
+                updateGraph(sliderValues);
+            });
+        }
 
         function updateGraph(sliderValues) {
             const inclination = sliderValues.inclination;
