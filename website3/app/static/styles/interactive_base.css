@@ -1,19 +1,15 @@
 .interactive-plot-container {
     background-color: aqua;
-    font-weight: bold;
-    font-size: 20px;
-    text-align: center;
     overflow: auto;
     height: 100%;
     border: 5px solid royalblue;
+    text-align: center;
 }
 
 .sliders-container {
     background-color:pink;
-    font-weight: bold;
     font-size: 20px;
     width: 100%;
-    text-align: center;
     border: 5px solid red;
 }
 
@@ -34,3 +30,46 @@
     text-align: center;
     border: 5px solid black;
 }
+
+
+.slider {
+    -webkit-appearance: none;
+    background: red; /* Remove the default track color */
+    outline: blue; /* Remove the outline */
+    margin-bottom: 18px;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px; /* Set width of the slider thumb */
+    height: 20px; /* Set height of the slider thumb */
+    background: greenyellow; /* Set background color of the slider thumb */
+    border: 2px solid #333; /* Add a border around the slider thumb */
+    border-radius: 50%; /* Make the slider thumb circular */
+    cursor: e-resize; /* Change cursor to pointer when hovering over the slider thumb */
+  }
+
+  .info_box_for_slider_names{
+    display: none;
+    background-color: white;
+    border: 4px solid rgb(20, 112, 148);
+    font-size: 24px;
+    color: rgb(11, 58, 77);
+    text-align: center;
+    padding: 10px;
+
+}
+
+
+    .slider_value_box{
+        display: inline-block;
+        width: 45px; /* Adjust the width as needed */
+        padding: 1px;
+        margin-left: 10px;
+        background-color: #f0f0f0;
+        font-size: 18px; /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }

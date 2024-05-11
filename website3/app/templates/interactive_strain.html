@@ -26,7 +26,7 @@
     <div class="container-fluid">
 
         <header>
-            <nav class="navbar navbar-expand-md navbar-light">
+            <nav class="navbar navbar-expand-md navbar-light" id="navbar">
                 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -75,7 +75,98 @@
 
         <div class="row">
             <div class="col-md-4 col-sm-12 sliders-container">
-                Sliders
+                
+                <label for="inclination_slider" id="inclination_slider_text">Inclination:</label>
+                <input type="range" min="0" max="180" value="0" step="1" class="slider" id="inclination_slider">
+                <span id="inclination_slider_value" class="slider_value_box" >0</span>
+                <div class="info_box_for_slider_names" id="info_box_inclination">
+                    <p> Inclination angle between the orbital angular momentum direction at the reference epoch and the line-of-sight to the observer.<br> The complex strain (h =hplus -i hcross) evaluated at (inclination, pi/2 - phi_ref) on the sky of the reference frame is returned.</p>
+                </div>
+                <br>
+
+                <label for="phi_ref_slider" id="phi_ref_slider_text">Phi_ref:</label>
+                <input type="range" min="0" max="360" value="0" step="1" class="slider" id="phi_ref_slider">
+                <span id="phi_ref_slider_value" class="slider_value_box" >0</span>
+                <div class="info_box_for_slider_names" id="info_box_phi_ref">
+                    <p> The azimuthal angle on the sky of the source frame following the LAL convention. <br> The complex strain (h =hplus -i hcross) evaluated at (inclination, pi/2 - phi_ref) on the sky of the reference frame is returned.</p>
+                </div>
+                <br>
+
+                <label for="mass_ratio_slider" id="mass_ratio_slider_text">Mass Ratio:</label>
+                <input type="range" min="1" max="6" value="2.4" step="0.1" class="slider mass_ratio_slider" id="mass_ratio_slider">
+                <span id="mass_ratio_slider_value" class="slider_value_box" >2.4</span>
+                <div class="info_box_for_slider_names" id="info_box_mass_ratio">
+                    <p> Mass ratio, mA/mB >= 1.</p>
+                </div>
+                <br>
+
+                <label for="chiAx_slider" id="chiAx_slider_text">ChiAx :</label>
+                <input type="range" min="-1" max="1" value="0" step="0.05" class="slider chiAx_slider" id="chiAx_slider">
+                <span id="chiAx_slider_value" class="slider_value_box" >0</span>
+                <div class="info_box_for_slider_names" id="info_box_chiAx">
+                    <p> x-component of dimensionless spin vector of the heavier black hole</p>
+                </div>
+                <br>
+
+                <label for="chiAy_slider" id="chiAy_slider_text">ChiAy :</label>
+                <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiAy_slider" id="chiAy_slider">
+                <span id="chiAy_slider_value" class="slider_value_box" >0.5</span>
+                <div class="info_box_for_slider_names" id="info_box_chiAy">
+                    <p> y-component dimensionless spin vector of the heavier black hole</p>
+                </div>
+                <br>
+
+                <label for="chiAz_slider" id="chiAz_slider_text">ChiAz :</label>
+                <input type="range" min="-1" max="1" value="0.6" step="0.05" class="slider chiAz_slider" id="chiAz_slider">
+                <span id="chiAz_slider_value" class="slider_value_box" >0.6</span>
+                <div class="info_box_for_slider_names" id="info_box_chiAz">
+                    <p> z-component dimensionless spin vector of the heavier black hole</p>
+                </div>
+                <br>
+
+                <label for="chiBx_slider" id="chiBx_slider_text">ChiBx :</label>
+                <input type="range" min="-1" max="1" value="0.3" step="0.05" class="slider chiBx_slider" id="chiBx_slider">
+                <span id="chiBx_slider_value" class="slider_value_box" >0.3</span>
+                <div class="info_box_for_slider_names" id="info_box_chiBx">
+                    <p> x-component dimensionless spin vector of the lighter black hole</p>
+                </div>
+                <br>
+
+                <label for="chiBy_slider" id="chiBy_slider_text">ChiBy :</label>
+                <input type="range" min="-1" max="1" value="-0.3" step="0.05" class="slider chiBy_slider" id="chiBy_slider">
+                <span id="chiBy_slider_value" class="slider_value_box" >-0.3</span>
+                <div class="info_box_for_slider_names" id="info_box_chiBy">
+                    <p> y-component dimensionless spin vector of the lighter black hole</p>
+                </div>
+                <br>
+
+                <label for="chiBz_slider" id="chiBz_slider_text">ChiBz :</label>
+                <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiBz_slider" id="chiBz_slider">
+                <span id="chiBz_slider_value" class="slider_value_box" >0.5</span>
+                <div class="info_box_for_slider_names" id="info_box_chiBz">
+                    <p> z-component dimensionless spin vector of the lighter black hole</p>
+                </div>
+                <br>
+
+                <label for="t_start" id="t_start_slider_text">Time min :</label>
+                <input type="range" min="-1000" max="99" value="-250" step="1" class="slider" id="t_start">
+                <span id="t_start_slider_value" class="slider_value_box" >-250</span>
+                <div class="info_box_for_slider_names" id="info_box_t_start">
+                    <p> Start time of the zoomed plot on the right</p>
+                </div>
+                <br>
+
+                <label for="t_end" id="t_end_slider_text">Time max :</label>
+                <input type="range" min="-1000" max="99" value="50" step="1" class="slider" id="t_end">
+                <span id="t_end_slider_value" class="slider_value_box" >50</span>
+                <div class="info_box_for_slider_names" id="info_box_t_end">
+                    <p> End time of the zoomed plot on the right</p>
+                </div>
+                <br>
+
+
+
+
             </div>
 
             <div class="col-md-8 col-sm-12 interactive-BHs-container">
@@ -88,6 +179,26 @@
     </div>
 
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <script>
 
