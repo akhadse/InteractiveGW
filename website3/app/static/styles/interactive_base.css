@@ -55,17 +55,6 @@
     cursor: e-resize; /* Change cursor to pointer when hovering over the slider thumb */
   }
 
-  .info_box_for_slider_names{
-    display: none;
-    background-color: white;
-    border: 4px solid rgb(20, 112, 148);
-    font-size: 24px;
-    color: rgb(11, 58, 77);
-    text-align: center;
-    padding: 10px;
-
-}
-
     .slider_value_box{
         display: inline-block;
         vertical-align: middle;
@@ -97,6 +86,7 @@
     }
 
     .custom-row {
+        position: relative;
         display: flex;
         flex-wrap: nowrap; /* Prevent wrapping */
         justify-content: space-between; /* Distribute items evenly along the row */
@@ -110,4 +100,20 @@
 
     .custom-row .slider{
         flex: 2; /* Each item occupies equal space */
+    }
+
+    .info_box_for_slider_names{
+        position: absolute;
+        display: none;
+        position: fixed;
+        top: 50%; /* Position it 50% from the top */
+        left: 50%; /* Position it 50% from the left */
+        transform: translate(-50%, -50%); 
+        background-color: white;
+        border: 4px solid rgb(20, 112, 148);
+        font-size: 24px;
+        color: rgb(11, 58, 77);
+        text-align: center;
+        padding: 10px;
+    
     }
