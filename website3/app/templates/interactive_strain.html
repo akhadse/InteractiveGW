@@ -63,7 +63,6 @@
     <!-- Horizontal line -->
     <hr class="horizontal-line">
 
-
     <div class="container-fluid">
 
         <div class="row">
@@ -211,12 +210,12 @@
         const chiBz = 0.5;
 
         fetch('/interactive_strain_update_route', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&inclination=' + inclination + '&phi_ref=' + phi_ref
-            })
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&inclination=' + inclination + '&phi_ref=' + phi_ref
+        })
         .then(response => response.json())
         .then(data => {
 
@@ -309,11 +308,9 @@
 
             Plotly.newPlot(graphDiv, data, layout);
 
-        });
-
+            });
     </script>
 
-   
     <script> // make the strain plot interactive with slider
 
         var inclination_slider  = document.getElementById("inclination_slider");
@@ -634,7 +631,6 @@
             });
         });
 
-
         function updateGraph(sliderValues) {
             const inclination = sliderValues.inclination;
             const phi_ref     = sliderValues.phi_ref;
@@ -734,7 +730,6 @@
                     showlegend: false
                     };
             
-
                 var data = [trace1, trace2,trace3,trace4,trace5, trace6];
                 var layout = {
                     title: {
@@ -750,42 +745,11 @@
                     yaxis2: {range: [y_min,y_max]},
                     xaxis2: {domain: [0.7, 1], range: [t_start, t_end],title: 'Time before merger (M)'}
                     };
-
                 Plotly.newPlot(graphDiv, data, layout);
             });
         };
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <script>
-
-
-</script>
-
-
-
-
-
-
 
     
       <!-- jQuery (Bootstrap JS plugins depend on it) -->

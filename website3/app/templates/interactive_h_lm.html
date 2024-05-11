@@ -73,8 +73,11 @@
                     <button type="submit" class="button" id="reset_axis_button">Reset Y-axis?</button>
                 </div>
 
-                <div id="GW_interactive_graph">
+                <div class="warning-container" id="warning">
+                    !! Warning!! <br> Magnitude of  <br> ChiA and ChiB  <br>should be less that 1 
                 </div>
+
+                <div id="GW_interactive_graph"></div>
             </div>
             
         </div>
@@ -194,8 +197,122 @@
     </div>
 
 
+    <script> //Get initial plot of GW hlm
+        var graphDiv = document.getElementById('GW_interactive_graph');
+        const l     = 2;
+        const m     = 2;
+        const mass_ratio = 2.4;
+        const chiAx = 0;
+        const chiAy = 0.5;
+        const chiAz = 0.6;
+        const chiBx = 0.3;
+        const chiBy = -0.3;
+        const chiBz = 0.5;
+    
+        fetch('/interactive_h_lm_update_route', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&l=' + l + '&m=' + m
+        })
+        .then(response => response.json())
+        .then(data => {
+    
+        h_abs = data.h_lm_abs;
+        y_max = 1.2 * Math.max(...h_abs);
+        y_min = -y_max;
 
-    <script>
+        var trace1 = {
+            x: data.times,
+            y: data.h_lm_real,
+            type: 'scatter',
+            name: 'Real',
+            marker: {
+            color: 'red'  // Set color for trace1
+                 },
+            showlegend: true
+        };
+        var trace2 = {
+            x: data.times,
+            y: data.h_lm_real,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'Real',
+            marker: {
+                color: 'red'  // Set color for trace1
+            },
+            showlegend: false
+        };
+        var trace3 = {
+            x: data.times,
+            y: data.h_lm_imag,
+            type: 'scatter',
+            name: 'Imag',
+            marker: {
+                color: 'blue'  // Set color for trace1
+                 },
+            showlegend: true
+        };
+        var trace4 = {
+            x: data.times,
+            y: data.h_lm_imag,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'Imag',
+            marker: {
+                color: 'blue'  // Set color for trace1
+                 },
+            showlegend: false
+        };
+        var trace5 = {
+            x: data.times,
+            y: data.h_lm_abs,
+            type: 'scatter',
+            name: 'abs',
+            marker: {
+                color: 'green'  // Set color for trace1
+            },
+            showlegend: true
+        };
+        var trace6 = {
+            x: data.times,
+            y: data.h_lm_abs,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'abs',
+            marker: {
+                color: 'green'  // Set color for trace1
+            },
+            showlegend: false
+        };        
+
+        var data = [trace1, trace2,trace3,trace4,trace5, trace6];
+        var layout = {
+            title: {
+                text: "h_" + l + m,
+                font: {
+                    size: 30,
+                    color:'blue',
+                    bold:true
+                }
+            },
+            xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
+            yaxis: {range:[y_min, y_max]},
+            yaxis2: {range: [y_min, y_max]},
+            xaxis2: {domain: [0.7, 1], range: [-300, 50],title: 'Time before merger (M)'}
+        };
+
+        Plotly.newPlot(graphDiv, data, layout);
+
+        });
+    </script>
+
+    <script> // make the h_lm plot interactive with slider
+
         var l_slider            = document.getElementById("l_slider");
         var m_slider            = document.getElementById("m_slider");
         var mass_ratio_slider   = document.getElementById("mass_ratio_slider");
@@ -208,7 +325,6 @@
         var t_start             = document.getElementById("t_start");
         var t_end               = document.getElementById("t_end");
         var reset_axis_button     = document.getElementById("reset_axis_button");
-        var reset_camera_button = document.getElementById("reset_camera_button");
         const warning = document.getElementById('warning');
 
         var l_slider_text = document.getElementById("l_slider_text")
@@ -310,20 +426,232 @@
             info_box_t_end.style.display = 'none';
         });
 
-
-    </script>
-
-    <script>
         var graphDiv = document.getElementById('GW_interactive_graph');
-        const l     = 2;
-        const m     = 2;
-        const mass_ratio = 2.4;
-        const chiAx = 0;
-        const chiAy = 0.5;
-        const chiAz = 0.6;
-        const chiBx = 0.3;
-        const chiBy = -0.3;
-        const chiBz = 0.5;
+    
+    l_slider.addEventListener('input', function () {
+        l_slider_value.textContent = l_slider.value;
+        updateGraph({
+            l : l_slider.value,
+            m : m_slider.value,
+            mass_ratio: mass_ratio_slider.value,
+            chiAx: chiAx_slider.value,
+            chiAy: chiAy_slider.value,
+            chiAz: chiAz_slider.value,
+            chiBx: chiBx_slider.value,
+            chiBy: chiBy_slider.value,
+            chiBz: chiBz_slider.value,
+            t_start:t_start.value,
+            t_end  :t_end.value,
+        });
+    });
+
+    m_slider.addEventListener('input', function () {
+        m_slider_value.textContent = m_slider.value;
+        updateGraph({
+            l : l_slider.value,
+            m : m_slider.value,
+            mass_ratio: mass_ratio_slider.value,
+            chiAx: chiAx_slider.value,
+            chiAy: chiAy_slider.value,
+            chiAz: chiAz_slider.value,
+            chiBx: chiBx_slider.value,
+            chiBy: chiBy_slider.value,
+            chiBz: chiBz_slider.value,
+            t_start:t_start.value,
+            t_end  :t_end.value,
+        });
+    });
+
+    mass_ratio_slider.addEventListener('input', function () {
+        mass_ratio_slider_value.textContent = mass_ratio_slider.value;
+        updateGraph({
+            l : l_slider.value,
+            m : m_slider.value,
+            mass_ratio: mass_ratio_slider.value,
+            chiAx: chiAx_slider.value,
+            chiAy: chiAy_slider.value,
+            chiAz: chiAz_slider.value,
+            chiBx: chiBx_slider.value,
+            chiBy: chiBy_slider.value,
+            chiBz: chiBz_slider.value,
+            t_start:t_start.value,
+            t_end  :t_end.value,
+        });
+    });
+
+    chiAx_slider.addEventListener('input', function () {
+        chiAx_slider_value.textContent = chiAx_slider.value;
+        updateGraph({
+            l : l_slider.value,
+            m : m_slider.value,
+            mass_ratio: mass_ratio_slider.value,
+            chiAx: chiAx_slider.value,
+            chiAy: chiAy_slider.value,
+            chiAz: chiAz_slider.value,
+            chiBx: chiBx_slider.value,
+            chiBy: chiBy_slider.value,
+            chiBz: chiBz_slider.value,
+            t_start:t_start.value,
+            t_end  :t_end.value,
+        });
+    });
+
+    chiAy_slider.addEventListener('input', function () {
+        chiAy_slider_value.textContent = chiAy_slider.value;
+        updateGraph({
+            l : l_slider.value,
+            m : m_slider.value,
+            mass_ratio: mass_ratio_slider.value,
+            chiAx: chiAx_slider.value,
+            chiAy: chiAy_slider.value,
+            chiAz: chiAz_slider.value,
+            chiBx: chiBx_slider.value,
+            chiBy: chiBy_slider.value,
+            chiBz: chiBz_slider.value,
+            t_start:t_start.value,
+            t_end  :t_end.value,
+        });
+    });
+
+    chiAz_slider.addEventListener('input', function () {
+        chiAz_slider_value.textContent = chiAz_slider.value;
+        updateGraph({
+            l : l_slider.value,
+            m : m_slider.value,
+            mass_ratio: mass_ratio_slider.value,
+            chiAx: chiAx_slider.value,
+            chiAy: chiAy_slider.value,
+            chiAz: chiAz_slider.value,
+            chiBx: chiBx_slider.value,
+            chiBy: chiBy_slider.value,
+            chiBz: chiBz_slider.value,
+            t_start:t_start.value,
+            t_end  :t_end.value,
+        });
+    });
+
+    chiBx_slider.addEventListener('input', function () {
+        chiBx_slider_value.textContent = chiBx_slider.value;
+        updateGraph({
+            l : l_slider.value,
+            m : m_slider.value,
+            mass_ratio: mass_ratio_slider.value,
+            chiAx: chiAx_slider.value,
+            chiAy: chiAy_slider.value,
+            chiAz: chiAz_slider.value,
+            chiBx: chiBx_slider.value,
+            chiBy: chiBy_slider.value,
+            chiBz: chiBz_slider.value,
+            t_start:t_start.value,
+            t_end  :t_end.value,
+        });
+    });
+
+    chiBy_slider.addEventListener('input', function () {
+        chiBy_slider_value.textContent = chiBy_slider.value;
+        updateGraph({
+            l : l_slider.value,
+            m : m_slider.value,
+            mass_ratio: mass_ratio_slider.value,
+            chiAx: chiAx_slider.value,
+            chiAy: chiAy_slider.value,
+            chiAz: chiAz_slider.value,
+            chiBx: chiBx_slider.value,
+            chiBy: chiBy_slider.value,
+            chiBz: chiBz_slider.value,
+            t_start:t_start.value,
+            t_end  :t_end.value,
+        });
+    });
+
+    chiBz_slider.addEventListener('input', function () {
+        chiBz_slider_value.textContent = chiBz_slider.value;
+        updateGraph({
+            l : l_slider.value,
+            m : m_slider.value,
+            mass_ratio: mass_ratio_slider.value,
+            chiAx: chiAx_slider.value,
+            chiAy: chiAy_slider.value,
+            chiAz: chiAz_slider.value,
+            chiBx: chiBx_slider.value,
+            chiBy: chiBy_slider.value,
+            chiBz: chiBz_slider.value,
+            t_start:t_start.value,
+            t_end  :t_end.value,
+        });
+    });
+
+    t_start.addEventListener('input', function () {
+        t_start_slider_value.textContent = t_start.value;
+        updateGraph({
+            l : l_slider.value,
+            m : m_slider.value,
+            mass_ratio: mass_ratio_slider.value,
+            chiAx: chiAx_slider.value,
+            chiAy: chiAy_slider.value,
+            chiAz: chiAz_slider.value,
+            chiBx: chiBx_slider.value,
+            chiBy: chiBy_slider.value,
+            chiBz: chiBz_slider.value,
+            t_start:t_start.value,
+            t_end  :t_end.value,
+        });
+    });
+
+    t_end.addEventListener('input', function () {
+        t_end_slider_value.textContent = t_end.value;
+        updateGraph({
+            l : l_slider.value,
+            m : m_slider.value,
+            mass_ratio: mass_ratio_slider.value,
+            chiAx: chiAx_slider.value,
+            chiAy: chiAy_slider.value,
+            chiAz: chiAz_slider.value,
+            chiBx: chiBx_slider.value,
+            chiBy: chiBy_slider.value,
+            chiBz: chiBz_slider.value,
+            t_start:t_start.value,
+            t_end  :t_end.value,
+        });
+    });
+
+    reset_axis_button.addEventListener('click', function () {
+        reset_axis_function({
+            l : l_slider.value,
+            m : m_slider.value,
+            mass_ratio: mass_ratio_slider.value,
+            chiAx: chiAx_slider.value,
+            chiAy: chiAy_slider.value,
+            chiAz: chiAz_slider.value,
+            chiBx: chiBx_slider.value,
+            chiBy: chiBy_slider.value,
+            chiBz: chiBz_slider.value,
+            t_start:t_start.value,
+            t_end  :t_end.value,
+        });
+    });
+
+    function updateGraph(sliderValues) {
+        const l     = sliderValues.l;
+        const m     = sliderValues.m;
+        const mass_ratio = sliderValues.mass_ratio;
+        const chiAx = sliderValues.chiAx;
+        const chiAy = sliderValues.chiAy;
+        const chiAz = sliderValues.chiAz;
+        const chiBx = sliderValues.chiBx;
+        const chiBy = sliderValues.chiBy;
+        const chiBz = sliderValues.chiBz;
+        const t_start = sliderValues.t_start;
+        const t_end   = sliderValues.t_end;
+
+        const chiAmag = Math.sqrt(Math.pow(chiAx, 2) + Math.pow(chiAy, 2) + Math.pow(chiAz, 2));
+        const chiBmag = Math.sqrt(Math.pow(chiBx, 2) + Math.pow(chiBy, 2) + Math.pow(chiBz, 2));
+
+        if (chiAmag > 1 || chiBmag > 1) {
+            warning.style.display = 'block';
+        } else {
+            warning.style.display = 'none';
+        }
 
         fetch('/interactive_h_lm_update_route', {
             method: 'POST',
@@ -334,109 +662,97 @@
         })
         .then(response => response.json())
         .then(data => {
+            
+            var trace1 = {
+                x: data.times,
+                y: data.h_lm_real,
+                type: 'scatter',
+                name: 'Real',
+                marker: {
+                color: 'red'  // Set color for trace1
+                    },
+                showlegend: true
+                };
+            var trace2 = {
+                x: data.times,
+                y: data.h_lm_real,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                name: 'Real',
+                marker: {
+                color: 'red'  // Set color for trace1
+                    },
+                showlegend: false
+                };
+            var trace3 = {
+                x: data.times,
+                y: data.h_lm_imag,
+                type: 'scatter',
+                name: 'Imag',
+                marker: {
+                color: 'blue'  // Set color for trace1
+                    },
+                showlegend: true
+                };
+            var trace4 = {
+                x: data.times,
+                y: data.h_lm_imag,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                name: 'Imag',
+                marker: {
+                color: 'blue'  // Set color for trace1
+                    },
+                showlegend: false
+                };
+            var trace5 = {
+                x: data.times,
+                y: data.h_lm_abs,
+                type: 'scatter',
+                name: 'abs',
+                marker: {
+                color: 'green'  // Set color for trace1
+                    },
+                showlegend: true
+                };
+            var trace6 = {
+                x: data.times,
+                y: data.h_lm_abs,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                name: 'abs',
+                marker: {
+                color: 'green'  // Set color for trace1
+                    },
+                showlegend: false
+                };
 
-        h_abs = data.h_lm_abs;
-        y_max = 1.2 * Math.max(...h_abs);
-        y_min = -y_max;
-
-        var trace1 = {
-            x: data.times,
-            y: data.h_lm_real,
-            type: 'scatter',
-            name: 'Real',
-            marker: {
-            color: 'red'  // Set color for trace1
+            var data = [trace1, trace2,trace3,trace4,trace5, trace6];
+            var layout = {
+                title: {
+                    text: "h_" + l + m,
+                    font: {
+                        size: 30,
+                        color:'blue',
+                        bold:true
+                    }
                 },
-            showlegend: true
+                xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
+                yaxis: {range:[y_min,y_max]},
+                yaxis2: {range: [y_min,y_max]},
+                xaxis2: {domain: [0.7, 1], range: [t_start, t_end],title: 'Time before merger (M)'}
             };
-        var trace2 = {
-            x: data.times,
-            y: data.h_lm_real,
-            xaxis: 'x2',
-            yaxis: 'y2',
-            type: 'scatter',
-            name: 'Real',
-            marker: {
-            color: 'red'  // Set color for trace1
-                },
-            showlegend: false
-            };
-        var trace3 = {
-            x: data.times,
-            y: data.h_lm_imag,
-            type: 'scatter',
-            name: 'Imag',
-            marker: {
-            color: 'blue'  // Set color for trace1
-                },
-            showlegend: true
-            };
-        var trace4 = {
-            x: data.times,
-            y: data.h_lm_imag,
-            xaxis: 'x2',
-            yaxis: 'y2',
-            type: 'scatter',
-            name: 'Imag',
-            marker: {
-            color: 'blue'  // Set color for trace1
-                },
-            showlegend: false
-            };
-        var trace5 = {
-            x: data.times,
-            y: data.h_lm_abs,
-            type: 'scatter',
-            name: 'abs',
-            marker: {
-            color: 'green'  // Set color for trace1
-                },
-            showlegend: true
-            };
-        var trace6 = {
-            x: data.times,
-            y: data.h_lm_abs,
-            xaxis: 'x2',
-            yaxis: 'y2',
-            type: 'scatter',
-            name: 'abs',
-            marker: {
-            color: 'green'  // Set color for trace1
-                },
-            showlegend: false
-            };
-        
-
-        var data = [trace1, trace2,trace3,trace4,trace5, trace6];
-        var layout = {
-        title: {
-            text: "h_" + l + m,
-            font: {
-                size: 30,
-                color:'blue',
-                bold:true
-            }
-        },
-    xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
-    yaxis: {range:[y_min, y_max]},
-    yaxis2: {range: [y_min, y_max]},
-    xaxis2: {domain: [0.7, 1], range: [-300, 50],title: 'Time before merger (M)'}
+            Plotly.newPlot(graphDiv, data, layout);
+        });
     };
 
-        Plotly.newPlot(graphDiv, data, layout);
-
-        });
-    </script>
-
-
-
-
-
-
-
+</script>
 
     
-      <!-- jQuery (Bootstrap JS plugins depend on it) -->
+<!-- jQuery (Bootstrap JS plugins depend on it) -->
 
 
 
