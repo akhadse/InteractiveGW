@@ -16,12 +16,15 @@
     <title>Interactive GW</title>
 
 </head>
+
 <body>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
 
     <div class="container-fluid">
 
@@ -76,101 +79,110 @@
         <div class="row">
             <div class="col-md-4 col-sm-12 sliders-container">
                 
-                <label for="inclination_slider" id="inclination_slider_text">Inclination:</label>
-                <input type="range" min="0" max="180" value="0" step="1" class="slider" id="inclination_slider">
-                <span id="inclination_slider_value" class="slider_value_box" >0</span>
-                <div class="info_box_for_slider_names" id="info_box_inclination">
-                    <p> Inclination angle between the orbital angular momentum direction at the reference epoch and the line-of-sight to the observer.<br> The complex strain (h =hplus -i hcross) evaluated at (inclination, pi/2 - phi_ref) on the sky of the reference frame is returned.</p>
+                <div class="custom-row">
+                    <label for="inclination_slider" class="slider_text" id="inclination_slider_text">Inclination:</label>
+                    <input type="range" min="0" max="180" value="0" step="1" class="slider" id="inclination_slider">
+                    <span id="inclination_slider_value" class="slider_value_box">0</span>
+                    <div class="info_box_for_slider_names" id="info_box_inclination">
+                        <p> Inclination angle between the orbital angular momentum direction at the reference epoch and the line-of-sight to the observer.<br> The complex strain (h =hplus -i hcross) evaluated at (inclination, pi/2 - phi_ref) on the sky of the reference frame is returned.</p>
+                    </div>
                 </div>
-                <br>
 
-                <label for="phi_ref_slider" id="phi_ref_slider_text">Phi_ref:</label>
-                <input type="range" min="0" max="360" value="0" step="1" class="slider" id="phi_ref_slider">
-                <span id="phi_ref_slider_value" class="slider_value_box" >0</span>
-                <div class="info_box_for_slider_names" id="info_box_phi_ref">
-                    <p> The azimuthal angle on the sky of the source frame following the LAL convention. <br> The complex strain (h =hplus -i hcross) evaluated at (inclination, pi/2 - phi_ref) on the sky of the reference frame is returned.</p>
+                <div class="custom-row">
+                    <label for="phi_ref_slider" class="slider_text" id="phi_ref_slider_text">Phi_ref:</label>
+                    <input type="range" min="0" max="360" value="0" step="1" class="slider" id="phi_ref_slider">
+                    <span id="phi_ref_slider_value" class="slider_value_box" >0</span>
+                    <div class="info_box_for_slider_names" id="info_box_phi_ref">
+                        <p> The azimuthal angle on the sky of the source frame following the LAL convention. <br> The complex strain (h =hplus -i hcross) evaluated at (inclination, pi/2 - phi_ref) on the sky of the reference frame is returned.</p>
+                    </div>
                 </div>
-                <br>
 
-                <label for="mass_ratio_slider" id="mass_ratio_slider_text">Mass Ratio:</label>
-                <input type="range" min="1" max="6" value="2.4" step="0.1" class="slider mass_ratio_slider" id="mass_ratio_slider">
-                <span id="mass_ratio_slider_value" class="slider_value_box" >2.4</span>
-                <div class="info_box_for_slider_names" id="info_box_mass_ratio">
-                    <p> Mass ratio, mA/mB >= 1.</p>
+                <div class="custom-row">
+                    <label for="mass_ratio_slider" class="slider_text" id="mass_ratio_slider_text">Mass Ratio:</label>
+                    <input type="range" min="1" max="6" value="2.4" step="0.1" class="slider mass_ratio_slider" id="mass_ratio_slider">
+                    <span id="mass_ratio_slider_value" class="slider_value_box" >2.4</span>
+                    <div class="info_box_for_slider_names" id="info_box_mass_ratio">
+                        <p> Mass ratio, mA/mB >= 1.</p>
+                    </div>
                 </div>
-                <br>
 
-                <label for="chiAx_slider" id="chiAx_slider_text">ChiAx :</label>
-                <input type="range" min="-1" max="1" value="0" step="0.05" class="slider chiAx_slider" id="chiAx_slider">
-                <span id="chiAx_slider_value" class="slider_value_box" >0</span>
-                <div class="info_box_for_slider_names" id="info_box_chiAx">
-                    <p> x-component of dimensionless spin vector of the heavier black hole</p>
+                <div class="custom-row">
+                    <label for="chiAx_slider" class="slider_text" id="chiAx_slider_text">ChiAx :</label>
+                    <input type="range" min="-1" max="1" value="0" step="0.05" class="slider chiAx_slider" id="chiAx_slider">
+                    <span id="chiAx_slider_value" class="slider_value_box" >0</span>
+                    <div class="info_box_for_slider_names" id="info_box_chiAx">
+                        <p> x-component of dimensionless spin vector of the heavier black hole</p>
+                    </div>
                 </div>
-                <br>
 
-                <label for="chiAy_slider" id="chiAy_slider_text">ChiAy :</label>
-                <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiAy_slider" id="chiAy_slider">
-                <span id="chiAy_slider_value" class="slider_value_box" >0.5</span>
-                <div class="info_box_for_slider_names" id="info_box_chiAy">
-                    <p> y-component dimensionless spin vector of the heavier black hole</p>
+                <div class="custom-row">
+                    <label for="chiAy_slider" class="slider_text" id="chiAy_slider_text">ChiAy :</label>
+                    <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiAy_slider" id="chiAy_slider">
+                    <span id="chiAy_slider_value" class="slider_value_box" >0.5</span>
+                    <div class="info_box_for_slider_names" id="info_box_chiAy">
+                        <p> y-component dimensionless spin vector of the heavier black hole</p>
+                    </div>
                 </div>
-                <br>
 
-                <label for="chiAz_slider" id="chiAz_slider_text">ChiAz :</label>
-                <input type="range" min="-1" max="1" value="0.6" step="0.05" class="slider chiAz_slider" id="chiAz_slider">
-                <span id="chiAz_slider_value" class="slider_value_box" >0.6</span>
-                <div class="info_box_for_slider_names" id="info_box_chiAz">
-                    <p> z-component dimensionless spin vector of the heavier black hole</p>
+
+                <div class="custom-row">
+                    <label for="chiAz_slider" class="slider_text" id="chiAz_slider_text">ChiAz :</label>
+                    <input type="range" min="-1" max="1" value="0.6" step="0.05" class="slider chiAz_slider" id="chiAz_slider">
+                    <span id="chiAz_slider_value" class="slider_value_box" >0.6</span>
+                    <div class="info_box_for_slider_names" id="info_box_chiAz">
+                        <p> z-component dimensionless spin vector of the heavier black hole</p>
+                        </div>
                 </div>
-                <br>
 
-                <label for="chiBx_slider" id="chiBx_slider_text">ChiBx :</label>
-                <input type="range" min="-1" max="1" value="0.3" step="0.05" class="slider chiBx_slider" id="chiBx_slider">
-                <span id="chiBx_slider_value" class="slider_value_box" >0.3</span>
-                <div class="info_box_for_slider_names" id="info_box_chiBx">
-                    <p> x-component dimensionless spin vector of the lighter black hole</p>
+                <div class="custom-row">
+                    <label for="chiBx_slider" class="slider_text" id="chiBx_slider_text">ChiBx :</label>
+                    <input type="range" min="-1" max="1" value="0.3" step="0.05" class="slider chiBx_slider" id="chiBx_slider">
+                    <span id="chiBx_slider_value" class="slider_value_box" >0.3</span>
+                    <div class="info_box_for_slider_names" id="info_box_chiBx">
+                        <p> x-component dimensionless spin vector of the lighter black hole</p>
+                    </div>
                 </div>
-                <br>
 
-                <label for="chiBy_slider" id="chiBy_slider_text">ChiBy :</label>
-                <input type="range" min="-1" max="1" value="-0.3" step="0.05" class="slider chiBy_slider" id="chiBy_slider">
-                <span id="chiBy_slider_value" class="slider_value_box" >-0.3</span>
-                <div class="info_box_for_slider_names" id="info_box_chiBy">
-                    <p> y-component dimensionless spin vector of the lighter black hole</p>
+                <div class="custom-row">
+                    <label for="chiBy_slider" class="slider_text" id="chiBy_slider_text">ChiBy :</label>
+                    <input type="range" min="-1" max="1" value="-0.3" step="0.05" class="slider chiBy_slider" id="chiBy_slider">
+                    <span id="chiBy_slider_value" class="slider_value_box" >-0.3</span>
+                    <div class="info_box_for_slider_names" id="info_box_chiBy">
+                        <p> y-component dimensionless spin vector of the lighter black hole</p>
+                    </div>
                 </div>
-                <br>
 
-                <label for="chiBz_slider" id="chiBz_slider_text">ChiBz :</label>
-                <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiBz_slider" id="chiBz_slider">
-                <span id="chiBz_slider_value" class="slider_value_box" >0.5</span>
-                <div class="info_box_for_slider_names" id="info_box_chiBz">
-                    <p> z-component dimensionless spin vector of the lighter black hole</p>
+                <div class="custom-row">
+                    <label for="chiBz_slider" class="slider_text" id="chiBz_slider_text">ChiBz :</label>
+                    <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiBz_slider" id="chiBz_slider">
+                    <span id="chiBz_slider_value" class="slider_value_box" >0.5</span>
+                    <div class="info_box_for_slider_names" id="info_box_chiBz">
+                        <p> z-component dimensionless spin vector of the lighter black hole</p>
+                    </div>
                 </div>
-                <br>
 
-                <label for="t_start" id="t_start_slider_text">Time min :</label>
-                <input type="range" min="-1000" max="99" value="-250" step="1" class="slider" id="t_start">
-                <span id="t_start_slider_value" class="slider_value_box" >-250</span>
-                <div class="info_box_for_slider_names" id="info_box_t_start">
-                    <p> Start time of the zoomed plot on the right</p>
+                <div class="custom-row">
+                    <label for="t_start" class="slider_text" id="t_start_slider_text">Time min :</label>
+                    <input type="range" min="-1000" max="99" value="-250" step="1" class="slider" id="t_start">
+                    <span id="t_start_slider_value" class="slider_value_box" >-250</span>
+                    <div class="info_box_for_slider_names" id="info_box_t_start">
+                        <p> Start time of the zoomed plot on the right</p>
+                    </div>
                 </div>
-                <br>
 
-                <label for="t_end" id="t_end_slider_text">Time max :</label>
-                <input type="range" min="-1000" max="99" value="50" step="1" class="slider" id="t_end">
-                <span id="t_end_slider_value" class="slider_value_box" >50</span>
-                <div class="info_box_for_slider_names" id="info_box_t_end">
-                    <p> End time of the zoomed plot on the right</p>
+                <div class="custom-row">
+                    <label for="t_end" class="slider_text" id="t_end_slider_text">Time max :</label>
+                    <input type="range" min="-1000" max="99" value="50" step="1" class="slider" id="t_end">
+                    <span id="t_end_slider_value" class="slider_value_box" >50</span>
+                    <div class="info_box_for_slider_names" id="info_box_t_end">
+                        <p> End time of the zoomed plot on the right</p>
+                    </div>
                 </div>
-                <br>
-
-
-
 
             </div>
 
             <div class="col-md-8 col-sm-12 interactive-BHs-container">
-                Interactive BBHs
+                <div id="animation_container"></div>
             </div>
            
         </div>
@@ -179,7 +191,125 @@
     </div>
 
     
+    <script>
 
+        var inclination_slider  = document.getElementById("inclination_slider");
+        var phi_ref_slider      = document.getElementById("phi_ref_slider");
+        var mass_ratio_slider   = document.getElementById("mass_ratio_slider");
+        var chiAx_slider        = document.getElementById("chiAx_slider");
+        var chiAy_slider        = document.getElementById("chiAy_slider");
+        var chiAz_slider        = document.getElementById("chiAz_slider");
+        var chiBx_slider        = document.getElementById("chiBx_slider");
+        var chiBy_slider        = document.getElementById("chiBy_slider");
+        var chiBz_slider        = document.getElementById("chiBz_slider");
+        var t_start             = document.getElementById("t_start");
+        var t_end               = document.getElementById("t_end");
+        var reset_axis_button     = document.getElementById("reset_axis_button");
+        const warning = document.getElementById('warning');
+    
+        var inclination_slider_text = document.getElementById("inclination_slider_text")
+        var info_box_inclination = document.getElementById("info_box_inclination")
+        inclination_slider_text.addEventListener('mouseover', function() {
+            info_box_inclination.style.display = 'block';
+        });
+        inclination_slider_text.addEventListener('mouseout', function() {
+            info_box_inclination.style.display = 'none';
+        });
+
+        var phi_ref_slider_text = document.getElementById("phi_ref_slider_text")
+        var info_box_phi_ref = document.getElementById("info_box_phi_ref")
+        phi_ref_slider_text.addEventListener('mouseover', function() {
+            info_box_phi_ref.style.display = 'block';
+        });
+        phi_ref_slider_text.addEventListener('mouseout', function() {
+            info_box_phi_ref.style.display = 'none';
+        });
+
+        var mass_ratio_slider_text = document.getElementById("mass_ratio_slider_text")
+        var info_box_mass_ratio = document.getElementById("info_box_mass_ratio")
+        mass_ratio_slider_text.addEventListener('mouseover', function() {
+            info_box_mass_ratio.style.display = 'block';
+        });
+        mass_ratio_slider_text.addEventListener('mouseout', function() {
+            info_box_mass_ratio.style.display = 'none';
+        });
+
+        var chiAx_slider_text = document.getElementById("chiAx_slider_text")
+        var info_box_chiAx = document.getElementById("info_box_chiAx")
+        chiAx_slider_text.addEventListener('mouseover', function() {
+            info_box_chiAx.style.display = 'block';
+        });
+        chiAx_slider_text.addEventListener('mouseout', function() {
+            info_box_chiAx.style.display = 'none';
+        });
+
+        var chiAy_slider_text = document.getElementById("chiAy_slider_text")
+        var info_box_chiAy = document.getElementById("info_box_chiAy")
+        chiAy_slider_text.addEventListener('mouseover', function() {
+            info_box_chiAy.style.display = 'block';
+        });
+        chiAy_slider_text.addEventListener('mouseout', function() {
+            info_box_chiAy.style.display = 'none';
+        });
+
+        var chiAz_slider_text = document.getElementById("chiAz_slider_text")
+        var info_box_chiAz = document.getElementById("info_box_chiAz")
+        chiAz_slider_text.addEventListener('mouseover', function() {
+            info_box_chiAz.style.display = 'block';
+        });
+        chiAz_slider_text.addEventListener('mouseout', function() {
+            info_box_chiAz.style.display = 'none';
+        });
+
+        var chiBx_slider_text = document.getElementById("chiBx_slider_text")
+        var info_box_chiBx = document.getElementById("info_box_chiBx")
+        chiBx_slider_text.addEventListener('mouseover', function() {
+            info_box_chiBx.style.display = 'block';
+        });
+        chiBx_slider_text.addEventListener('mouseout', function() {
+            info_box_chiBx.style.display = 'none';
+        });
+
+        var chiBy_slider_text = document.getElementById("chiBy_slider_text")
+        var info_box_chiBy = document.getElementById("info_box_chiBy")
+        chiBy_slider_text.addEventListener('mouseover', function() {
+            info_box_chiBy.style.display = 'block';
+        });
+        chiBy_slider_text.addEventListener('mouseout', function() {
+            info_box_chiBy.style.display = 'none';
+        });
+
+        var chiBz_slider_text = document.getElementById("chiBz_slider_text")
+        var info_box_chiBz = document.getElementById("info_box_chiBz")
+        chiBz_slider_text.addEventListener('mouseover', function() {
+            info_box_chiBz.style.display = 'block';
+        });
+        chiBz_slider_text.addEventListener('mouseout', function() {
+            info_box_chiBz.style.display = 'none';
+        });
+
+        var t_start_slider_text = document.getElementById("t_start_slider_text")
+        var info_box_t_start = document.getElementById("info_box_t_start")
+        t_start_slider_text.addEventListener('mouseover', function() {
+            info_box_t_start.style.display = 'block';
+        });
+        t_start_slider_text.addEventListener('mouseout', function() {
+            info_box_t_start.style.display = 'none';
+        });
+
+        var t_end_slider_text = document.getElementById("t_end_slider_text")
+        var info_box_t_end = document.getElementById("info_box_t_end")
+        t_end_slider_text.addEventListener('mouseover', function() {
+            info_box_t_end.style.display = 'block';
+        });
+        t_end_slider_text.addEventListener('mouseout', function() {
+            info_box_t_end.style.display = 'none';
+        });
+
+
+
+
+</script>
 
 
 

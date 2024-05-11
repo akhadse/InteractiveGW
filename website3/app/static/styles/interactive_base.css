@@ -33,10 +33,15 @@
 
 
 .slider {
+    vertical-align: middle;
     -webkit-appearance: none;
     background: red; /* Remove the default track color */
     outline: blue; /* Remove the outline */
     margin-bottom: 18px;
+    width: 60%;
+    height: 20%;
+    max-height: 25px;
+    margin: 5px;
   }
 
   .slider::-webkit-slider-thumb {
@@ -61,15 +66,48 @@
 
 }
 
-
     .slider_value_box{
         display: inline-block;
-        width: 45px; /* Adjust the width as needed */
-        padding: 1px;
-        margin-left: 10px;
+        vertical-align: middle;
+        max-width: 45px;
+        width: 15%; /* Adjust the width as needed */
+        max-height: 30px;
+        padding: 0px;
         background-color: #f0f0f0;
-        font-size: 18px; /* Adjust the font size as needed */
+        font-size: min(5vw, 20px); /* Adjust the font size as needed */
         text-align: center;
         border: 1px solid #ccc;
         border-radius: 5px;
+    }
+
+    .slider_text{
+        margin: 5px;
+        display: flex;
+        font-size:min(5vw, 20px);
+        align-items: center;
+        align-items: center; 
+        justify-content: center;
+    }
+
+    .slider-row{
+        display: flex;
+        flex-wrap: nowrap; /* Prevent wrapping */
+        justify-content: space-between; /* Distribute items evenly along the row */
+        align-items: center; /* Center items vertically */
+    }
+
+    .custom-row {
+        display: flex;
+        flex-wrap: nowrap; /* Prevent wrapping */
+        justify-content: space-between; /* Distribute items evenly along the row */
+        align-items: center; /* Center items vertically */
+    }
+    
+    .custom-row .slider_text,
+    .custom-row .slider_value_box{
+        flex: 1; /* Each item occupies equal space */
+    }
+
+    .custom-row .slider{
+        flex: 2; /* Each item occupies equal space */
     }
