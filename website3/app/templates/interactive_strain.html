@@ -188,13 +188,17 @@
             </div>
 
             <div class="col-md-8 col-sm-12 interactive-BHs-container">
+
+                <div class="reset_buttons" id="reset_camera_button_container">
+                    <button type="submit" class="button" id="reset_camera_button">Reset Camera?</button>
+                </div>
+
                 <div id="animation_container"></div>
             </div>
            
         </div>      
 
     </div>
-
 
     <script> //Get initial plot of GW strain
         var graphDiv = document.getElementById('GW_interactive_graph');
@@ -324,6 +328,7 @@
         var t_start             = document.getElementById("t_start");
         var t_end               = document.getElementById("t_end");
         var reset_axis_button   = document.getElementById("reset_axis_button");
+        var reset_camera_button   = document.getElementById("reset_camera_button");
         const warning = document.getElementById('warning');
     
         var inclination_slider_text = document.getElementById("inclination_slider_text")
@@ -629,6 +634,14 @@
                 t_end: t_end.value,
             });
         });
+
+        reset_camera_button.addEventListener('click', function () {
+        // Reset camera position and controls
+        camera.position.set(-4,-6,2.5);
+        camera.lookAt(0, 0, 0);
+        camera.up.set(0, 0, 1);
+        controls.reset();
+            });
 
         // Setup scene
         const container  = document.getElementById('animation_container');
