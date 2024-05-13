@@ -62,15 +62,9 @@
     font-size: 20px;
     width: 100%;
     border: 5px solid red;
-}
-
-.interactive-BHs-container {
-    background-color:yellow;
-    font-weight: bold;
-    font-size: 20px;
-    width: 100%;
-    text-align: center;
-    border: 5px solid black;
+    margin: 0;
+    padding: 0;
+    padding-right: 5px;
 }
 
 .slider {
@@ -160,3 +154,18 @@
     }
 
 
+    .interactive-BHs-container {
+        position: relative;
+        margin: 0;
+        padding: 0;
+    }
+
+    #animation_container{
+        position: relative;
+        border: 5px solid black;
+        width: 100%;
+        height: max(100%, 500px);
+        margin: 0;
+        padding: 0;
+        background-color: pink;
+    }

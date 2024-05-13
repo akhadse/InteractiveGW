@@ -1,11 +1,16 @@
-#navbar {
+
+.navbar {
     height: auto; /* Set the height to 10% of the viewport height */
     vertical-align: bottom;
     border: 5px solid green;
     background-color: bisque;
     padding: 0;
     margin: 0;
+    margin-left: -15px;
+    margin-right: -15px;
 }
+
+
 
 .navbar-nav .nav-item {
     /* background-color: pink; */

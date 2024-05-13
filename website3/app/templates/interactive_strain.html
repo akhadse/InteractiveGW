@@ -191,8 +191,7 @@
                 <div id="animation_container"></div>
             </div>
            
-        </div>
-      
+        </div>      
 
     </div>
 
@@ -631,6 +630,158 @@
             });
         });
 
+        // Setup scene
+        const container  = document.getElementById('animation_container');
+
+        const fov    = 22.5;
+        const width_  = container.clientWidth*0.98;
+        const height_ = container.clientHeight*0.99;
+        const aspect = width_/height_;
+        const near   = 0.1;
+        const far    = 1000;
+        
+        const scene      = new THREE.Scene();
+        scene.background = new THREE.Color(0xffffff); // White background
+        const camera     = new THREE.PerspectiveCamera(fov, aspect, near, far );
+        const renderer   = new THREE.WebGLRenderer();
+
+        // Camera setup
+        camera.position.set(-4,-6,2.5);
+        camera.lookAt(0, 0, 0);
+        camera.up.set(0, 0, 1);
+
+        BHA_x_center = 1;
+        BHB_x_center = -1;
+        scale_chi_mag = 1.5;
+
+        axis_arrows_dist = 2.5;
+
+        // Setup controls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        renderer.setSize(width_, height_);
+        container.appendChild(renderer.domElement);    
+
+        // Create axes
+        const axesHelper = new THREE.AxesHelper(5);
+        scene.add(axesHelper);
+
+        const size_      = 40;// The size of the grid
+        const divisions_ = 80;// The number of divisions across the grid
+        const gridX = new THREE.GridHelper(size_, divisions_);
+        gridX.rotation.x = Math.PI / 2;
+        scene.add(gridX);
+
+        // X axis
+        const x_axis_color = 0xff0000;
+        let X_axis_vec = new THREE.ArrowHelper(new THREE.Vector3(1,0,0), new THREE.Vector3(-size_/2,0,0), size_, x_axis_color, 0.007, 0.007); // Adjusted initial vector
+        X_axis_vec.line.material.linewidth = 4;
+        scene.add(X_axis_vec);
+
+
+        // Y axis
+        const y_axis_color = 0x00ff00;
+        let Y_axis_vec = new THREE.ArrowHelper(new THREE.Vector3(0,1,0), new THREE.Vector3(0,-size_/2,0), size_, y_axis_color , 0.007, 0.007); // Adjusted initial vector
+        Y_axis_vec.line.material.linewidth = 4;
+        scene.add(Y_axis_vec);
+
+
+        // Z axis
+        const z_axis_color = 0x0000ff;
+        let Z_axis_vec = new THREE.ArrowHelper(new THREE.Vector3(0,0,1), new THREE.Vector3(0,0,-size_/2), size_, z_axis_color, 0.007, 0.007); // Adjusted initial vector
+        Z_axis_vec.line.material.linewidth = 4;
+        scene.add(Z_axis_vec);
+
+        const axis_arrow_head_length = 0.4; //The length of the head of the arrow
+        const axis_arrow_head_width  = 0.3; //The width of the head of the arrow
+
+        // X axis arrow
+        const X_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(1,0,0), new THREE.Vector3(0,0,0), axis_arrows_dist, 0xff0000, axis_arrow_head_length, axis_arrow_head_width);
+        X_axis_arrow.line.material.linewidth = 4;
+        scene.add(X_axis_arrow);
+
+        // Y axis arrow
+        const Y_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(0,1,0), new THREE.Vector3(0,0,0), axis_arrows_dist, 0x00ff00, axis_arrow_head_length, axis_arrow_head_width);
+        Y_axis_arrow.line.material.linewidth = 4;
+        scene.add(Y_axis_arrow);
+
+        // Z axis arrow
+        const Z_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(0,0,1), new THREE.Vector3(0,0,0), axis_arrows_dist, 0x0000ff, axis_arrow_head_length, axis_arrow_head_width);
+        Z_axis_arrow.line.material.linewidth = 4;
+        scene.add(Z_axis_arrow);
+
+        // X axis Name 1
+        const X_axis_name_1 = new THREE.ArrowHelper(new THREE.Vector3(.5,.7,0), new THREE.Vector3(1.8,-.7,0), .5, 0xff0000, 0.007, 0.007);
+        X_axis_name_1.line.material.linewidth = 5;
+        scene.add(X_axis_name_1);
+
+        // X axis  Name 2
+        const X_axis_name_2 = new THREE.ArrowHelper(new THREE.Vector3(-.5,.7,0), new THREE.Vector3(2.2,-.7,0), .5, 0xff0000, 0.007, 0.007);
+        X_axis_name_2.line.material.linewidth = 5;
+        scene.add(X_axis_name_2);
+
+        // Y axis Name 1
+        const Y_axis_name_1 = new THREE.ArrowHelper(new THREE.Vector3(.5,.9,0), new THREE.Vector3(-.55,1.25,0), .8, 0x00ff00, 0.007, 0.007);
+        Y_axis_name_1.line.material.linewidth = 5;
+        scene.add(Y_axis_name_1);
+
+        // Y axis  Name 2
+        const Y_axis_name_2 = new THREE.ArrowHelper(new THREE.Vector3(-.5,.7,0), new THREE.Vector3(-.35,1.7,0), .3, 0x00ff00, 0.007, 0.007);
+        Y_axis_name_2.line.material.linewidth = 5;
+        scene.add(Y_axis_name_2);
+
+        // Z axis Name 1
+        const Z_axis_name_1 = new THREE.ArrowHelper(new THREE.Vector3(.5,0,0), new THREE.Vector3(.5,.9,1), .4, 0x0000ff, 0.007, 0.007);
+        Z_axis_name_1.line.material.linewidth = 5;
+        scene.add(Z_axis_name_1);
+
+        // Z axis Name 2
+        let Z_axis_name_2 = new THREE.ArrowHelper(new THREE.Vector3(-.5,-.8,0), new THREE.Vector3(.9,.9,1), .7, 0x0000ff, 0.007, 0.007);
+        Z_axis_name_2.line.material.linewidth = 5;
+        scene.add(Z_axis_name_2);
+
+        // Z axis Name 3
+        const Z_axis_name_3 = new THREE.ArrowHelper(new THREE.Vector3(.5,0,0), new THREE.Vector3(.5,.36,1), .4, 0x0000ff, 0.007, 0.007);
+        Z_axis_name_3.line.material.linewidth = 5;
+        scene.add(Z_axis_name_3);
+
+        //________________________________________________________________________________________________________________________________
+
+
+        // Initial vector
+        let BHASpinVec = new THREE.ArrowHelper(new THREE.Vector3(0,0.64018,0.7682), new THREE.Vector3(BHA_x_center,0,0), scale_chi_mag*0.78102, 0xff0000, axis_arrow_head_length, axis_arrow_head_width);
+        BHASpinVec.line.material.linewidth = 5;
+        scene.add(BHASpinVec);
+
+        // Initial vector
+        let BHBSpinVec = new THREE.ArrowHelper(new THREE.Vector3(0.45749,-0.45749,0.76249), new THREE.Vector3(BHB_x_center,0,0), scale_chi_mag*0.65574, 0xff0000, axis_arrow_head_length, axis_arrow_head_width);
+        BHBSpinVec.line.material.linewidth = 5;
+        scene.add(BHBSpinVec);
+
+        //________________________________________________________________________________________________________________________________
+
+        const mass_ratio_ini = 2.4;
+        const initial_BHA_radius = mass_ratio_ini/(1+mass_ratio_ini);
+        const initial_BHB_radius = 1/(1+mass_ratio_ini);
+
+
+        // Initial sphere
+        let BHAsphere = new THREE.Mesh(new THREE.SphereGeometry(initial_BHA_radius, 32, 32), new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: .7 }));
+        BHAsphere.position.set(BHA_x_center, 0, 0);
+        scene.add(BHAsphere);
+
+        // Initial sphere2
+        let BHBsphere = new THREE.Mesh(new THREE.SphereGeometry(initial_BHB_radius, 32, 32), new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: .7 }));
+        BHBsphere.position.set(BHB_x_center, 0, 0);
+        scene.add(BHBsphere);
+
+        // Render loop
+        function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+        }
+        animate();
+
         function reset_axis_function(sliderValues) {
             const inclination = sliderValues.inclination;
             const phi_ref = sliderValues.phi_ref;
@@ -662,17 +813,17 @@
         }
 
         function updateGraph(sliderValues) {
-            const inclination = sliderValues.inclination;
-            const phi_ref     = sliderValues.phi_ref;
-            const mass_ratio = sliderValues.mass_ratio;
-            const chiAx = sliderValues.chiAx;
-            const chiAy = sliderValues.chiAy;
-            const chiAz = sliderValues.chiAz;
-            const chiBx = sliderValues.chiBx;
-            const chiBy = sliderValues.chiBy;
-            const chiBz = sliderValues.chiBz;
-            const t_start = sliderValues.t_start;
-            const t_end   = sliderValues.t_end;
+            const inclination = parseFloat(sliderValues.inclination);
+            const phi_ref     = parseFloat(sliderValues.phi_ref);
+            const mass_ratio  = parseFloat(sliderValues.mass_ratio);
+            const chiAx       = parseFloat(sliderValues.chiAx);
+            const chiAy       = parseFloat(sliderValues.chiAy);
+            const chiAz       = parseFloat(sliderValues.chiAz);
+            const chiBx       = parseFloat(sliderValues.chiBx);
+            const chiBy       = parseFloat(sliderValues.chiBy);
+            const chiBz       = parseFloat(sliderValues.chiBz);
+            const t_start     = parseFloat(sliderValues.t_start);
+            const t_end       = parseFloat(sliderValues.t_end);
 
             const chiAmag = Math.sqrt(Math.pow(chiAx, 2) + Math.pow(chiAy, 2) + Math.pow(chiAz, 2));
             const chiBmag = Math.sqrt(Math.pow(chiBx, 2) + Math.pow(chiBy, 2) + Math.pow(chiBz, 2));
@@ -777,14 +928,48 @@
                     };
                 Plotly.newPlot(graphDiv, data, layout);
             });
-        };
 
-</script>
+            scene.remove(BHASpinVec);
+            scene.remove(BHBSpinVec);
+            scene.remove(BHAsphere);
+            scene.remove(BHBsphere);
+              
+            const chiAx_unit = chiAx/chiAmag;
+            const chiAy_unit = chiAy/chiAmag;
+            const chiAz_unit = chiAz/chiAmag;
+        
+            // Create a BHA spin vector
+            let BHASpinVec_  = new THREE.Vector3(chiAx_unit,chiAy_unit,chiAz_unit);
+            BHASpinVec       = new THREE.ArrowHelper(BHASpinVec_, new THREE.Vector3(BHA_x_center,0,0), scale_chi_mag*chiAmag, 0xff0000, axis_arrow_head_length, axis_arrow_head_width);
+            BHASpinVec.line.material.linewidth = 5;
+            scene.add(BHASpinVec);
+        
+            const chiBx_unit = chiBx/chiBmag;
+            const chiBy_unit = chiBy/chiBmag;
+            const chiBz_unit = chiBz/chiBmag;
+
+            // Create a BHB spin vector
+            let BHBSpinVec_      = new THREE.Vector3(chiBx_unit,chiBy_unit,chiBz_unit); // Adjusted end point
+            BHBSpinVec       = new THREE.ArrowHelper(BHBSpinVec_, new THREE.Vector3(BHB_x_center,0,0), scale_chi_mag*chiBmag, 0xff0000, axis_arrow_head_length, axis_arrow_head_width);
+            BHBSpinVec.line.material.linewidth = 5;
+            scene.add(BHBSpinVec);
+
+            const BHA_radius=mass_ratio/(1+mass_ratio);
+            const BHB_radius=1/(1+mass_ratio);
+
+            BHAsphere = new THREE.Mesh(new THREE.SphereGeometry(BHA_radius, 32, 32), new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: .7 }));
+            BHAsphere.position.set(BHA_x_center, 0, 0);
+            scene.add(BHAsphere);
+
+            BHBsphere = new THREE.Mesh(new THREE.SphereGeometry(BHB_radius, 32, 32), new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: .7 }));
+            BHBsphere.position.set(BHB_x_center, 0, 0);
+            scene.add(BHBsphere);
+
+        };
+    </script>
 
     
       <!-- jQuery (Bootstrap JS plugins depend on it) -->
-
-
 
 </body>
 </html>
