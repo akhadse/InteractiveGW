@@ -1,22 +1,44 @@
 .interactive-plot-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: relative;
-    background-color: aqua;
-    overflow: auto;
+    background-color: #c8c8c8;
+    margin: 0;
+    padding: 0;
+    margin-left: -15px;
+}
+
+#GW_interactive_graph{
+    position: relative;
+    max-width: 100%;
     height: 100%;
-    border: 5px solid royalblue;
-    text-align: center;
+    overflow: hide;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
 
 .reset_buttons{
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 9999;
+    z-index: 9998;
     width: 20%;
     max-width: 300px;
     height: 15%;
     margin-top: 10px;
     margin-left: 15px;
+}
+
+#reset_axis_button_container{
+    top: 10px;
+    left: 10px;
+}
+
+#reset_camera_button{
+    top: 10px;
+    left: 10px;
 }
 
 .button {
@@ -25,7 +47,7 @@
     border: 3px solid black;
     border-radius: 20px;
     background-color: gold;
-    font-size: min(3vw, 28px);
+    font-size: min(3vw, 24px);
   }
 
   .warning-container{
@@ -51,17 +73,13 @@
     line-height: 175%;
 }
 
-
-
-
-
-
-
 .sliders-container {
-    background-color:pink;
+    background-color:#c8c8c8;
     font-size: 20px;
+    font-weight: bold;
+    color: greenyellow;
     width: 100%;
-    border: 5px solid red;
+    /* border: 5px solid red; */
     margin: 0;
     padding: 0;
     padding-right: 5px;
@@ -70,13 +88,13 @@
 .slider {
     vertical-align: middle;
     -webkit-appearance: none;
-    background: red; /* Remove the default track color */
+    background: white; /* Remove the default track color */
     outline: blue; /* Remove the outline */
-    margin-bottom: 18px;
     width: 60%;
     height: 20%;
     max-height: 25px;
     margin: 5px;
+    border-radius: 15px;
   }
 
   .slider::-webkit-slider-thumb {
@@ -84,8 +102,6 @@
     appearance: none;
     width: 20px; /* Set width of the slider thumb */
     height: 20px; /* Set height of the slider thumb */
-    background: greenyellow; /* Set background color of the slider thumb */
-    border: 2px solid #333; /* Add a border around the slider thumb */
     border-radius: 50%; /* Make the slider thumb circular */
     cursor: e-resize; /* Change cursor to pointer when hovering over the slider thumb */
   }
@@ -97,11 +113,12 @@
         width: 15%; /* Adjust the width as needed */
         max-height: 30px;
         padding: 0px;
-        background-color: #f0f0f0;
+        background-color: white;
         font-size: min(5vw, 20px); /* Adjust the font size as needed */
         text-align: center;
-        border: 1px solid #ccc;
+        border: 1px solid black;
         border-radius: 5px;
+        margin: 5px;
     }
 
     .slider_text{
@@ -143,7 +160,7 @@
         top: 50%; /* Position it 50% from the top */
         left: 50%; /* Position it 50% from the left */
         transform: translate(-50%, -50%);
-        background-color: rgb(224, 224, 224);
+        background-color: #e0e0e0;
         border: 4px solid rgb(11, 67, 88);
         font-size: min(2.5vw, 28px);
         color: rgb(6, 32, 43);
@@ -162,10 +179,70 @@
 
     #animation_container{
         position: relative;
-        border: 5px solid black;
+        border: 5px solid #c8c8c8;
         width: 100%;
         height: max(100%, 500px);
         margin: 0;
         padding: 0;
-        background-color: pink;
+        background-color: #c8c8c8;
     }
+
+    #chiAx_slider_text, #chiAy_slider_text, #chiAz_slider_text,
+    #chiAx_slider_value, #chiAy_slider_value, #chiAz_slider_value{
+    color: #4d4dff;
+    }
+
+    #chiBx_slider_text, #chiBy_slider_text, #chiBz_slider_text,
+    #chiBx_slider_value, #chiBy_slider_value, #chiBz_slider_value {
+    color: #ff5454;
+    }
+
+    #inclination_slider_text, #phi_ref_slider_text,
+    #inclination_slider_value, #phi_ref_slider_value{
+    color: black;
+    }
+    #mass_ratio_slider_text,#mass_ratio_slider_value{
+        color: #2c9c2c;
+        }
+
+    .chiAx_slider::-webkit-slider-thumb,
+    .chiAy_slider::-webkit-slider-thumb,
+    .chiAz_slider::-webkit-slider-thumb {
+        background: #4d4dff;
+        border: 2px solid #202073; /* Add a border around the slider thumb */
+    }
+
+    .chiBx_slider::-webkit-slider-thumb,
+    .chiBy_slider::-webkit-slider-thumb,
+    .chiBz_slider::-webkit-slider-thumb {
+        background: #ff5454;
+        border: 2px solid #802929; /* Add a border around the slider thumb */
+    }
+
+    .mass_ratio_slider::-webkit-slider-thumb {
+        background: #2c9c2c;
+        border: 2px solid #103b10; /* Add a border around the slider thumb */
+    }
+
+    .inclination_slider::-webkit-slider-thumb {
+        background: grey;
+        border: 2px solid black; /* Add a border around the slider thumb */
+    }
+
+    .phi_ref_slider::-webkit-slider-thumb {
+        background: grey;
+        border: 2px solid black; /* Add a border around the slider thumb */
+    }
+
+    .t_start::-webkit-slider-thumb,
+    .t_end::-webkit-slider-thumb {
+        background: black;
+    }
+
+    #t_end_slider_text,#t_start_slider_text, #t_end_slider_value, #t_start_slider_value{
+        color: black;
+        }
+
+        #t_end_slider_value, #t_start_slider_value{
+            font-size: min(5vw, 16px);
+        }

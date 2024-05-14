@@ -9,8 +9,6 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/headerbar.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/homepage.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/interactive_base.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/interactive_strain.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/interactive_h_lm.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/download_videos.css') }}">
 
     <title>Interactive GW</title>
@@ -42,7 +40,7 @@
                                 <a class="nav-link" href="/">Home</a>
                             </li>
                             <li class="nav-item col"> 
-                                <a class="nav-link" href="/interactive_strain" style="color: blue;">GW strain</a>
+                                <a class="nav-link" href="/interactive_strain" style="color: rgb(134, 230, 0);">GW strain</a>
                             </li>
                             <li class="nav-item col">
                                 <a class="nav-link" href="/interactive_h_lm">h_lm modes</a>
@@ -60,24 +58,21 @@
         </header>
     </div>
 
-    <!-- Horizontal line -->
-    <hr class="horizontal-line">
-
     <div class="container-fluid">
 
         <div class="row">
             
             <div class="col-md-12 col-sm-12 interactive-plot-container">
-
-                <div class="reset_buttons" id="reset_axis_button_container">
-                    <button type="submit" class="button" id="reset_axis_button">Reset Y-axis?</button>
-                </div>
-
+  
                 <div class="warning-container" id="warning">
                     !! Warning!! <br> Magnitude of  <br> ChiA and ChiB  <br>should be less that 1 
                 </div>
 
-                <div id="GW_interactive_graph"></div>
+                <div id="GW_interactive_graph">
+                    <div class="reset_buttons" id="reset_axis_button_container">
+                        <button type="submit" class="button" id="reset_axis_button">Reset Y-axis?</button>
+                    </div>
+                </div>
             </div>
             
         </div>
@@ -86,8 +81,8 @@
             <div class="col-md-4 col-sm-12 sliders-container">
                 
                 <div class="custom-row">
-                    <label for="inclination_slider" class="slider_text" id="inclination_slider_text">Inclination:</label>
-                    <input type="range" min="0" max="180" value="0" step="1" class="slider" id="inclination_slider">
+                    <label for="inclination_slider" class="slider_text" id="inclination_slider_text">Inclination</label>
+                    <input type="range" min="0" max="180" value="0" step="1" class="slider inclination_slider" id="inclination_slider">
                     <span id="inclination_slider_value" class="slider_value_box">0</span>
                     <div class="info_box_for_slider_names" id="info_box_inclination">
                         <p> Inclination angle between the orbital angular momentum direction at the reference epoch and the line-of-sight to the observer.<br> The complex strain (h =hplus -i hcross) evaluated at (inclination, pi/2 - phi_ref) on the sky of the reference frame is returned.</p>
@@ -95,8 +90,8 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="phi_ref_slider" class="slider_text" id="phi_ref_slider_text">Phi_ref:</label>
-                    <input type="range" min="0" max="360" value="0" step="1" class="slider" id="phi_ref_slider">
+                    <label for="phi_ref_slider" class="slider_text" id="phi_ref_slider_text">Phi_ref</label>
+                    <input type="range" min="0" max="360" value="0" step="1" class="slider phi_ref_slider" id="phi_ref_slider">
                     <span id="phi_ref_slider_value" class="slider_value_box" >0</span>
                     <div class="info_box_for_slider_names" id="info_box_phi_ref">
                         <p> The azimuthal angle on the sky of the source frame following the LAL convention. <br> The complex strain (h =hplus -i hcross) evaluated at (inclination, pi/2 - phi_ref) on the sky of the reference frame is returned.</p>
@@ -104,7 +99,7 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="mass_ratio_slider" class="slider_text" id="mass_ratio_slider_text">Mass Ratio:</label>
+                    <label for="mass_ratio_slider" class="slider_text" id="mass_ratio_slider_text">Mass Ratio</label>
                     <input type="range" min="1" max="6" value="2.4" step="0.1" class="slider mass_ratio_slider" id="mass_ratio_slider">
                     <span id="mass_ratio_slider_value" class="slider_value_box" >2.4</span>
                     <div class="info_box_for_slider_names" id="info_box_mass_ratio">
@@ -113,7 +108,7 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="chiAx_slider" class="slider_text" id="chiAx_slider_text">ChiAx :</label>
+                    <label for="chiAx_slider" class="slider_text" id="chiAx_slider_text">ChiAx</label>
                     <input type="range" min="-1" max="1" value="0" step="0.05" class="slider chiAx_slider" id="chiAx_slider">
                     <span id="chiAx_slider_value" class="slider_value_box" >0</span>
                     <div class="info_box_for_slider_names" id="info_box_chiAx">
@@ -122,7 +117,7 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="chiAy_slider" class="slider_text" id="chiAy_slider_text">ChiAy :</label>
+                    <label for="chiAy_slider" class="slider_text" id="chiAy_slider_text">ChiAy</label>
                     <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiAy_slider" id="chiAy_slider">
                     <span id="chiAy_slider_value" class="slider_value_box" >0.5</span>
                     <div class="info_box_for_slider_names" id="info_box_chiAy">
@@ -132,7 +127,7 @@
 
 
                 <div class="custom-row">
-                    <label for="chiAz_slider" class="slider_text" id="chiAz_slider_text">ChiAz :</label>
+                    <label for="chiAz_slider" class="slider_text" id="chiAz_slider_text">ChiAz</label>
                     <input type="range" min="-1" max="1" value="0.6" step="0.05" class="slider chiAz_slider" id="chiAz_slider">
                     <span id="chiAz_slider_value" class="slider_value_box" >0.6</span>
                     <div class="info_box_for_slider_names" id="info_box_chiAz">
@@ -141,7 +136,7 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="chiBx_slider" class="slider_text" id="chiBx_slider_text">ChiBx :</label>
+                    <label for="chiBx_slider" class="slider_text" id="chiBx_slider_text">ChiBx</label>
                     <input type="range" min="-1" max="1" value="0.3" step="0.05" class="slider chiBx_slider" id="chiBx_slider">
                     <span id="chiBx_slider_value" class="slider_value_box" >0.3</span>
                     <div class="info_box_for_slider_names" id="info_box_chiBx">
@@ -150,7 +145,7 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="chiBy_slider" class="slider_text" id="chiBy_slider_text">ChiBy :</label>
+                    <label for="chiBy_slider" class="slider_text" id="chiBy_slider_text">ChiBy</label>
                     <input type="range" min="-1" max="1" value="-0.3" step="0.05" class="slider chiBy_slider" id="chiBy_slider">
                     <span id="chiBy_slider_value" class="slider_value_box" >-0.3</span>
                     <div class="info_box_for_slider_names" id="info_box_chiBy">
@@ -159,7 +154,7 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="chiBz_slider" class="slider_text" id="chiBz_slider_text">ChiBz :</label>
+                    <label for="chiBz_slider" class="slider_text" id="chiBz_slider_text">ChiBz</label>
                     <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiBz_slider" id="chiBz_slider">
                     <span id="chiBz_slider_value" class="slider_value_box" >0.5</span>
                     <div class="info_box_for_slider_names" id="info_box_chiBz">
@@ -168,8 +163,8 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="t_start" class="slider_text" id="t_start_slider_text">Time min :</label>
-                    <input type="range" min="-1000" max="99" value="-250" step="1" class="slider" id="t_start">
+                    <label for="t_start" class="slider_text" id="t_start_slider_text">Time min</label>
+                    <input type="range" min="-1000" max="99" value="-250" step="1" class="slider t_start" id="t_start">
                     <span id="t_start_slider_value" class="slider_value_box" >-250</span>
                     <div class="info_box_for_slider_names" id="info_box_t_start">
                         <p> Start time of the zoomed plot on the right</p>
@@ -177,8 +172,8 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="t_end" class="slider_text" id="t_end_slider_text">Time max :</label>
-                    <input type="range" min="-1000" max="99" value="50" step="1" class="slider" id="t_end">
+                    <label for="t_end" class="slider_text" id="t_end_slider_text">Time max</label>
+                    <input type="range" min="-1000" max="99" value="50" step="1" class="slider t_end" id="t_end">
                     <span id="t_end_slider_value" class="slider_value_box" >50</span>
                     <div class="info_box_for_slider_names" id="info_box_t_end">
                         <p> End time of the zoomed plot on the right</p>
@@ -189,11 +184,11 @@
 
             <div class="col-md-8 col-sm-12 interactive-BHs-container">
 
-                <div class="reset_buttons" id="reset_camera_button_container">
-                    <button type="submit" class="button" id="reset_camera_button">Reset Camera?</button>
+                <div id="animation_container">
+                    <div class="reset_buttons" id="reset_camera_button_container">
+                        <button type="submit" class="button" id="reset_camera_button">Reset Camera?</button>
+                    </div>
                 </div>
-
-                <div id="animation_container"></div>
             </div>
            
         </div>      
@@ -665,9 +660,6 @@
 
         BHA_x_center = 1;
         BHB_x_center = -1;
-        scale_chi_mag = 1.5;
-
-        axis_arrows_dist = 2.5;
 
         // Setup controls
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -685,89 +677,94 @@
         gridX.rotation.x = Math.PI / 2;
         scene.add(gridX);
 
+        axis_name_arrow_color = 0x787878;
+
         // X axis
-        const x_axis_color = 0xff0000;
+        const x_axis_color = axis_name_arrow_color;
         let X_axis_vec = new THREE.ArrowHelper(new THREE.Vector3(1,0,0), new THREE.Vector3(-size_/2,0,0), size_, x_axis_color, 0.007, 0.007); // Adjusted initial vector
         X_axis_vec.line.material.linewidth = 4;
         scene.add(X_axis_vec);
 
 
         // Y axis
-        const y_axis_color = 0x00ff00;
+        const y_axis_color = axis_name_arrow_color;
         let Y_axis_vec = new THREE.ArrowHelper(new THREE.Vector3(0,1,0), new THREE.Vector3(0,-size_/2,0), size_, y_axis_color , 0.007, 0.007); // Adjusted initial vector
         Y_axis_vec.line.material.linewidth = 4;
         scene.add(Y_axis_vec);
 
 
         // Z axis
-        const z_axis_color = 0x0000ff;
+        const z_axis_color = axis_name_arrow_color;
         let Z_axis_vec = new THREE.ArrowHelper(new THREE.Vector3(0,0,1), new THREE.Vector3(0,0,-size_/2), size_, z_axis_color, 0.007, 0.007); // Adjusted initial vector
         Z_axis_vec.line.material.linewidth = 4;
         scene.add(Z_axis_vec);
 
-        const axis_arrow_head_length = 0.4; //The length of the head of the arrow
-        const axis_arrow_head_width  = 0.3; //The width of the head of the arrow
+        const axis_arrow_head_length = 0.3; //The length of the head of the arrow
+        const axis_arrow_head_width  = 0.2; //The width of the head of the arrow
 
         // X axis arrow
-        const X_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(1,0,0), new THREE.Vector3(0,0,0), axis_arrows_dist, 0xff0000, axis_arrow_head_length, axis_arrow_head_width);
+        const X_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(1,0,0), new THREE.Vector3(3,0,0), 0, axis_name_arrow_color, axis_arrow_head_length, axis_arrow_head_width);
         X_axis_arrow.line.material.linewidth = 4;
         scene.add(X_axis_arrow);
 
         // Y axis arrow
-        const Y_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(0,1,0), new THREE.Vector3(0,0,0), axis_arrows_dist, 0x00ff00, axis_arrow_head_length, axis_arrow_head_width);
+        const Y_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(0,1,0), new THREE.Vector3(0,2,0), 0, axis_name_arrow_color, axis_arrow_head_length, axis_arrow_head_width);
         Y_axis_arrow.line.material.linewidth = 4;
         scene.add(Y_axis_arrow);
 
         // Z axis arrow
-        const Z_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(0,0,1), new THREE.Vector3(0,0,0), axis_arrows_dist, 0x0000ff, axis_arrow_head_length, axis_arrow_head_width);
+        const Z_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(0,0,1), new THREE.Vector3(0,0,1.5), 0, axis_name_arrow_color, axis_arrow_head_length, axis_arrow_head_width);
         Z_axis_arrow.line.material.linewidth = 4;
         scene.add(Z_axis_arrow);
 
         // X axis Name 1
-        const X_axis_name_1 = new THREE.ArrowHelper(new THREE.Vector3(.5,.7,0), new THREE.Vector3(1.8,-.7,0), .5, 0xff0000, 0.007, 0.007);
+        const X_axis_name_1 = new THREE.ArrowHelper(new THREE.Vector3(.5,.7,0), new THREE.Vector3(1.8,-.7,0), .5, axis_name_arrow_color, 0.007, 0.007);
         X_axis_name_1.line.material.linewidth = 5;
         scene.add(X_axis_name_1);
 
         // X axis  Name 2
-        const X_axis_name_2 = new THREE.ArrowHelper(new THREE.Vector3(-.5,.7,0), new THREE.Vector3(2.2,-.7,0), .5, 0xff0000, 0.007, 0.007);
+        const X_axis_name_2 = new THREE.ArrowHelper(new THREE.Vector3(-.5,.7,0), new THREE.Vector3(2.2,-.7,0), .5, axis_name_arrow_color, 0.007, 0.007);
         X_axis_name_2.line.material.linewidth = 5;
         scene.add(X_axis_name_2);
 
         // Y axis Name 1
-        const Y_axis_name_1 = new THREE.ArrowHelper(new THREE.Vector3(.5,.9,0), new THREE.Vector3(-.55,1.25,0), .8, 0x00ff00, 0.007, 0.007);
+        const Y_axis_name_1 = new THREE.ArrowHelper(new THREE.Vector3(.5,.9,0), new THREE.Vector3(-.55,1.25,0), .8, axis_name_arrow_color, 0.007, 0.007);
         Y_axis_name_1.line.material.linewidth = 5;
         scene.add(Y_axis_name_1);
 
         // Y axis  Name 2
-        const Y_axis_name_2 = new THREE.ArrowHelper(new THREE.Vector3(-.5,.7,0), new THREE.Vector3(-.35,1.7,0), .3, 0x00ff00, 0.007, 0.007);
+        const Y_axis_name_2 = new THREE.ArrowHelper(new THREE.Vector3(-.5,.7,0), new THREE.Vector3(-.35,1.7,0), .3, axis_name_arrow_color, 0.007, 0.007);
         Y_axis_name_2.line.material.linewidth = 5;
         scene.add(Y_axis_name_2);
 
         // Z axis Name 1
-        const Z_axis_name_1 = new THREE.ArrowHelper(new THREE.Vector3(.5,0,0), new THREE.Vector3(.5,.9,1), .4, 0x0000ff, 0.007, 0.007);
+        const Z_axis_name_1 = new THREE.ArrowHelper(new THREE.Vector3(.5,0,0), new THREE.Vector3(0,.89,1), .4, axis_name_arrow_color, 0.007, 0.007);
         Z_axis_name_1.line.material.linewidth = 5;
         scene.add(Z_axis_name_1);
 
         // Z axis Name 2
-        let Z_axis_name_2 = new THREE.ArrowHelper(new THREE.Vector3(-.5,-.8,0), new THREE.Vector3(.9,.9,1), .7, 0x0000ff, 0.007, 0.007);
+        let Z_axis_name_2 = new THREE.ArrowHelper(new THREE.Vector3(-.5,-.8,0), new THREE.Vector3(.4,.9,1), .7, axis_name_arrow_color, 0.007, 0.007);
         Z_axis_name_2.line.material.linewidth = 5;
         scene.add(Z_axis_name_2);
 
         // Z axis Name 3
-        const Z_axis_name_3 = new THREE.ArrowHelper(new THREE.Vector3(.5,0,0), new THREE.Vector3(.5,.36,1), .4, 0x0000ff, 0.007, 0.007);
+        const Z_axis_name_3 = new THREE.ArrowHelper(new THREE.Vector3(.5,0,0), new THREE.Vector3(0,.36,1), .4, axis_name_arrow_color, 0.007, 0.007);
         Z_axis_name_3.line.material.linewidth = 5;
         scene.add(Z_axis_name_3);
 
         //________________________________________________________________________________________________________________________________
 
+        BHA_spin_vec_color = 0x00008a;
+        BHB_spin_vec_color = 0xd40202;
+        scale_chi_mag = 1.5;
 
         // Initial vector
-        let BHASpinVec = new THREE.ArrowHelper(new THREE.Vector3(0,0.64018,0.7682), new THREE.Vector3(BHA_x_center,0,0), scale_chi_mag*0.78102, 0xff0000, axis_arrow_head_length, axis_arrow_head_width);
+        let BHASpinVec = new THREE.ArrowHelper(new THREE.Vector3(0,0.64018,0.7682), new THREE.Vector3(BHA_x_center,0,0), scale_chi_mag*0.78102, BHA_spin_vec_color, axis_arrow_head_length, axis_arrow_head_width);
         BHASpinVec.line.material.linewidth = 5;
         scene.add(BHASpinVec);
 
         // Initial vector
-        let BHBSpinVec = new THREE.ArrowHelper(new THREE.Vector3(0.45749,-0.45749,0.76249), new THREE.Vector3(BHB_x_center,0,0), scale_chi_mag*0.65574, 0xff0000, axis_arrow_head_length, axis_arrow_head_width);
+        let BHBSpinVec = new THREE.ArrowHelper(new THREE.Vector3(0.45749,-0.45749,0.76249), new THREE.Vector3(BHB_x_center,0,0), scale_chi_mag*0.65574, BHB_spin_vec_color, axis_arrow_head_length, axis_arrow_head_width);
         BHBSpinVec.line.material.linewidth = 5;
         scene.add(BHBSpinVec);
 
@@ -777,14 +774,17 @@
         const initial_BHA_radius = mass_ratio_ini/(1+mass_ratio_ini);
         const initial_BHB_radius = 1/(1+mass_ratio_ini);
 
+        BHA_sphere_color = 0x0000ff;
+        BHB_sphere_color = 0xff0000;
+        BH_sphere_opacity = 0.7;
 
         // Initial sphere
-        let BHAsphere = new THREE.Mesh(new THREE.SphereGeometry(initial_BHA_radius, 32, 32), new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: .7 }));
+        let BHAsphere = new THREE.Mesh(new THREE.SphereGeometry(initial_BHA_radius, 32, 32), new THREE.MeshBasicMaterial({ color: BHA_sphere_color, transparent: true, opacity: BH_sphere_opacity }));
         BHAsphere.position.set(BHA_x_center, 0, 0);
         scene.add(BHAsphere);
 
         // Initial sphere2
-        let BHBsphere = new THREE.Mesh(new THREE.SphereGeometry(initial_BHB_radius, 32, 32), new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: .7 }));
+        let BHBsphere = new THREE.Mesh(new THREE.SphereGeometry(initial_BHB_radius, 32, 32), new THREE.MeshBasicMaterial({ color: BHB_sphere_color, transparent: true, opacity: BH_sphere_opacity }));
         BHBsphere.position.set(BHB_x_center, 0, 0);
         scene.add(BHBsphere);
 
@@ -953,7 +953,7 @@
         
             // Create a BHA spin vector
             let BHASpinVec_  = new THREE.Vector3(chiAx_unit,chiAy_unit,chiAz_unit);
-            BHASpinVec       = new THREE.ArrowHelper(BHASpinVec_, new THREE.Vector3(BHA_x_center,0,0), scale_chi_mag*chiAmag, 0xff0000, axis_arrow_head_length, axis_arrow_head_width);
+            BHASpinVec       = new THREE.ArrowHelper(BHASpinVec_, new THREE.Vector3(BHA_x_center,0,0), scale_chi_mag*chiAmag, BHA_spin_vec_color, axis_arrow_head_length, axis_arrow_head_width);
             BHASpinVec.line.material.linewidth = 5;
             scene.add(BHASpinVec);
         
@@ -963,18 +963,18 @@
 
             // Create a BHB spin vector
             let BHBSpinVec_      = new THREE.Vector3(chiBx_unit,chiBy_unit,chiBz_unit); // Adjusted end point
-            BHBSpinVec       = new THREE.ArrowHelper(BHBSpinVec_, new THREE.Vector3(BHB_x_center,0,0), scale_chi_mag*chiBmag, 0xff0000, axis_arrow_head_length, axis_arrow_head_width);
+            BHBSpinVec       = new THREE.ArrowHelper(BHBSpinVec_, new THREE.Vector3(BHB_x_center,0,0), scale_chi_mag*chiBmag, BHB_spin_vec_color, axis_arrow_head_length, axis_arrow_head_width);
             BHBSpinVec.line.material.linewidth = 5;
             scene.add(BHBSpinVec);
 
             const BHA_radius=mass_ratio/(1+mass_ratio);
             const BHB_radius=1/(1+mass_ratio);
 
-            BHAsphere = new THREE.Mesh(new THREE.SphereGeometry(BHA_radius, 32, 32), new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: .7 }));
+            BHAsphere = new THREE.Mesh(new THREE.SphereGeometry(BHA_radius, 32, 32), new THREE.MeshBasicMaterial({ color: BHA_sphere_color, transparent: true, opacity: BH_sphere_opacity }));
             BHAsphere.position.set(BHA_x_center, 0, 0);
             scene.add(BHAsphere);
 
-            BHBsphere = new THREE.Mesh(new THREE.SphereGeometry(BHB_radius, 32, 32), new THREE.MeshBasicMaterial({ color: 0x0000ff, transparent: true, opacity: .7 }));
+            BHBsphere = new THREE.Mesh(new THREE.SphereGeometry(BHB_radius, 32, 32), new THREE.MeshBasicMaterial({ color: BHB_sphere_color, transparent: true, opacity: BH_sphere_opacity }));
             BHBsphere.position.set(BHB_x_center, 0, 0);
             scene.add(BHBsphere);
 
