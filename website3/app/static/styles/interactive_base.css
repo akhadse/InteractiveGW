@@ -3,10 +3,9 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-    background-color: #c8c8c8;
+    background-color: black;
     margin: 0;
     padding: 0;
-    margin-left: -15px;
 }
 
 #GW_interactive_graph{
@@ -74,7 +73,7 @@
 }
 
 .sliders-container {
-    background-color:#c8c8c8;
+    background-color:black;
     font-size: 20px;
     font-weight: bold;
     color: greenyellow;
@@ -88,13 +87,14 @@
 .slider {
     vertical-align: middle;
     -webkit-appearance: none;
-    background: white; /* Remove the default track color */
+    background: black; /* Remove the default track color */
     outline: blue; /* Remove the outline */
     width: 60%;
     height: 20%;
     max-height: 25px;
     margin: 5px;
     border-radius: 15px;
+    border: 1px solid greenyellow;
   }
 
   .slider::-webkit-slider-thumb {
@@ -113,7 +113,7 @@
         width: 15%; /* Adjust the width as needed */
         max-height: 30px;
         padding: 0px;
-        background-color: white;
+        background-color: black;
         font-size: min(5vw, 20px); /* Adjust the font size as needed */
         text-align: center;
         border: 1px solid black;
@@ -179,12 +179,12 @@
 
     #animation_container{
         position: relative;
-        border: 5px solid #c8c8c8;
+        border: 5px solid black;
         width: 100%;
         height: max(100%, 500px);
         margin: 0;
         padding: 0;
-        background-color: #c8c8c8;
+        background-color:black;
     }
 
     #chiAx_slider_text, #chiAy_slider_text, #chiAz_slider_text,
@@ -206,19 +206,19 @@
     .chiAy_slider::-webkit-slider-thumb,
     .chiAz_slider::-webkit-slider-thumb {
         background: #4d4dff;
-        border: 2px solid #202073; /* Add a border around the slider thumb */
+        border: 1px solid greenyellow; /* Add a border around the slider thumb */
     }
 
     .chiBx_slider::-webkit-slider-thumb,
     .chiBy_slider::-webkit-slider-thumb,
     .chiBz_slider::-webkit-slider-thumb {
         background: #ff5454;
-        border: 2px solid #802929; /* Add a border around the slider thumb */
+        border: 1px solid greenyellow; /* Add a border around the slider thumb */
     }
 
     .mass_ratio_slider::-webkit-slider-thumb {
         background: #2c9c2c;
-        border: 2px solid #103b10; /* Add a border around the slider thumb */
+        border: 1px solid greenyellow; /* Add a border around the slider thumb */
     }
 
 
@@ -239,13 +239,13 @@
     #inclination_slider_value, #phi_ref_slider_value,
     #l_slider_text, #m_slider_text,
     #l_slider_value, #m_slider_value {
-    color: black;
+    color: white;
     }
 
     .inclination_slider::-webkit-slider-thumb,
     .phi_ref_slider::-webkit-slider-thumb,
     .l_slider::-webkit-slider-thumb,
     .m_slider::-webkit-slider-thumb {
-        background: grey;
-        border: 2px solid black; /* Add a border around the slider thumb */
+        background: white;
+        border: 1px solid greenyellow; /* Add a border around the slider thumb */
     }

@@ -40,7 +40,7 @@
                                 <a class="nav-link" href="/">Home</a>
                             </li>
                             <li class="nav-item col"> 
-                                <a class="nav-link" href="/interactive_strain" style="color: rgb(134, 230, 0);">GW strain</a>
+                                <a class="nav-link" href="/interactive_strain" style="color: #86e600;">GW strain</a>
                             </li>
                             <li class="nav-item col">
                                 <a class="nav-link" href="/interactive_h_lm">h_lm modes</a>
@@ -207,6 +207,15 @@
         const chiBy = -0.3;
         const chiBz = 0.5;
 
+        const graph_background_color = 'black';
+        const h_plus_color = 'orange';
+        const h_cross_color = 'cyan';
+        const axis_color = 'white';
+        const grid_color = 'gray';
+        const axis2_color = '#fcada4';
+        const grid2_color = '#fcedeb';
+        const abs_color = 'yellowgreen';
+
         fetch('/interactive_strain_update_route', {
             method: 'POST',
             headers: {
@@ -227,7 +236,7 @@
                 type: 'scatter',
                 name: 'h_plus',
                 marker: {
-                color: 'red'  // Set color for trace1
+                color: h_plus_color,  // Set color for trace1
                     },
                 showlegend: true
             };
@@ -239,7 +248,7 @@
                 type: 'scatter',
                 name: 'h_cross',
                 marker: {
-                color: 'red'  // Set color for trace1
+                color: h_plus_color,  // Set color for trace1
                     },
                 showlegend: false
             };
@@ -249,7 +258,7 @@
                 type: 'scatter',
                 name: 'h_cross',
                 marker: {
-                color: 'blue'  // Set color for trace1
+                color: h_cross_color,  // Set color for trace1
                     },
                 showlegend: true
             };
@@ -261,7 +270,7 @@
                 type: 'scatter',
                 name: 'h_cross',
                 marker: {
-                color: 'blue'  // Set color for trace1
+                color: h_cross_color,  // Set color for trace1
                     },
                 showlegend: false
             };
@@ -271,7 +280,7 @@
                 type: 'scatter',
                 name: 'abs',
                 marker: {
-                color: 'green'  // Set color for trace1
+                color: abs_color,  // Set color for trace1
                     },
                 showlegend: true
             };
@@ -283,26 +292,63 @@
                 type: 'scatter',
                 name: 'abs',
                 marker: {
-                color: 'green'  // Set color for trace1
+                color: abs_color,  // Set color for trace1
                     },
                 showlegend: false
             };
 
-            var data = [trace1, trace2,trace3,trace4,trace5, trace6];
+            var data = [trace4,trace5, trace6,trace1, trace2,trace3];
             var layout = {
                 title: {
                     text: "rh/M",
                     font: {
-                        size: 30,
-                        color:'blue',
+                        size: 40,
+                        color:'white',
                         bold:true
-                    }
+                        }, 
                 },
-                xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
-                yaxis: {range:[y_min, y_max]},
-                yaxis2: {range: [y_min, y_max]},
-                xaxis2: {domain: [0.7, 1], range: [-300, 50],title: 'Time before merger (M)'}
-                };
+                xaxis: {
+                        domain: [0, 0.7],title: {
+                            text: 'Time before merger (M)',
+                            font: {
+                                size:18,
+                                color: axis_color }},
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid_color},
+
+                yaxis: {range:[y_min, y_max],
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid_color},
+
+                yaxis2: {range: [y_min, y_max],
+                        tickfont: { color: axis_color },
+                        linecolor: axis2_color,
+                        gridcolor: grid2_color},
+
+                xaxis2: {domain: [0.7, 1], range: [-300, 50],
+                        title: {
+                            text: 'Time before merger (M)',
+                            font: { 
+                                size:18,
+                                color: axis_color }
+                        },
+                        tickfont: { color: axis_color },
+                        linecolor: axis2_color,
+                        gridcolor: grid2_color
+                        },
+                plot_bgcolor: graph_background_color,
+                paper_bgcolor: graph_background_color,
+                legend: {
+                        font: {
+                            size: 22,
+                            color: axis_color,
+                            family: 'Arial',
+                            weight: 'bold'
+                            }
+                        }
+            };
 
             Plotly.newPlot(graphDiv, data, layout);
 
@@ -649,7 +695,7 @@
         const far    = 1000;
         
         const scene      = new THREE.Scene();
-        scene.background = new THREE.Color(0xffffff); // White background
+        scene.background = new THREE.Color(0x000000); // White background
         const camera     = new THREE.PerspectiveCamera(fov, aspect, near, far );
         const renderer   = new THREE.WebGLRenderer();
 
@@ -677,7 +723,7 @@
         gridX.rotation.x = Math.PI / 2;
         scene.add(gridX);
 
-        axis_name_arrow_color = 0x787878;
+        axis_name_arrow_color = 0xffffff;
 
         // X axis
         const x_axis_color = axis_name_arrow_color;
@@ -754,8 +800,8 @@
 
         //________________________________________________________________________________________________________________________________
 
-        BHA_spin_vec_color = 0x00008a;
-        BHB_spin_vec_color = 0xd40202;
+        BHA_spin_vec_color = 0x00FFFF;
+        BHB_spin_vec_color = 0xFFA500;
         scale_chi_mag = 1.5;
 
         // Initial vector
@@ -774,8 +820,8 @@
         const initial_BHA_radius = mass_ratio_ini/(1+mass_ratio_ini);
         const initial_BHB_radius = 1/(1+mass_ratio_ini);
 
-        BHA_sphere_color = 0x0000ff;
-        BHB_sphere_color = 0xff0000;
+        BHA_sphere_color = 0x00FFFF;
+        BHB_sphere_color = 0xFFA500;
         BH_sphere_opacity = 0.7;
 
         // Initial sphere
@@ -858,88 +904,126 @@
             .then(data => {
 
                 var trace1 = {
-                    x: data.times,
-                    y: data.h_plus,
-                    type: 'scatter',
-                    name: 'h_plus',
-                    marker: {
-                    color: 'red'  // Set color for trace1
+                x: data.times,
+                y: data.h_plus,
+                type: 'scatter',
+                name: 'h_plus',
+                marker: {
+                color: h_plus_color,  // Set color for trace1
+                    },
+                showlegend: true
+            };
+            var trace2 = {
+                x: data.times,
+                y: data.h_plus,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                name: 'h_cross',
+                marker: {
+                color: h_plus_color,  // Set color for trace1
+                    },
+                showlegend: false
+            };
+            var trace3 = {
+                x: data.times,
+                y: data.h_cross,
+                type: 'scatter',
+                name: 'h_cross',
+                marker: {
+                color: h_cross_color,  // Set color for trace1
+                    },
+                showlegend: true
+            };
+            var trace4 = {
+                x: data.times,
+                y: data.h_cross,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                name: 'h_cross',
+                marker: {
+                color: h_cross_color,  // Set color for trace1
+                    },
+                showlegend: false
+            };
+            var trace5 = {
+                x: data.times,
+                y: data.h_abs,
+                type: 'scatter',
+                name: 'abs',
+                marker: {
+                color: abs_color,  // Set color for trace1
+                    },
+                showlegend: true
+            };
+            var trace6 = {
+                x: data.times,
+                y: data.h_abs,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                name: 'abs',
+                marker: {
+                color: abs_color,  // Set color for trace1
+                    },
+                showlegend: false
+            };
+
+            var data = [trace4,trace5, trace6,trace1, trace2,trace3];
+            var layout = {
+                title: {
+                    text: "rh/M",
+                    font: {
+                        size: 40,
+                        color:'white',
+                        bold:true
+                        }, 
+                },
+                xaxis: {
+                        domain: [0, 0.7],title: {
+                            text: 'Time before merger (M)',
+                            font: {
+                                size:18,
+                                color: axis_color }},
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid_color},
+
+                yaxis: {range:[y_min, y_max],
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid_color},
+
+                yaxis2: {range: [y_min, y_max],
+                        tickfont: { color: axis_color },
+                        linecolor: axis2_color,
+                        gridcolor: grid2_color},
+
+                xaxis2: {domain: [0.7, 1], range: [-300, 50],
+                        title: {
+                            text: 'Time before merger (M)',
+                            font: { 
+                                size:18,
+                                color: axis_color }
                         },
-                    showlegend: true
-                    };
-                var trace2 = {
-                    x: data.times,
-                    y: data.h_plus,
-                    xaxis: 'x2',
-                    yaxis: 'y2',
-                    type: 'scatter',
-                    name: 'h_cross',
-                    marker: {
-                    color: 'red'  // Set color for trace1
+                        tickfont: { color: axis_color },
+                        linecolor: axis2_color,
+                        gridcolor: grid2_color
                         },
-                    showlegend: false
-                    };
-                var trace3 = {
-                    x: data.times,
-                    y: data.h_cross,
-                    type: 'scatter',
-                    name: 'h_cross',
-                    marker: {
-                    color: 'blue'  // Set color for trace1
-                        },
-                    showlegend: true
-                    };
-                var trace4 = {
-                    x: data.times,
-                    y: data.h_cross,
-                    xaxis: 'x2',
-                    yaxis: 'y2',
-                    type: 'scatter',
-                    name: 'h_cross',
-                    marker: {
-                    color: 'blue'  // Set color for trace1
-                        },
-                    showlegend: false
-                    };
-                var trace5 = {
-                    x: data.times,
-                    y: data.h_abs,
-                    type: 'scatter',
-                    name: 'abs',
-                    marker: {
-                    color: 'green'  // Set color for trace1
-                        },
-                    showlegend: true
-                    };
-                var trace6 = {
-                    x: data.times,
-                    y: data.h_abs,
-                    xaxis: 'x2',
-                    yaxis: 'y2',
-                    type: 'scatter',
-                    name: 'abs',
-                    marker: {
-                    color: 'green'  // Set color for trace1
-                        },
-                    showlegend: false
-                    };
-            
-                var data = [trace1, trace2,trace3,trace4,trace5, trace6];
-                var layout = {
-                    title: {
-                        text: "rh/M",
+                plot_bgcolor: graph_background_color,
+                paper_bgcolor: graph_background_color,
+                legend: {
                         font: {
-                            size: 30,
-                            color:'blue',
-                            bold:true
+                            size: 22,
+                            color: axis_color,
+                            family: 'Arial',
+                            weight: 'bold'
                             }
-                        },
-                    xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
-                    yaxis: {range:[y_min,y_max]},
-                    yaxis2: {range: [y_min,y_max]},
-                    xaxis2: {domain: [0.7, 1], range: [t_start, t_end],title: 'Time before merger (M)'}
-                    };
-                Plotly.newPlot(graphDiv, data, layout);
+                        }
+            };
+
+            Plotly.newPlot(graphDiv, data, layout);
             });
 
             scene.remove(BHASpinVec);
