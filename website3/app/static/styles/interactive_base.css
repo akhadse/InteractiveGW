@@ -197,10 +197,7 @@
     color: #ff5454;
     }
 
-    #inclination_slider_text, #phi_ref_slider_text,
-    #inclination_slider_value, #phi_ref_slider_value{
-    color: black;
-    }
+
     #mass_ratio_slider_text,#mass_ratio_slider_value{
         color: #2c9c2c;
         }
@@ -224,15 +221,6 @@
         border: 2px solid #103b10; /* Add a border around the slider thumb */
     }
 
-    .inclination_slider::-webkit-slider-thumb {
-        background: grey;
-        border: 2px solid black; /* Add a border around the slider thumb */
-    }
-
-    .phi_ref_slider::-webkit-slider-thumb {
-        background: grey;
-        border: 2px solid black; /* Add a border around the slider thumb */
-    }
 
     .t_start::-webkit-slider-thumb,
     .t_end::-webkit-slider-thumb {
@@ -241,8 +229,23 @@
 
     #t_end_slider_text,#t_start_slider_text, #t_end_slider_value, #t_start_slider_value{
         color: black;
-        }
+    }
 
-        #t_end_slider_value, #t_start_slider_value{
-            font-size: min(5vw, 16px);
-        }
+    #t_end_slider_value, #t_start_slider_value{
+        font-size: min(5vw, 16px);
+    }
+
+    #inclination_slider_text, #phi_ref_slider_text,
+    #inclination_slider_value, #phi_ref_slider_value,
+    #l_slider_text, #m_slider_text,
+    #l_slider_value, #m_slider_value {
+    color: black;
+    }
+
+    .inclination_slider::-webkit-slider-thumb,
+    .phi_ref_slider::-webkit-slider-thumb,
+    .l_slider::-webkit-slider-thumb,
+    .m_slider::-webkit-slider-thumb {
+        background: grey;
+        border: 2px solid black; /* Add a border around the slider thumb */
+    }
