@@ -63,7 +63,7 @@
 
         <div class="row">
             
-            <div class="col-md-12 col-sm-12 interactive-plot-container">
+            <div class="col-md-12 col-sm-12 interactive-plot-container" id="interactive-plot-container">
   
                 <div class="warning-container" id="warning">
                     !! Warning!! <br> Magnitude of  <br> ChiA and ChiB  <br>should be less that 1 
@@ -473,7 +473,7 @@
         });
 
         var graphDiv = document.getElementById('GW_interactive_graph');
-   
+       
         inclination_slider.addEventListener('input', function () {
             inclination_slider_value.textContent = inclination_slider.value;
             updateGraph({
@@ -692,13 +692,38 @@
 
         // Setup scene
         const container  = document.getElementById('animation_container');
-        
+
         const fov    = 22.5;
-        const width_  = container.clientWidth*0.98;
-        const height_ = container.clientHeight*0.99;
-        const aspect = width_/height_;
+        let width_  = container.clientWidth*0.98;
+        let height_ = container.clientHeight*0.99;
+        let aspect = width_/height_;
         const near   = 0.1;
         const far    = 1000;
+
+        window.addEventListener('resize', function() {
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+
+            width_  = container.clientWidth*0.98;
+            height_ = container.clientHeight*0.99;
+            aspect = width_/height_;
+            camera.aspect = aspect;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width_, height_);
+        });
+        
+
     
         const scene      = new THREE.Scene();
         scene.background = new THREE.Color(0x000000); // White background
