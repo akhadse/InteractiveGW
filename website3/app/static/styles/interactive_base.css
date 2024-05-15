@@ -224,11 +224,12 @@
 
     .t_start::-webkit-slider-thumb,
     .t_end::-webkit-slider-thumb {
-        background: black;
+        background: white;
+        border: 1px solid greenyellow;
     }
 
     #t_end_slider_text,#t_start_slider_text, #t_end_slider_value, #t_start_slider_value{
-        color: black;
+        color: white;
     }
 
     #t_end_slider_value, #t_start_slider_value{
@@ -239,13 +240,13 @@
     #inclination_slider_value, #phi_ref_slider_value,
     #l_slider_text, #m_slider_text,
     #l_slider_value, #m_slider_value {
-    color: white;
+    color: #FFD700;
     }
 
     .inclination_slider::-webkit-slider-thumb,
     .phi_ref_slider::-webkit-slider-thumb,
     .l_slider::-webkit-slider-thumb,
     .m_slider::-webkit-slider-thumb {
-        background: white;
+        background:#FFD700;
         border: 1px solid greenyellow; /* Add a border around the slider thumb */
     }
