@@ -23,6 +23,7 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
 
     <div class="container-fluid">
 
@@ -81,7 +82,7 @@
             <div class="col-md-4 col-sm-12 sliders-container">
                 
                 <div class="custom-row">
-                    <label for="l_slider" class="slider_text" id="l_slider_text">l :</label>
+                    <label for="l_slider" class="slider_text" id="l_slider_text">l</label>
                     <input type="range" min="2" max="4" value="2" step="1" class="slider l_slider" id="l_slider">
                     <span id="l_slider_value" class="slider_value_box" >2</span>
                     <div class="info_box_for_slider_names" id="info_box_l">
@@ -90,7 +91,7 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="m_slider" class="slider_text" id="m_slider_text">m :</label>
+                    <label for="m_slider" class="slider_text" id="m_slider_text">m</label>
                     <input type="range" min="-4" max="4" value="2" step="1" class="slider m_slider" id="m_slider">
                     <span id="m_slider_value" class="slider_value_box" >2</span>
                     <div class="info_box_for_slider_names" id="info_box_m">
@@ -99,7 +100,7 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="mass_ratio_slider" class="slider_text" id="mass_ratio_slider_text">Mass Ratio:</label>
+                    <label for="mass_ratio_slider" class="slider_text" id="mass_ratio_slider_text">Mass Ratio</label>
                     <input type="range" min="1" max="6" value="2.4" step="0.1" class="slider mass_ratio_slider" id="mass_ratio_slider">
                     <span id="mass_ratio_slider_value" class="slider_value_box" >2.4</span>
                     <div class="info_box_for_slider_names" id="info_box_mass_ratio">
@@ -108,7 +109,7 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="chiAx_slider" class="slider_text" id="chiAx_slider_text">ChiAx :</label>
+                    <label for="chiAx_slider" class="slider_text" id="chiAx_slider_text">ChiAx</label>
                     <input type="range" min="-1" max="1" value="0" step="0.05" class="slider chiAx_slider" id="chiAx_slider">
                     <span id="chiAx_slider_value" class="slider_value_box" >0</span>
                     <div class="info_box_for_slider_names" id="info_box_chiAx">
@@ -117,7 +118,7 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="chiAy_slider" class="slider_text" id="chiAy_slider_text">ChiAy :</label>
+                    <label for="chiAy_slider" class="slider_text" id="chiAy_slider_text">ChiAy</label>
                     <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiAy_slider" id="chiAy_slider">
                     <span id="chiAy_slider_value" class="slider_value_box" >0.5</span>
                     <div class="info_box_for_slider_names" id="info_box_chiAy">
@@ -127,7 +128,7 @@
 
 
                 <div class="custom-row">
-                    <label for="chiAz_slider" class="slider_text" id="chiAz_slider_text">ChiAz :</label>
+                    <label for="chiAz_slider" class="slider_text" id="chiAz_slider_text">ChiAz</label>
                     <input type="range" min="-1" max="1" value="0.6" step="0.05" class="slider chiAz_slider" id="chiAz_slider">
                     <span id="chiAz_slider_value" class="slider_value_box" >0.6</span>
                     <div class="info_box_for_slider_names" id="info_box_chiAz">
@@ -136,7 +137,7 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="chiBx_slider" class="slider_text" id="chiBx_slider_text">ChiBx :</label>
+                    <label for="chiBx_slider" class="slider_text" id="chiBx_slider_text">ChiBx</label>
                     <input type="range" min="-1" max="1" value="0.3" step="0.05" class="slider chiBx_slider" id="chiBx_slider">
                     <span id="chiBx_slider_value" class="slider_value_box" >0.3</span>
                     <div class="info_box_for_slider_names" id="info_box_chiBx">
@@ -145,7 +146,7 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="chiBy_slider" class="slider_text" id="chiBy_slider_text">ChiBy :</label>
+                    <label for="chiBy_slider" class="slider_text" id="chiBy_slider_text">ChiBy</label>
                     <input type="range" min="-1" max="1" value="-0.3" step="0.05" class="slider chiBy_slider" id="chiBy_slider">
                     <span id="chiBy_slider_value" class="slider_value_box" >-0.3</span>
                     <div class="info_box_for_slider_names" id="info_box_chiBy">
@@ -154,7 +155,7 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="chiBz_slider" class="slider_text" id="chiBz_slider_text">ChiBz :</label>
+                    <label for="chiBz_slider" class="slider_text" id="chiBz_slider_text">ChiBz</label>
                     <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiBz_slider" id="chiBz_slider">
                     <span id="chiBz_slider_value" class="slider_value_box" >0.5</span>
                     <div class="info_box_for_slider_names" id="info_box_chiBz">
@@ -163,17 +164,17 @@
                 </div>
 
                 <div class="custom-row">
-                    <label for="t_start" class="slider_text" id="t_start_slider_text">Time min :</label>
-                    <input type="range" min="-1000" max="99" value="-250" step="1" class="slider" id="t_start">
-                    <span id="t_start_slider_value" class="slider_value_box" >-250</span>
+                    <label for="t_start" class="slider_text" id="t_start_slider_text">Time min</label>
+                    <input type="range" min="-1000" max="99" value="-200" step="1" class="slider t_start" id="t_start">
+                    <span id="t_start_slider_value" class="slider_value_box" >-200</span>
                     <div class="info_box_for_slider_names" id="info_box_t_start">
                         <p> Start time of the zoomed plot on the right</p>
                     </div>
                 </div>
 
                 <div class="custom-row">
-                    <label for="t_end" class="slider_text" id="t_end_slider_text">Time max :</label>
-                    <input type="range" min="-1000" max="99" value="50" step="1" class="slider" id="t_end">
+                    <label for="t_end" class="slider_text" id="t_end_slider_text">Time max</label>
+                    <input type="range" min="-1000" max="99" value="50" step="1" class="slider t_end" id="t_end">
                     <span id="t_end_slider_value" class="slider_value_box" >50</span>
                     <div class="info_box_for_slider_names" id="info_box_t_end">
                         <p> End time of the zoomed plot on the right</p>
@@ -206,7 +207,16 @@
         const chiBx = 0.3;
         const chiBy = -0.3;
         const chiBz = 0.5;
-    
+
+        const graph_background_color = 'black';
+        const h_plus_color = 'orange';
+        const h_cross_color = 'cyan';
+        const axis_color = 'white';
+        const grid_color = 'gray';
+        const axis2_color = 'red';
+        const grid2_color = 'gray';
+        const abs_color = 'yellowgreen';
+
         fetch('/interactive_h_lm_update_route', {
             method: 'POST',
             headers: {
@@ -227,8 +237,8 @@
             type: 'scatter',
             name: 'Real',
             marker: {
-            color: 'red'  // Set color for trace1
-                 },
+                color: h_plus_color,  // Set color for trace1
+                    },
             showlegend: true
         };
         var trace2 = {
@@ -239,7 +249,7 @@
             type: 'scatter',
             name: 'Real',
             marker: {
-                color: 'red'  // Set color for trace1
+                color: h_plus_color  // Set color for trace1
             },
             showlegend: false
         };
@@ -249,7 +259,7 @@
             type: 'scatter',
             name: 'Imag',
             marker: {
-                color: 'blue'  // Set color for trace1
+                color: h_cross_color  // Set color for trace1
                  },
             showlegend: true
         };
@@ -261,7 +271,7 @@
             type: 'scatter',
             name: 'Imag',
             marker: {
-                color: 'blue'  // Set color for trace1
+                color: h_cross_color  // Set color for trace1
                  },
             showlegend: false
         };
@@ -271,7 +281,7 @@
             type: 'scatter',
             name: 'abs',
             marker: {
-                color: 'green'  // Set color for trace1
+                color: abs_color  // Set color for trace1
             },
             showlegend: true
         };
@@ -283,7 +293,7 @@
             type: 'scatter',
             name: 'abs',
             marker: {
-                color: 'green'  // Set color for trace1
+                color: abs_color  // Set color for trace1
             },
             showlegend: false
         };        
@@ -293,18 +303,55 @@
             title: {
                 text: "h_" + l + m,
                 font: {
-                    size: 30,
-                    color:'blue',
-                    bold:true
-                }
-            },
-            xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
-            yaxis: {range:[y_min, y_max]},
-            yaxis2: {range: [y_min, y_max]},
-            xaxis2: {domain: [0.7, 1], range: [-300, 50],title: 'Time before merger (M)'}
-        };
+                        size: 40,
+                        color:'white',
+                        bold:true
+                        }, 
+                },
+                xaxis: {
+                        domain: [0, 0.7],title: {
+                            text: 'Time before merger (M)',
+                            font: {
+                                size:18,
+                                color: axis_color }},
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid_color},
 
-        Plotly.newPlot(graphDiv, data, layout);
+                yaxis: {range:[y_min, y_max],
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid_color},
+
+                yaxis2: {range: [y_min, y_max],
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid2_color},
+
+                xaxis2: {domain: [0.7, 1], range: [-200, 50],
+                        title: {
+                            text: 'Time before merger (M)',
+                            font: { 
+                                size:18,
+                                color: axis_color }
+                        },
+                        tickfont: { color: axis_color },
+                        linecolor: axis2_color,
+                        gridcolor: grid2_color
+                        },
+                plot_bgcolor: graph_background_color,
+                paper_bgcolor: graph_background_color,
+                legend: {
+                        font: {
+                            size: 22,
+                            color: axis_color,
+                            family: 'Arial',
+                            weight: 'bold'
+                            }
+                        }
+            };
+
+            Plotly.newPlot(graphDiv, data, layout);
 
         });
     </script>
@@ -631,30 +678,35 @@
         });
 
         reset_camera_button.addEventListener('click', function () {
-        // Reset camera position and controls
-        camera.position.set(-4,-6,2.5);
-        camera.lookAt(0, 0, 0);
-        camera.up.set(0, 0, 1);
-        controls.reset();
+            gsap.to(camera.position, {
+                x: -4,
+                y: -6,
+                z: 2.5,
+                duration: 1, // Adjust the duration as needed
+                onUpdate: function() {
+                    camera.lookAt(0, 0, 0); // Ensure the camera always looks at the center
+                },
+                ease: "power1.inOut" // Easing function for the animation
             });
-            
+        });
+
         // Setup scene
         const container  = document.getElementById('animation_container');
-
+        
         const fov    = 22.5;
         const width_  = container.clientWidth*0.98;
         const height_ = container.clientHeight*0.99;
         const aspect = width_/height_;
         const near   = 0.1;
         const far    = 1000;
-        
+    
         const scene      = new THREE.Scene();
-        scene.background = new THREE.Color(0xffffff); // White background
+        scene.background = new THREE.Color(0x000000); // White background
         const camera     = new THREE.PerspectiveCamera(fov, aspect, near, far );
         const renderer   = new THREE.WebGLRenderer();
 
         // Camera setup
-        camera.position.set(-4,-6,2.5);
+        camera.position.set(50, 50, 50);//camera.position.set(-4,-6,2.5);
         camera.lookAt(0, 0, 0);
         camera.up.set(0, 0, 1);
 
@@ -665,8 +717,8 @@
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
         renderer.setSize(width_, height_);
-        container.appendChild(renderer.domElement);    
-
+        container.appendChild(renderer.domElement);
+        
         // Create axes
         const axesHelper = new THREE.AxesHelper(5);
         scene.add(axesHelper);
@@ -675,9 +727,61 @@
         const divisions_ = 80;// The number of divisions across the grid
         const gridX = new THREE.GridHelper(size_, divisions_);
         gridX.rotation.x = Math.PI / 2;
+        gridX.material.linewidth = 0.0001;
         scene.add(gridX);
 
-        axis_name_arrow_color = 0x787878;
+        // Create a canvas texture for circular stars
+        const starCanvas = document.createElement('canvas');
+        starCanvas.width = 64;
+        starCanvas.height = 64;
+        const starContext = starCanvas.getContext('2d');
+
+        // Draw a circular shape
+        starContext.fillStyle = 'white';
+        starContext.beginPath();
+        starContext.arc(32, 32, 30, 0, Math.PI * 2);
+        starContext.fill();
+
+        // Create a texture from the canvas
+        const starTexture = new THREE.CanvasTexture(starCanvas);
+
+        // Create the star material with the circular texture
+        const starMaterial = new THREE.PointsMaterial({
+            size: 0.7, // Adjust the size as needed
+            map: starTexture,
+            transparent: true,
+            alphaTest: 0.5
+        });
+
+        // Add stars
+        const starGeometry = new THREE.BufferGeometry();
+        const starCount = 3000;
+        const starVertices = [];
+
+        for (let i = 0; i < starCount; i++) {
+            const x = THREE.MathUtils.randFloatSpread(2*size_); // Randomly spread stars within 2000 units
+            const y = THREE.MathUtils.randFloatSpread(2*size_);
+            const z = THREE.MathUtils.randFloatSpread(2*size_);
+            starVertices.push(x, y, z);
+        }
+
+        starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+
+        const stars = new THREE.Points(starGeometry, starMaterial);
+        scene.add(stars);
+
+        gsap.to(camera.position, {
+            x: -4,
+            y: -6,
+            z: 2.5,
+            duration: 5, // Duration of the animation in seconds
+            onUpdate: function() {
+                camera.lookAt(0, 0, 0); // Ensure the camera always looks at the center
+            },
+            ease: "power1.inOut" // Easing function for the animation 
+        });
+
+        axis_name_arrow_color = 0xffffff;
 
         // X axis
         const x_axis_color = axis_name_arrow_color;
@@ -754,8 +858,8 @@
 
         //________________________________________________________________________________________________________________________________
 
-        BHA_spin_vec_color = 0x00008a;
-        BHB_spin_vec_color = 0xd40202;
+        BHA_spin_vec_color = 0x00FFFF;
+        BHB_spin_vec_color = 0xFFA500;
         scale_chi_mag = 1.5;
 
         // Initial vector
@@ -774,8 +878,8 @@
         const initial_BHA_radius = mass_ratio_ini/(1+mass_ratio_ini);
         const initial_BHB_radius = 1/(1+mass_ratio_ini);
 
-        BHA_sphere_color = 0x0000ff;
-        BHB_sphere_color = 0xff0000;
+        BHA_sphere_color = 0x00FFFF;
+        BHB_sphere_color = 0xFFA500;
         BH_sphere_opacity = 0.7;
 
         // Initial sphere
@@ -858,88 +962,127 @@
         .then(data => {
             
             var trace1 = {
-                x: data.times,
-                y: data.h_lm_real,
-                type: 'scatter',
-                name: 'Real',
-                marker: {
-                color: 'red'  // Set color for trace1
+            x: data.times,
+            y: data.h_lm_real,
+            type: 'scatter',
+            name: 'Real',
+            marker: {
+                color: h_plus_color,  // Set color for trace1
                     },
-                showlegend: true
-                };
-            var trace2 = {
-                x: data.times,
-                y: data.h_lm_real,
-                xaxis: 'x2',
-                yaxis: 'y2',
-                type: 'scatter',
-                name: 'Real',
-                marker: {
-                color: 'red'  // Set color for trace1
-                    },
-                showlegend: false
-                };
-            var trace3 = {
-                x: data.times,
-                y: data.h_lm_imag,
-                type: 'scatter',
-                name: 'Imag',
-                marker: {
-                color: 'blue'  // Set color for trace1
-                    },
-                showlegend: true
-                };
-            var trace4 = {
-                x: data.times,
-                y: data.h_lm_imag,
-                xaxis: 'x2',
-                yaxis: 'y2',
-                type: 'scatter',
-                name: 'Imag',
-                marker: {
-                color: 'blue'  // Set color for trace1
-                    },
-                showlegend: false
-                };
-            var trace5 = {
-                x: data.times,
-                y: data.h_lm_abs,
-                type: 'scatter',
-                name: 'abs',
-                marker: {
-                color: 'green'  // Set color for trace1
-                    },
-                showlegend: true
-                };
-            var trace6 = {
-                x: data.times,
-                y: data.h_lm_abs,
-                xaxis: 'x2',
-                yaxis: 'y2',
-                type: 'scatter',
-                name: 'abs',
-                marker: {
-                color: 'green'  // Set color for trace1
-                    },
-                showlegend: false
-                };
+            showlegend: true
+        };
+        var trace2 = {
+            x: data.times,
+            y: data.h_lm_real,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'Real',
+            marker: {
+                color: h_plus_color  // Set color for trace1
+            },
+            showlegend: false
+        };
+        var trace3 = {
+            x: data.times,
+            y: data.h_lm_imag,
+            type: 'scatter',
+            name: 'Imag',
+            marker: {
+                color: h_cross_color  // Set color for trace1
+                 },
+            showlegend: true
+        };
+        var trace4 = {
+            x: data.times,
+            y: data.h_lm_imag,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'Imag',
+            marker: {
+                color: h_cross_color  // Set color for trace1
+                 },
+            showlegend: false
+        };
+        var trace5 = {
+            x: data.times,
+            y: data.h_lm_abs,
+            type: 'scatter',
+            name: 'abs',
+            marker: {
+                color: abs_color  // Set color for trace1
+            },
+            showlegend: true
+        };
+        var trace6 = {
+            x: data.times,
+            y: data.h_lm_abs,
+            xaxis: 'x2',
+            yaxis: 'y2',
+            type: 'scatter',
+            name: 'abs',
+            marker: {
+                color: abs_color  // Set color for trace1
+            },
+            showlegend: false
+        };        
 
-            var data = [trace1, trace2,trace3,trace4,trace5, trace6];
-            var layout = {
-                title: {
-                    text: "h_" + l + m,
-                    font: {
-                        size: 30,
-                        color:'blue',
+        var data = [trace1, trace2,trace3,trace4,trace5, trace6];
+        var layout = {
+            title: {
+                text: "h_" + l + m,
+                font: {
+                        size: 40,
+                        color:'white',
                         bold:true
-                    }
+                        }, 
                 },
-                xaxis: {domain: [0, 0.7],title: 'Time before merger (M)'},
-                yaxis: {range:[y_min,y_max]},
-                yaxis2: {range: [y_min,y_max]},
-                xaxis2: {domain: [0.7, 1], range: [t_start, t_end],title: 'Time before merger (M)'}
+                xaxis: {
+                        domain: [0, 0.7],title: {
+                            text: 'Time before merger (M)',
+                            font: {
+                                size:18,
+                                color: axis_color }},
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid_color},
+
+                yaxis: {range:[y_min, y_max],
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid_color},
+
+                yaxis2: {range: [y_min, y_max],
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid2_color},
+
+                xaxis2: {domain: [0.7, 1], range: [t_start, t_end],
+                        title: {
+                            text: 'Time before merger (M)',
+                            font: { 
+                                size:18,
+                                color: axis_color }
+                        },
+                        tickfont: { color: axis_color },
+                        linecolor: axis2_color,
+                        gridcolor: grid2_color
+                        },
+                plot_bgcolor: graph_background_color,
+                paper_bgcolor: graph_background_color,
+                legend: {
+                        font: {
+                            size: 22,
+                            color: axis_color,
+                            family: 'Arial',
+                            weight: 'bold'
+                            }
+                        }
             };
+
             Plotly.newPlot(graphDiv, data, layout);
+
         });
 
         scene.remove(BHASpinVec);

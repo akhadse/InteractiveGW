@@ -60,8 +60,8 @@
     height: 33.33%;
     margin-top: 10px;
     margin-left: 15px;
-    background-color: red;
-    border: 5px solid green;
+    background-color: rgb(252, 75, 75);
+    border: 5px solid black;
     border-radius: 15px;
     color: white;
     font-size: min(3.6vw, 18px);
@@ -70,6 +70,7 @@
     align-items: center;
     padding: 5px;
     line-height: 175%;
+    font-weight: bold;
 }
 
 .sliders-container {
@@ -160,8 +161,8 @@
         top: 50%; /* Position it 50% from the top */
         left: 50%; /* Position it 50% from the left */
         transform: translate(-50%, -50%);
-        background-color: #e0e0e0;
-        border: 4px solid rgb(11, 67, 88);
+        background-color: black;
+        border: 4px solid black;
         font-size: min(2.5vw, 28px);
         color: rgb(6, 32, 43);
         text-align: center; /* Center text horizontally */
@@ -187,40 +188,53 @@
         background-color:black;
     }
 
-    #chiAx_slider_text, #chiAy_slider_text, #chiAz_slider_text,
-    #chiAx_slider_value, #chiAy_slider_value, #chiAz_slider_value{
-    color: #4d4dff;
+    #inclination_slider_text, #phi_ref_slider_text,
+    #inclination_slider_value, #phi_ref_slider_value,
+    #l_slider_text, #m_slider_text,
+    #l_slider_value, #m_slider_value {
+    color: yellow;
     }
 
-    #chiBx_slider_text, #chiBy_slider_text, #chiBz_slider_text,
-    #chiBx_slider_value, #chiBy_slider_value, #chiBz_slider_value {
-    color: #ff5454;
+    .inclination_slider::-webkit-slider-thumb,
+    .phi_ref_slider::-webkit-slider-thumb,
+    .l_slider::-webkit-slider-thumb,
+    .m_slider::-webkit-slider-thumb {
+        background:yellow;
+        border: 1px solid greenyellow; /* Add a border around the slider thumb */
     }
-
 
     #mass_ratio_slider_text,#mass_ratio_slider_value{
-        color: #2c9c2c;
+        color: #ff5454;
         }
+
+    .mass_ratio_slider::-webkit-slider-thumb {
+        background: #ff5454;
+        border: 1px solid greenyellow; /* Add a border around the slider thumb */
+    }
+
+    #chiAx_slider_text, #chiAy_slider_text, #chiAz_slider_text,
+    #chiAx_slider_value, #chiAy_slider_value, #chiAz_slider_value{
+    color: cyan;
+    }
 
     .chiAx_slider::-webkit-slider-thumb,
     .chiAy_slider::-webkit-slider-thumb,
     .chiAz_slider::-webkit-slider-thumb {
-        background: #4d4dff;
+        background: cyan;
         border: 1px solid greenyellow; /* Add a border around the slider thumb */
+    }
+
+    #chiBx_slider_text, #chiBy_slider_text, #chiBz_slider_text,
+    #chiBx_slider_value, #chiBy_slider_value, #chiBz_slider_value {
+    color: orange;
     }
 
     .chiBx_slider::-webkit-slider-thumb,
     .chiBy_slider::-webkit-slider-thumb,
     .chiBz_slider::-webkit-slider-thumb {
-        background: #ff5454;
+        background: orange;
         border: 1px solid greenyellow; /* Add a border around the slider thumb */
     }
-
-    .mass_ratio_slider::-webkit-slider-thumb {
-        background: #2c9c2c;
-        border: 1px solid greenyellow; /* Add a border around the slider thumb */
-    }
-
 
     .t_start::-webkit-slider-thumb,
     .t_end::-webkit-slider-thumb {
@@ -236,17 +250,3 @@
         font-size: min(5vw, 16px);
     }
 
-    #inclination_slider_text, #phi_ref_slider_text,
-    #inclination_slider_value, #phi_ref_slider_value,
-    #l_slider_text, #m_slider_text,
-    #l_slider_value, #m_slider_value {
-    color: #FFD700;
-    }
-
-    .inclination_slider::-webkit-slider-thumb,
-    .phi_ref_slider::-webkit-slider-thumb,
-    .l_slider::-webkit-slider-thumb,
-    .m_slider::-webkit-slider-thumb {
-        background:#FFD700;
-        border: 1px solid greenyellow; /* Add a border around the slider thumb */
-    }

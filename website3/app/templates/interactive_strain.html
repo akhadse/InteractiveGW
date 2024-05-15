@@ -23,6 +23,7 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
 
     <div class="container-fluid">
 
@@ -164,8 +165,8 @@
 
                 <div class="custom-row">
                     <label for="t_start" class="slider_text" id="t_start_slider_text">Time min</label>
-                    <input type="range" min="-1000" max="99" value="-250" step="1" class="slider t_start" id="t_start">
-                    <span id="t_start_slider_value" class="slider_value_box" >-250</span>
+                    <input type="range" min="-1000" max="99" value="-200" step="1" class="slider t_start" id="t_start">
+                    <span id="t_start_slider_value" class="slider_value_box" >-200</span>
                     <div class="info_box_for_slider_names" id="info_box_t_start">
                         <p> Start time of the zoomed plot on the right</p>
                     </div>
@@ -212,8 +213,8 @@
         const h_cross_color = 'cyan';
         const axis_color = 'white';
         const grid_color = 'gray';
-        const axis2_color = '#fcada4';
-        const grid2_color = '#fcedeb';
+        const axis2_color = 'red';
+        const grid2_color = 'gray';
         const abs_color = 'yellowgreen';
 
         fetch('/interactive_strain_update_route', {
@@ -236,7 +237,7 @@
                 type: 'scatter',
                 name: 'h_plus',
                 marker: {
-                color: h_plus_color,  // Set color for trace1
+                    color: h_plus_color,  // Set color for trace1
                     },
                 showlegend: true
             };
@@ -324,10 +325,10 @@
 
                 yaxis2: {range: [y_min, y_max],
                         tickfont: { color: axis_color },
-                        linecolor: axis2_color,
+                        linecolor: axis_color,
                         gridcolor: grid2_color},
 
-                xaxis2: {domain: [0.7, 1], range: [-300, 50],
+                xaxis2: {domain: [0.7, 1], range: [-200, 50],
                         title: {
                             text: 'Time before merger (M)',
                             font: { 
@@ -677,30 +678,35 @@
         });
 
         reset_camera_button.addEventListener('click', function () {
-        // Reset camera position and controls
-        camera.position.set(-4,-6,2.5);
-        camera.lookAt(0, 0, 0);
-        camera.up.set(0, 0, 1);
-        controls.reset();
+            gsap.to(camera.position, {
+                x: -4,
+                y: -6,
+                z: 2.5,
+                duration: 1, // Adjust the duration as needed
+                onUpdate: function() {
+                    camera.lookAt(0, 0, 0); // Ensure the camera always looks at the center
+                },
+                ease: "power1.inOut" // Easing function for the animation
             });
+        });
 
         // Setup scene
         const container  = document.getElementById('animation_container');
-
+        
         const fov    = 22.5;
         const width_  = container.clientWidth*0.98;
         const height_ = container.clientHeight*0.99;
         const aspect = width_/height_;
         const near   = 0.1;
         const far    = 1000;
-        
+    
         const scene      = new THREE.Scene();
         scene.background = new THREE.Color(0x000000); // White background
         const camera     = new THREE.PerspectiveCamera(fov, aspect, near, far );
         const renderer   = new THREE.WebGLRenderer();
 
         // Camera setup
-        camera.position.set(-4,-6,2.5);
+        camera.position.set(50, 50, 50);//camera.position.set(-4,-6,2.5);
         camera.lookAt(0, 0, 0);
         camera.up.set(0, 0, 1);
 
@@ -711,8 +717,8 @@
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
 
         renderer.setSize(width_, height_);
-        container.appendChild(renderer.domElement);    
-
+        container.appendChild(renderer.domElement);
+        
         // Create axes
         const axesHelper = new THREE.AxesHelper(5);
         scene.add(axesHelper);
@@ -721,7 +727,59 @@
         const divisions_ = 80;// The number of divisions across the grid
         const gridX = new THREE.GridHelper(size_, divisions_);
         gridX.rotation.x = Math.PI / 2;
+        gridX.material.linewidth = 0.0001;
         scene.add(gridX);
+
+        // Create a canvas texture for circular stars
+        const starCanvas = document.createElement('canvas');
+        starCanvas.width = 64;
+        starCanvas.height = 64;
+        const starContext = starCanvas.getContext('2d');
+
+        // Draw a circular shape
+        starContext.fillStyle = 'white';
+        starContext.beginPath();
+        starContext.arc(32, 32, 30, 0, Math.PI * 2);
+        starContext.fill();
+
+        // Create a texture from the canvas
+        const starTexture = new THREE.CanvasTexture(starCanvas);
+
+        // Create the star material with the circular texture
+        const starMaterial = new THREE.PointsMaterial({
+            size: 0.7, // Adjust the size as needed
+            map: starTexture,
+            transparent: true,
+            alphaTest: 0.5
+        });
+
+        // Add stars
+        const starGeometry = new THREE.BufferGeometry();
+        const starCount = 3000;
+        const starVertices = [];
+
+        for (let i = 0; i < starCount; i++) {
+            const x = THREE.MathUtils.randFloatSpread(2*size_); // Randomly spread stars within 2000 units
+            const y = THREE.MathUtils.randFloatSpread(2*size_);
+            const z = THREE.MathUtils.randFloatSpread(2*size_);
+            starVertices.push(x, y, z);
+        }
+
+        starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+
+        const stars = new THREE.Points(starGeometry, starMaterial);
+        scene.add(stars);
+
+        gsap.to(camera.position, {
+            x: -4,
+            y: -6,
+            z: 2.5,
+            duration: 5, // Duration of the animation in seconds
+            onUpdate: function() {
+                camera.lookAt(0, 0, 0); // Ensure the camera always looks at the center
+            },
+            ease: "power1.inOut" // Easing function for the animation 
+        });
 
         axis_name_arrow_color = 0xffffff;
 
@@ -997,10 +1055,10 @@
 
                 yaxis2: {range: [y_min, y_max],
                         tickfont: { color: axis_color },
-                        linecolor: axis2_color,
+                        linecolor: axis_color,
                         gridcolor: grid2_color},
 
-                xaxis2: {domain: [0.7, 1], range: [-300, 50],
+                xaxis2: {domain: [0.7, 1], range: [t_start, t_end],
                         title: {
                             text: 'Time before merger (M)',
                             font: { 
