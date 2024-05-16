@@ -6,7 +6,6 @@
     background-color: black;
     margin: 0;
     padding: 0;
-    border: 3px solid white;
 }
 
 #GW_interactive_graph{
@@ -80,7 +79,6 @@
     font-weight: bold;
     color: greenyellow;
     width: 100%;
-    /* border: 5px solid red; */
     margin: 0;
     padding: 0;
     padding-right: 5px;
@@ -163,9 +161,9 @@
         left: 50%; /* Position it 50% from the left */
         transform: translate(-50%, -50%);
         background-color: black;
-        border: 4px solid black;
+        border: 4px solid gold;
         font-size: min(2.5vw, 28px);
-        color: rgb(6, 32, 43);
+        color: cyan;
         text-align: center; /* Center text horizontally */
         padding: 2vw;
         z-index: 9999;
