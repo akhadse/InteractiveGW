@@ -71,7 +71,11 @@
             <div class="col-md-12 col-sm-12 interactive-plot-container">
 
                 <div class="warning-container" id="warning">
-                    !! Warning!! <br> Magnitude of  <br> ChiA and ChiB  <br>should be less that 1 
+                !! Warning!! <br> Magnitude of  <br> ChiA and ChiB  <br>should be less that 1 
+                </div>
+
+                <div class="warning-container" id="warning_lm">
+                !! Warning!! <br> m has to be between (-l,l)
                 </div>
 
                 <div id="GW_interactive_graph">
@@ -283,7 +287,7 @@
             x: data.times,
             y: data.h_lm_abs,
             type: 'scatter',
-            name: 'abs',
+            name: 'Abs',
             marker: {
                 color: abs_color  // Set color for trace1
             },
@@ -295,7 +299,7 @@
             xaxis: 'x2',
             yaxis: 'y2',
             type: 'scatter',
-            name: 'abs',
+            name: 'Abs',
             marker: {
                 color: abs_color  // Set color for trace1
             },
@@ -376,6 +380,8 @@
         var reset_axis_button     = document.getElementById("reset_axis_button");
         var reset_camera_button   = document.getElementById("reset_camera_button");
         const warning = document.getElementById('warning');
+        const warning_lm = document.getElementById('warning_lm');
+        
 
         var l_slider_text = document.getElementById("l_slider_text")
         var info_box_l = document.getElementById("info_box_l")
@@ -979,6 +985,12 @@
             warning.style.display = 'none';
         }
 
+        if (m > l || m < -l) {
+            warning_lm.style.display = 'block';
+        } else {
+            warning_lm.style.display = 'none';
+        }
+
         fetch('/interactive_h_lm_update_route', {
             method: 'POST',
             headers: {
@@ -1037,7 +1049,7 @@
             x: data.times,
             y: data.h_lm_abs,
             type: 'scatter',
-            name: 'abs',
+            name: 'Abs',
             marker: {
                 color: abs_color  // Set color for trace1
             },
@@ -1049,7 +1061,7 @@
             xaxis: 'x2',
             yaxis: 'y2',
             type: 'scatter',
-            name: 'abs',
+            name: 'Abs',
             marker: {
                 color: abs_color  // Set color for trace1
             },

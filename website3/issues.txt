@@ -1,7 +1,6 @@
 *****Styling******
 
 - Warning container not at always at the center of the screen
-- Reset camera text going out of box
 - not able to blur the background when info_box_parameter is being displayed
 - not able to blur the background when warning is being displayed
 
@@ -11,14 +10,12 @@
 
 *****html******
 
-- make time on right plot from -200 to 50
 
 
 
 
 
 *****Code******
-
 
 
 
