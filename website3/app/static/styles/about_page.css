@@ -27,7 +27,7 @@ html, body {
 .about_text_1 {
     position: absolute;
     top: 10%;
-    left: 20%;
+    left: 10%;
     margin: 200px;
     color: red;
     font-weight: bold;

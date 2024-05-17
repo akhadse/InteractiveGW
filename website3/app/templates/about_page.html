@@ -67,8 +67,6 @@
     </div>
 
 
-
-
 <div class="row">
 
     <div class="col-md-12 col-sm-12 about_page_animation_container">
@@ -97,7 +95,7 @@
 
         window.addEventListener('resize', function() {
             width_  = container.clientWidth;
-            height_ = Math.min(container.clientHeight, 450);
+            height_ = container.clientHeight;
             aspect = width_/height_;
             camera.aspect = aspect;
             camera.updateProjectionMatrix();
