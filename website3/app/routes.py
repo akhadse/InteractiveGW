@@ -20,6 +20,9 @@ def interactive_h_lm():
 def download_videos():
     return render_template('download_videos.html')
 
+@routes.route('/about_page', methods=['GET', 'POST'])
+def about_page():
+    return render_template('about_page.html')
 
 @routes.route('/interactive_strain_update_route', methods=['POST'])
 def interactive_strain_update_route():
