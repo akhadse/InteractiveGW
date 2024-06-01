@@ -79,6 +79,34 @@
     </div>
 
 
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <form class= "col-md-6 col-sm-6" id="Download_Strain_Form">
+                <div id="question1">
+                    <label for="answer1">What is ?</label>
+                    <select id="answer1" name="answer1" onchange="showNextQuestion(1, this.value)">
+                        <option value="">Select...</option>
+                        <option value="red">Red</option>
+                        <option value="blue">Blue</option>
+                        <option value="green">Green</option>
+                    </select>
+                </div>
+            </form>
+
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
     <form id="dynamicForm">
         <div id="question1">
             <label for="answer1">What is your favorite color?</label>
@@ -147,8 +175,6 @@
             }
 
     </script>
-
-
 
 
 

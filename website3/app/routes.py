@@ -7,7 +7,6 @@ routes = Blueprint('routes', __name__)
 def homepage():
     return render_template('homepage.html')
 
-
 @routes.route('/interactive_strain', methods=['GET', 'POST'])
 def interactive_strain():
     return render_template('interactive_strain.html')
@@ -31,6 +30,10 @@ def download_strain_():
 @routes.route('/about_page', methods=['GET', 'POST'])
 def about_page():
     return render_template('about_page.html')
+
+@routes.route('/test_page', methods=['GET', 'POST'])
+def test_page():
+    return render_template('test_page.html')
 
 @routes.route('/interactive_strain_update_route', methods=['POST'])
 def interactive_strain_update_route():
