@@ -160,7 +160,7 @@ def download_strain():
 
     # else:
     #     return render_template('download_strain.html')
-    return render_template('download_h_lm.html')
+    return render_template('download_strain.html')
 
     
 #______________________________________________________________________
