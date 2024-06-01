@@ -1,0 +1,14 @@
+.download_video_button_container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 50vh; /* Set the height of the container to full viewport height */
+}
+
+.download_video_form_container{
+    text-align: center; /* Center align the buttons */
+}
+
+.button:hover {
+    background-color: rgb(134, 230, 0);
+  }

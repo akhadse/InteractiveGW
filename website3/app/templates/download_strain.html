@@ -10,8 +10,21 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/homepage.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/interactive_base.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/download_videos.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/download_base.css') }}">
+
 
     <title>Interactive GW</title>
+
+    <style>
+        /* Inline CSS specific to this page */
+        body {
+            color: yellow;
+            background-color: black; /* Dark background to contrast the white text */
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
 
 </head>
 
@@ -65,12 +78,78 @@
         </header>
     </div>
 
-    <div class="download_video_button_container">
-        <form action="#" method="post" class="download_video_form_container">
-            <button type="submit" class="button" formaction="/download_strain_">Download Strain</button>
-            <button type="submit" class="button" formaction="/download_h_lm_">Download h_lm mode</button>
-        </form>
-    </div>
+
+    <form id="dynamicForm">
+        <div id="question1">
+            <label for="answer1">What is your favorite color?</label>
+            <select id="answer1" name="answer1" onchange="showNextQuestion(1, this.value)">
+                <option value="">Select...</option>
+                <option value="red">Red</option>
+                <option value="blue">Blue</option>
+                <option value="green">Green</option>
+            </select>
+        </div>
+        
+        <div id="question2" class="hidden">
+            <label for="answer2">Why do you like <span id="colorPlaceholder"></span>?</label>
+            <input type="text" id="answer2" name="answer2" onchange="showNextQuestion(2, this.value)">
+        </div>
+        
+        <div id="question3" class="hidden">
+            <label for="answer3">What shade of <span id="colorPlaceholder2"></span> do you prefer?</label>
+            <input type="text" id="answer3" name="answer3">
+        </div>
+
+        <div id="submitDiv" class="hidden">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+
+    <hr class="horizontal-line" color="white">
+    <hr class="horizontal-line">
+    <hr class="horizontal-line">
+
+
+    <script>
+        function showNextQuestion(questionNumber, answer) {
+            if (questionNumber === 1 && answer) {
+                document.getElementById('colorPlaceholder').innerText = answer;
+                document.getElementById('question2').classList.remove('hidden');
+            }
+            if (questionNumber === 2 && answer) {
+                document.getElementById('colorPlaceholder2').innerText = document.getElementById('answer1').value;
+                document.getElementById('question3').classList.remove('hidden');
+                document.getElementById('submitDiv').classList.remove('hidden');
+            }
+        }
+    </script>
+
+<form id="parameter_form" method="post" onsubmit="return submitForm();">
+
+    <label for="choose_parameter_to_vary">Choose a Parameter to vary</label>
+    <select id="choose_parameter_to_vary" name="choose_parameter_to_vary" onchange="showNextQuestion(1, this.value)">
+        <option value="q" selected>q</option>
+        <option value="chiAx">ChiAx</option>
+        <option value="chiAy">ChiAy</option>
+        <option value="chiAz">ChiAz</option>
+        <option value="chiBx">ChiBx</option>
+        <option value="chiBy">ChiBy</option>
+        <option value="chiBz">ChiBz</option>
+        <option value="inclination">Inclination</option>
+        <option value="phi_ref">phi_ref</option>
+    </select>
+    <br>
+
+    <script>
+            function showNextQuestion(questionNumber, answer) {
+
+                
+            }
+
+    </script>
+
+
+
 
 
 </body>
