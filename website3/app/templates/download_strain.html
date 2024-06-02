@@ -11,6 +11,8 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/interactive_base.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/download_videos.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/download_base.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.css" rel="stylesheet">
+
 
 
     <title>Interactive GW</title>
@@ -39,6 +41,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.js"></script>
 
     <div class="container-fluid">
 
@@ -79,104 +82,158 @@
     </div>
 
 
-    <div class="container-fluid">
+    <form class="container-fluid" id="Download_Strain_Form">
 
         <div class="row">
-
-            <form class= "col-md-6 col-sm-6" id="Download_Strain_Form">
-                <div id="question1">
-                    <label for="answer1">What is ?</label>
-                    <select id="answer1" name="answer1" onchange="showNextQuestion(1, this.value)">
-                        <option value="">Select...</option>
-                        <option value="red">Red</option>
-                        <option value="blue">Blue</option>
-                        <option value="green">Green</option>
-                    </select>
-                </div>
-            </form>
-
-
-
-
-        </div>
-    </div>
-
-
-
-
-
-
-
-    <form id="dynamicForm">
-        <div id="question1">
-            <label for="answer1">What is your favorite color?</label>
-            <select id="answer1" name="answer1" onchange="showNextQuestion(1, this.value)">
-                <option value="">Select...</option>
-                <option value="red">Red</option>
-                <option value="blue">Blue</option>
-                <option value="green">Green</option>
-            </select>
-        </div>
-        
-        <div id="question2" class="hidden">
-            <label for="answer2">Why do you like <span id="colorPlaceholder"></span>?</label>
-            <input type="text" id="answer2" name="answer2" onchange="showNextQuestion(2, this.value)">
-        </div>
-        
-        <div id="question3" class="hidden">
-            <label for="answer3">What shade of <span id="colorPlaceholder2"></span> do you prefer?</label>
-            <input type="text" id="answer3" name="answer3">
+            <div class="col-12 download_form_question" id="question_choose_param">
+                <p>Choose a parameter to vary</p>
+            </div>
         </div>
 
-        <div id="submitDiv" class="hidden">
-            <button type="submit">Submit</button>
+        <div class="row" id="options_choose_param">
+            <div class="col-12 col-md-4">
+                <label class="download_video_option_box">
+                    <input type="radio" name="choose_parameter" value="q">
+                    <span>q</span>
+                </label>
+            </div>
+            <div class="col-12 col-md-4">
+                <label class="download_video_option_box">
+                    <input type="radio" name="choose_parameter" value="inclination">
+                    <span>\( \mathbf{\iota} \)</span>
+                </label>
+            </div>
+            <div class="col-12 col-md-4">
+                <label class="download_video_option_box">
+                    <input type="radio" name="choose_parameter" value="phi_ref">
+                    <span>\( \mathbf{\phi_{ref}} \)</span>
+                </label>
+            </div>
+            <div class="col-12 col-md-4">
+                <label class="download_video_option_box">
+                    <input type="radio" name="choose_parameter" value="chiAx">
+                    <span>\( \mathbf{\chi^A_x} \)</span>
+                </label>
+            </div>
+            <div class="col-12 col-md-4">
+                <label class="download_video_option_box">
+                    <input type="radio" name="choose_parameter" value="chiAy">
+                    <span>\( \mathbf{\chi^A_y} \)</span>
+                </label>
+            </div>
+            <div class="col-12 col-md-4">
+                <label class="download_video_option_box">
+                    <input type="radio" name="choose_parameter" value="chiAz">
+                    <span>\( \mathbf{\chi^A_z} \)</span>
+                </label>
+            </div>
+            <div class="col-12 col-md-4">
+                <label class="download_video_option_box">
+                    <input type="radio" name="choose_parameter" value="chiBx">
+                    <span>\( \mathbf{\chi^B_x} \)</span>
+                </label>
+            </div>
+            <div class="col-12 col-md-4">
+                <label class="download_video_option_box">
+                    <input type="radio" name="choose_parameter" value="chiBy">
+                    <span>\( \mathbf{\chi^B_y} \)</span>
+                </label>
+            </div>
+            <div class="col-12 col-md-4">
+                <label class="download_video_option_box">
+                    <input type="radio" name="choose_parameter" value="chiBz">
+                    <span>\( \mathbf{\chi^B_z} \)</span>
+                </label>
+            </div>
         </div>
+
+        <div class="row">
+            <div class="col-12 download_form_question" id="question_param_range">
+                <p>Select Range for <span id="download_param_range_start_value_label"></span> </p>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12 download_param_range_slider_box">
+                <label class="download_param_range_slider_text">
+                    <span id="download_param_range_start_value"></span>
+                </label>
+                <div class="download_param_range_slider" id="download_param_range_slider"></div>
+                <label class="download_param_range_slider_text">
+                    <span id="download_param_range_end_value"></span>
+                </label>
+            </div>
+        </div>
+
     </form>
 
-    <hr class="horizontal-line" color="white">
-    <hr class="horizontal-line">
-    <hr class="horizontal-line">
-
-
     <script>
-        function showNextQuestion(questionNumber, answer) {
-            if (questionNumber === 1 && answer) {
-                document.getElementById('colorPlaceholder').innerText = answer;
-                document.getElementById('question2').classList.remove('hidden');
-            }
-            if (questionNumber === 2 && answer) {
-                document.getElementById('colorPlaceholder2').innerText = document.getElementById('answer1').value;
-                document.getElementById('question3').classList.remove('hidden');
-                document.getElementById('submitDiv').classList.remove('hidden');
-            }
-        }
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const options = document.querySelectorAll('input[name="choose_parameter"]');
+            let min_param_val = 0;
+            let max_param_val = 0;
+            let slider_stepsize = 1;
+            let rangeSlider;
+
+            options.forEach(option => {
+                option.addEventListener('change', function() {
+                    const selectedParam = document.getElementById('download_param_range_start_value_label');
+                    selectedParam.textContent = this.value;
+
+                    switch (this.value) {
+                        case 'q':
+                            min_param_val = 1;
+                            max_param_val = 6;
+                            slider_stepsize = 0.1;
+                            break;
+                        case 'inclination':
+                            min_param_val = 0;
+                            max_param_val = 180;
+                            slider_stepsize = 1;
+                            break;
+                        case 'phi_ref':
+                            min_param_val = 0;
+                            max_param_val = 360;
+                            slider_stepsize = 1;
+                            break;
+                        case 'chiAx':
+                        case 'chiAy':
+                        case 'chiAz':
+                        case 'chiBx':
+                        case 'chiBy':
+                        case 'chiBz':
+                            min_param_val = -1;
+                            max_param_val = 1;
+                            slider_stepsize = 0.1;
+                            break;                      
+                        
+                    }
+
+                    // Remove existing slider if any
+                    if (rangeSlider && rangeSlider.noUiSlider) {
+                        rangeSlider.noUiSlider.destroy();
+                    }
+
+                    // Initialize the slider
+                    rangeSlider = document.getElementById('download_param_range_slider');
+                    noUiSlider.create(rangeSlider, {
+                        start: [min_param_val, max_param_val],
+                        step: slider_stepsize,
+                        connect: true,
+                        range: {
+                            'min': min_param_val,
+                            'max': max_param_val
+                        }
+                    });
+
+                    rangeSlider.noUiSlider.on('update', function(values, handle) {
+                        document.getElementById('download_param_range_start_value').textContent = parseFloat(values[0]).toFixed(1);
+                        document.getElementById('download_param_range_end_value').textContent = parseFloat(values[1]).toFixed(1);
+                    });
+                });
+            });
+        });
     </script>
-
-<form id="parameter_form" method="post" onsubmit="return submitForm();">
-
-    <label for="choose_parameter_to_vary">Choose a Parameter to vary</label>
-    <select id="choose_parameter_to_vary" name="choose_parameter_to_vary" onchange="showNextQuestion(1, this.value)">
-        <option value="q" selected>q</option>
-        <option value="chiAx">ChiAx</option>
-        <option value="chiAy">ChiAy</option>
-        <option value="chiAz">ChiAz</option>
-        <option value="chiBx">ChiBx</option>
-        <option value="chiBy">ChiBy</option>
-        <option value="chiBz">ChiBz</option>
-        <option value="inclination">Inclination</option>
-        <option value="phi_ref">phi_ref</option>
-    </select>
-    <br>
-
-    <script>
-            function showNextQuestion(questionNumber, answer) {
-
-                
-            }
-
-    </script>
-
-
 
 </body>
 </html>

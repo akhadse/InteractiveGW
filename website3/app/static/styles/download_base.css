@@ -48,3 +48,21 @@
     background-color: #ff9999;
     border-radius: 5px;
 }
+
+
+.download_param_range_slider_box {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    justify-content: space-between; /* Distribute items evenly along the row */
+    align-items: center; /* Center items vertically */
+}
+
+.download_param_range_slider_text {
+    flex: 1; /* Each item occupies equal space */
+    text-align: center; /* Center the text within each label */
+    font-size: 20px;
+}
+
+.download_param_range_slider {
+    flex: 2; /* Adjust the space taken by the slider */
+}
