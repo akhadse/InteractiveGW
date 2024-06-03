@@ -90,13 +90,12 @@
 
         <div class="row super_containers text-center" >
 
-            <div class="col-md-1 col-sm-12 question text-center" id="question_choose_param">
-                <p>Choose a parameter to vary</p>
+            <div class="col-md-2 col-sm-12 question text-center" id="question_choose_param">
+                <p>Choose Parameter</p>
             </div>
 
-            <div class="col-md-11 col-sm-12 choose_param_button_box text-center ">
-
-                <div class="row">
+            <div class="col-md-10 col-sm-12 text-center">
+                <div class="row" id="choose_param_button_superbox" >
                     <div class="col-md-4 col-sm-12 choose_param_button_box text-center ">
                         <label class="choose_param_button">
                             <input type="radio" name="choose_parameter" value="q">
@@ -157,11 +156,11 @@
 
 
         <div class="row super_containers text-center" >
-            <div class="col-md-1 col-sm-12 question text-center" id="question_param_range">
-                <p>Specify range for selected parameter</p>
+            <div class="col-md-2 col-sm-12 question text-center" id="question_param_range">
+                <p>Specify Range</p>
             </div>
 
-            <div class="col-md-11 col-sm-12 choose_param_button_box text-center ">
+            <div class="col-md-10 col-sm-12 choose_param_button_box text-center ">
                 <div class="row">
                     <div class="col-md-11 col-sm-12 param_range_slider_container" id="param_range_slider_container">
                         <div class="param_range_slider_row">
@@ -169,7 +168,7 @@
                                 <span id="param_range_start_value_label"></span>
                             </label>
         
-                            <div class="download_param_range_slider" id="download_param_range_slider"></div>
+                            <div class="param_range_slider" id="param_range_slider"></div>
         
                             <label class="slider_value_box" id="param_range_display_container">
                                 <span id="param_range_display"></span>
@@ -182,11 +181,11 @@
 
 
         <div class="row super_containers text-center" >
-            <div class="col-md-1 col-sm-12 question text-center" id="question_specify_other_params">
-                <p>Specify remaining parameters </p>
+            <div class="col-md-2 col-sm-12 question text-center" id="question_specify_other_params">
+                <p>Other Parameters </p>
             </div>
 
-            <div class="col-md-11 col-sm-12 choose_param_button_box text-center ">
+            <div class="col-md-10 col-sm-12 choose_param_button_box text-center ">
                 <div class="row">
                     <div class="col-md-8 col-sm-12 sliders-container" id="sliders_container">
  
@@ -275,15 +274,12 @@
             </div>
         </div>
 
-        
-
-
         <div class="row super_containers text-center" >
-            <div class="col-md-1 col-sm-12 question text-center" id="question_download_video">
+            <div class="col-md-2 col-sm-12 question text-center" id="question_download_video">
                 <p>Download Video? </p>
             </div>
 
-            <div class="col-md-11 col-sm-12 choose_param_button_box text-center" id="download_video_button_box">
+            <div class="col-md-10 col-sm-12 choose_param_button_box text-center" id="download_video_button_box">
                 <button class="choose_param_button" id="download_video_button" onclick="alert('Button Clicked!')"> Download Video?</button>
             </div>
         </div>
@@ -509,7 +505,7 @@
                     }
 
                     // Initialize the slider
-                    rangeSlider = document.getElementById('download_param_range_slider');
+                    rangeSlider = document.getElementById('param_range_slider');
                     noUiSlider.create(rangeSlider, {
                         start: [min_param_val, max_param_val],
                         step: slider_stepsize,
