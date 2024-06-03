@@ -19,13 +19,13 @@ def interactive_h_lm():
 def download_videos():
     return render_template('download_videos.html')
 
-@routes.route('/download_h_lm_', methods=['GET', 'POST'])
-def download_h_lm_():
-    return redirect(url_for('routes.download_h_lm'))
+# @routes.route('/download_h_lm_', methods=['GET', 'POST'])
+# def download_h_lm_():
+#     return redirect(url_for('routes.download_h_lm'))
 
-@routes.route('/download_strain_', methods=['GET', 'POST'])
-def download_strain_():
-    return redirect(url_for('routes.download_strain'))
+# @routes.route('/download_strain_', methods=['GET', 'POST'])
+# def download_strain_():
+#     return redirect(url_for('routes.download_strain'))
 
 @routes.route('/about_page', methods=['GET', 'POST'])
 def about_page():
