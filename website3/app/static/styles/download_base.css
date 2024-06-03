@@ -5,7 +5,11 @@
     margin-bottom: 0px;
     flex-wrap: wrap;
 }
-
+.super_containers{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+}
 .row{
 }
 
@@ -86,7 +90,7 @@
 }
 
 #question_choose_param, #question_param_range, #question_specify_other_params{
-    color: #d6ebb8;
+    color: #c2f37e;
 }
 
 .noUi-base {
@@ -109,4 +113,13 @@
 
 .slider {
     border: 1px solid #d6ebb8;
+}
+
+
+#download_video_button_box, #question_download_video{
+    display: none;
+}
+#download_video_button{
+    color: red;
+    background-color: yellow;
 }
