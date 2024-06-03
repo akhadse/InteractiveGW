@@ -284,17 +284,24 @@
         </div>
 
 
-
     </form>
 
     <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
             const options = document.querySelectorAll('input[name="choose_parameter"]');
             let min_param_val = 0;
             let max_param_val = 0;
             let slider_stepsize = 1;
             let rangeSlider;
             let slider_color = 0;
+            var inclination_slider  = document.getElementById("inclination_slider");
+            var phi_ref_slider      = document.getElementById("phi_ref_slider");
+            var mass_ratio_slider   = document.getElementById("mass_ratio_slider");
+            var chiAx_slider        = document.getElementById("chiAx_slider");
+            var chiAy_slider        = document.getElementById("chiAy_slider");
+            var chiAz_slider        = document.getElementById("chiAz_slider");
+            var chiBx_slider        = document.getElementById("chiBx_slider");
+            var chiBy_slider        = document.getElementById("chiBy_slider");
+            var chiBz_slider        = document.getElementById("chiBz_slider");
 
             options.forEach(option => {
                 option.addEventListener('change', function() {
@@ -308,6 +315,8 @@
                             document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{red} \\textbf{q} \\)';
                             min_param_val = 1;
                             max_param_val = 6;
+                            ini_param_val_min = 2;
+                            ini_param_val_max = 4.5;
                             slider_stepsize = 0.1;
                             question_param_range.style.display = 'block';
                             question_specify_other_params.style.display = 'block';
@@ -329,6 +338,8 @@
                             document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{yellow} \\mathbf{\\iota} \\)';
                             min_param_val = 0;
                             max_param_val = 180;
+                            ini_param_val_min = 40;
+                            ini_param_val_max = 140;
                             slider_stepsize = 1;
                             question_param_range.style.display = 'block';
                             question_specify_other_params.style.display = 'block';
@@ -350,6 +361,8 @@
                             document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{yellow} \\mathbf{\\phi_{ref}} \\)';
                             min_param_val = 0;
                             max_param_val = 360;
+                            ini_param_val_min = 60;
+                            ini_param_val_max = 260;
                             slider_stepsize = 1;
                             question_param_range.style.display = 'block';
                             question_specify_other_params.style.display = 'block';
@@ -371,6 +384,8 @@
                             document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{cyan} \\mathbf{\\chi^A_x} \\)';
                             min_param_val = -1;
                             max_param_val = 1;
+                            ini_param_val_min = -0.5;
+                            ini_param_val_max = 0.5;
                             slider_stepsize = 0.1;
                             question_param_range.style.display = 'block';
                             question_specify_other_params.style.display = 'block';
@@ -392,6 +407,8 @@
                             document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{cyan} \\mathbf{\\chi^A_y} \\)';
                             min_param_val = -1;
                             max_param_val = 1;
+                            ini_param_val_min = -0.5;
+                            ini_param_val_max = 0.5;
                             slider_stepsize = 0.1;
                             question_param_range.style.display = 'block';
                             question_specify_other_params.style.display = 'block';
@@ -413,6 +430,8 @@
                             document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{cyan} \\mathbf{\\chi^A_z} \\)';                            
                             min_param_val = -1;
                             max_param_val = 1;
+                            ini_param_val_min = -0.5;
+                            ini_param_val_max = 0.5;
                             slider_stepsize = 0.1;
                             question_param_range.style.display = 'block';
                             question_specify_other_params.style.display = 'block';
@@ -434,6 +453,8 @@
                             document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{orange} \\mathbf{\\chi^B_x} \\)';
                             min_param_val = -1;
                             max_param_val = 1;
+                            ini_param_val_min = -0.5;
+                            ini_param_val_max = 0.5;
                             slider_stepsize = 0.1;
                             question_param_range.style.display = 'block';
                             question_specify_other_params.style.display = 'block';
@@ -455,7 +476,10 @@
                             document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{orange} \\mathbf{\\chi^B_y} \\)';
                             min_param_val = -1;
                             max_param_val = 1;
+                            ini_param_val_min = -0.5;
+                            ini_param_val_max = 0.5;
                             slider_stepsize = 0.1;
+                            
                             question_param_range.style.display = 'block';
                             question_specify_other_params.style.display = 'block';
 
@@ -476,7 +500,10 @@
                             document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{orange} \\mathbf{\\chi^B_z} \\)';
                             min_param_val = -1;
                             max_param_val = 1;
+                            ini_param_val_min = -0.5;
+                            ini_param_val_max = 0.5;
                             slider_stepsize = 0.1;
+
                             question_param_range.style.display = 'block';
                             question_specify_other_params.style.display = 'block';
 
@@ -506,7 +533,7 @@
                     // Initialize the slider
                     rangeSlider = document.getElementById('param_range_slider');
                     noUiSlider.create(rangeSlider, {
-                        start: [min_param_val, max_param_val],
+                        start: [ini_param_val_min, ini_param_val_max],
                         step: slider_stepsize,
                         connect: true,
                         range: {
@@ -533,7 +560,47 @@
                     });
                 });
             });
-        });
+
+
+            inclination_slider.addEventListener('input', function () {
+                inclination_slider_value.textContent = inclination_slider.value;
+            });
+
+            phi_ref_slider.addEventListener('input', function () {
+                phi_ref_slider_value.textContent = phi_ref_slider.value; 
+            });
+
+            mass_ratio_slider.addEventListener('input', function () {
+                    mass_ratio_slider_value.textContent = mass_ratio_slider.value;
+                });
+
+            chiAx_slider.addEventListener('input', function () {
+                    chiAx_slider_value.textContent = chiAx_slider.value; 
+                });
+
+            chiAy_slider.addEventListener('input', function () {
+                    chiAy_slider_value.textContent = chiAy_slider.value;
+                });
+
+            chiAz_slider.addEventListener('input', function () {
+                    chiAz_slider_value.textContent = chiAz_slider.value;
+                });
+
+            chiBx_slider.addEventListener('input', function () {
+                    chiBx_slider_value.textContent = chiBx_slider.value;
+                });
+
+            chiBy_slider.addEventListener('input', function () {
+                    chiBy_slider_value.textContent = chiBy_slider.value;
+                });
+
+            chiBz_slider.addEventListener('input', function () {
+                    chiBz_slider_value.textContent = chiBz_slider.value;
+                });
+
+
+
+
     </script>
 
 
