@@ -1,68 +1,112 @@
-#title_download{
-    color: aqua;
-}
-
-#parameter_form{
-    color: azure;
-}
-
-.horizontal-line {
-    border: 1px solid white; /* Make the horizontal line white */
-}
-
-.download_form_question{
+.question{
     font-size: 25px;
     text-align: center;
-    margin-top: 40px;
+    margin-top: 20px;
     margin-bottom: 0px;
+    flex-wrap: wrap;
 }
 
-#options_choose_param {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.row{
 }
-.download_video_option_box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin: 5px 0;
+
+.choose_param_button_box{
+    margin-top: 10px;
+}
+
+.choose_param_button {
     border-radius: 5px;
-    background-color: #99ccff;
     cursor: pointer;
     transition: transform 0.2s, background-color 0.2s;
+    border: 2px solid cyan;
+    height: 100%;
+    width: 50%;
+    padding: 5px;
+    margin: 0px;
+    border: 1px solid #d6ebb8;
 }
-.download_video_option_box input[type="radio"] {
+.choose_param_button input[type="radio"] {
     display: none;
+    border: 1px solid red;
 }
-.download_video_option_box span {
+.choose_param_button span {
     display: block;
-    color: white;
+    color: greenyellow;
     font-weight: bold;
+    font-size: 1.5em;
+    text-align: center;
 }
-.download_video_option_box:hover {
+.choose_param_button:hover {
     transform: scale(1.05);
 }
-.download_video_option_box input[type="radio"]:checked + span {
-    background-color: #ff9999;
+.choose_param_button input[type="radio"]:checked + span {
+    background-color: gray;
     border-radius: 5px;
 }
 
+.param_range_slider_container {
+    background-color:black;
+    font-size: 20px;
+    font-weight: bold;
+    color: greenyellow;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-right: 5px;
+}
 
-.download_param_range_slider_box {
+.param_range_slider_row {
+    position: relative;
     display: flex;
     flex-wrap: nowrap; /* Prevent wrapping */
     justify-content: space-between; /* Distribute items evenly along the row */
     align-items: center; /* Center items vertically */
 }
 
-.download_param_range_slider_text {
-    flex: 1; /* Each item occupies equal space */
-    text-align: center; /* Center the text within each label */
-    font-size: 20px;
+.param_range_slider_row .slider_text,
+.param_range_slider_row .slider_value_box{
+    flex: 0.8; /* Each item occupies equal space */
 }
 
-.download_param_range_slider {
-    flex: 2; /* Adjust the space taken by the slider */
+.param_range_slider_row .download_param_range_slider{
+    flex: 2; /* Each item occupies equal space */
+}
+
+.slider_value_box#param_range_display_container {
+    display: inline-block;
+    width: 150px; /* Adjust this width as needed */
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow if the text is too long */
+    text-align: left; /* Center the text */
+    max-width: 1000px;
+    margin-left: 50px;
+}
+
+#question_param_range, #question_specify_other_params, #sliders_container{
+    display: none;
+}
+
+#question_choose_param, #question_param_range, #question_specify_other_params{
+    color: #d6ebb8;
+}
+
+.noUi-base {
+    background-color: black; /* This colors the base (track) behind the sliders */
+    border-radius: 15px;
+    height: 200%;
+    min-height: 120%;
+    border: 1px solid greenyellow;
+}
+
+/* Adding a border to the entire slider */
+.noUi-target {
+    border: 2px solid cyan; /* Cyan border around the slider */
+}
+
+#download_param_range_slider{
+    background: black;
+    border: black;
+}
+
+.slider {
+    border: 1px solid #d6ebb8;
 }
