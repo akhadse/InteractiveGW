@@ -478,7 +478,7 @@
         var graphDiv = document.getElementById('GW_interactive_graph');
        
         inclination_slider.addEventListener('input', function () {
-            inclination_slider_value.textContent = inclination_slider.value;
+            inclination_slider_value.textContent = inclination_slider.value + '°';
             updateGraph({
                 inclination : inclination_slider.value,
                 phi_ref     : phi_ref_slider.value,
@@ -495,7 +495,7 @@
         });
 
         phi_ref_slider.addEventListener('input', function () {
-            phi_ref_slider_value.textContent = phi_ref_slider.value;
+            phi_ref_slider_value.textContent = phi_ref_slider.value + '°';
             updateGraph({
                 inclination : inclination_slider.value,
                 phi_ref     : phi_ref_slider.value,

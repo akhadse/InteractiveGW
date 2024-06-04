@@ -136,3 +136,35 @@
 #download_video_button:hover {
     background-color: rgb(66, 77, 77);
 }
+
+
+/* Styles for the loading container */
+.loading-container {
+    position: absolute;
+    top: 62%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 9999; /* Ensure it appears above other content */
+    padding: 100%;
+    background-color:rgba(0, 0, 0, 0.596);
+    border-radius: 3px;
+}
+/* Styles for the loading GIF */
+.loading-gif {
+    width: 750px; /* Adjust as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+/* Styles for the text below the loading GIF */
+.loading-text {
+    margin-top: 20px; /* Adjust as needed */
+    font-size: 48px; /* Adjust as needed */
+    font-weight: bold;
+    color: white;
+    background-color:rgba(0, 0, 0, 0.822);
+}
+
+div#loading {
+display: none;
+cursor: wait;
+}
