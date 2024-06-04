@@ -168,3 +168,29 @@ div#loading {
 display: none;
 cursor: wait;
 }
+
+
+.warning-container{
+    display: none;
+    position: absolute;
+    top: 10%;
+    left: 33.33%;
+    z-index: 9999;
+    width: auto;
+    max-width: 300px;
+    height: auto;
+    margin-top: 10px;
+    margin-left: 15px;
+    background-color: rgb(252, 75, 75);
+    border: 5px solid black;
+    border-radius: 15px;
+    color: white;
+    font-size: 2em;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    line-height: 175%;
+    font-weight: bold;
+    padding: 1em;
+}

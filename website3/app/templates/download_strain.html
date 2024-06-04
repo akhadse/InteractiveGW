@@ -84,6 +84,9 @@
         <p class="loading-text"> Hang tight! Universe is processing your request...</p>
     </div>
 
+    <div class="warning-container" id="warning">
+        !! Warning!! <br> Magnitude of  <br> ChiA and ChiB  <br>should be less that 1 
+    </div>
 
     <form class="container-fluid" id="Download_Strain_Form" method="post" onsubmit="return submitForm();">
 
@@ -323,6 +326,8 @@
             const chiBx = document.getElementById('chiBx');
             const chiBy = document.getElementById('chiBy');
             const chiBz = document.getElementById('chiBz');
+            const warning = document.getElementById('warning');
+
 
             inclination.value = parseFloat(inclination_slider.value);
             phi_ref.value = parseFloat(phi_ref_slider.value);
@@ -333,6 +338,15 @@
             chiBx.value = parseFloat(chiBx_slider.value);
             chiBy.value = parseFloat(chiBy_slider.value);
             chiBz.value = parseFloat(chiBz_slider.value);
+
+            let chiAmag = Math.sqrt(Math.pow(parseFloat(chiAx.value), 2) + Math.pow(parseFloat(chiAy.value), 2) + Math.pow(parseFloat(chiAz.value), 2));
+            let chiBmag = Math.sqrt(Math.pow(parseFloat(chiBx.value), 2) + Math.pow(parseFloat(chiBy.value), 2) + Math.pow(parseFloat(chiBz.value), 2));
+
+            if (chiAmag > 1 || chiBmag > 1) {
+                warning.style.display = 'block';
+            } else {
+                warning.style.display = 'none';
+            }
 
             options.forEach(option => {
                 option.addEventListener('change', function() {
@@ -612,31 +626,79 @@
             chiAx_slider.addEventListener('input', function () {
                     chiAx_slider_value.textContent = chiAx_slider.value;
                     chiAx.value = parseFloat(chiAx_slider.value);
+                    chiAmag = Math.sqrt(Math.pow(parseFloat(chiAx.value), 2) + Math.pow(parseFloat(chiAy.value), 2) + Math.pow(parseFloat(chiAz.value), 2));
+                    chiBmag = Math.sqrt(Math.pow(parseFloat(chiBx.value), 2) + Math.pow(parseFloat(chiBy.value), 2) + Math.pow(parseFloat(chiBz.value), 2));
+
+                    if (chiAmag > 1 || chiBmag > 1) {
+                        warning.style.display = 'block';
+                    } else {
+                        warning.style.display = 'none';
+                    }
                 });
 
             chiAy_slider.addEventListener('input', function () {
                     chiAy_slider_value.textContent = chiAy_slider.value;
                     chiAy.value = parseFloat(chiAy_slider.value);
+                    chiAmag = Math.sqrt(Math.pow(parseFloat(chiAx.value), 2) + Math.pow(parseFloat(chiAy.value), 2) + Math.pow(parseFloat(chiAz.value), 2));
+                    chiBmag = Math.sqrt(Math.pow(parseFloat(chiBx.value), 2) + Math.pow(parseFloat(chiBy.value), 2) + Math.pow(parseFloat(chiBz.value), 2));
+
+                    if (chiAmag > 1 || chiBmag > 1) {
+                        warning.style.display = 'block';
+                    } else {
+                        warning.style.display = 'none';
+                    }
                 });
 
             chiAz_slider.addEventListener('input', function () {
                     chiAz_slider_value.textContent = chiAz_slider.value;
                     chiAz.value = parseFloat(chiAz_slider.value);
+                    chiAmag = Math.sqrt(Math.pow(parseFloat(chiAx.value), 2) + Math.pow(parseFloat(chiAy.value), 2) + Math.pow(parseFloat(chiAz.value), 2));
+                    chiBmag = Math.sqrt(Math.pow(parseFloat(chiBx.value), 2) + Math.pow(parseFloat(chiBy.value), 2) + Math.pow(parseFloat(chiBz.value), 2));
+
+                    if (chiAmag > 1 || chiBmag > 1) {
+                        warning.style.display = 'block';
+                    } else {
+                        warning.style.display = 'none';
+                    }
                 });
 
             chiBx_slider.addEventListener('input', function () {
                     chiBx_slider_value.textContent = chiBx_slider.value;
                     chiBx.value = parseFloat(chiBx_slider.value);
+                    chiAmag = Math.sqrt(Math.pow(parseFloat(chiAx.value), 2) + Math.pow(parseFloat(chiAy.value), 2) + Math.pow(parseFloat(chiAz.value), 2));
+                    chiBmag = Math.sqrt(Math.pow(parseFloat(chiBx.value), 2) + Math.pow(parseFloat(chiBy.value), 2) + Math.pow(parseFloat(chiBz.value), 2));
+
+                    if (chiAmag > 1 || chiBmag > 1) {
+                        warning.style.display = 'block';
+                    } else {
+                        warning.style.display = 'none';
+                    }
                 });
 
             chiBy_slider.addEventListener('input', function () {
                     chiBy_slider_value.textContent = chiBy_slider.value;
                     chiBy.value = parseFloat(chiBy_slider.value);
+                    chiAmag = Math.sqrt(Math.pow(parseFloat(chiAx.value), 2) + Math.pow(parseFloat(chiAy.value), 2) + Math.pow(parseFloat(chiAz.value), 2));
+                    chiBmag = Math.sqrt(Math.pow(parseFloat(chiBx.value), 2) + Math.pow(parseFloat(chiBy.value), 2) + Math.pow(parseFloat(chiBz.value), 2));
+
+                    if (chiAmag > 1 || chiBmag > 1) {
+                        warning.style.display = 'block';
+                    } else {
+                        warning.style.display = 'none';
+                    }
                 });
 
             chiBz_slider.addEventListener('input', function () {
                     chiBz_slider_value.textContent = chiBz_slider.value;
                     chiBz.value = parseFloat(chiBz_slider.value);
+                    chiAmag = Math.sqrt(Math.pow(parseFloat(chiAx.value), 2) + Math.pow(parseFloat(chiAy.value), 2) + Math.pow(parseFloat(chiAz.value), 2));
+                    chiBmag = Math.sqrt(Math.pow(parseFloat(chiBx.value), 2) + Math.pow(parseFloat(chiBy.value), 2) + Math.pow(parseFloat(chiBz.value), 2));
+
+                    if (chiAmag > 1 || chiBmag > 1) {
+                        warning.style.display = 'block';
+                    } else {
+                        warning.style.display = 'none';
+                    }
                 });
         });
     </script>
