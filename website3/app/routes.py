@@ -122,7 +122,7 @@ def download_strain():
         choose_parameter_to_vary = str(form_data["choose_parameter"])
         parameter_start_value    = float(form_data["parameter_start_value"])
         parameter_end_value      = float(form_data["parameter_end_value"])
-        parameter_steps          = 20*24 #int(form_data["parameter_steps"])
+        parameter_steps          = 20#20*24 #int(form_data["parameter_steps"])
         inclination              = float(form_data["inclination"])
         phi_ref                  = float(form_data["phi_ref"])
 
@@ -160,12 +160,8 @@ def download_strain():
         print("=================")
         #return render_template('video_download_link.html', video_download_link=video_download_link)
         return render_template('download_strain.html',)
-
-
     else:
         return render_template('download_strain.html')
-    # return render_template('download_strain.html')
-
     
 #______________________________________________________________________
 
@@ -173,60 +169,55 @@ def download_strain():
 @routes.route('/download_h_lm', methods=['GET', 'POST'])
 def download_h_lm():
 
-    # if request.method == 'POST':
-    #     print("=================")
-    #     print("Started making video -----")
-    #     print("=================")      
+    if request.method == 'POST':
+        print("=================")
+        print("Started making video -----")
+        print("=================")      
         
-    #     form_data = request.form.to_dict()
+        form_data = request.form.to_dict()
 
-    #     choose_parameter_to_vary = str(form_data["choose_parameter_to_vary"])
-    #     parameter_start_value = float(form_data["parameter_start_value"])
-    #     parameter_end_value = float(form_data["parameter_end_value"])
-    #     parameter_steps = int(form_data["parameter_steps"])
-    #     l = int(form_data["l"])
-    #     m = int(form_data["m"])
+        choose_parameter_to_vary = str(form_data["choose_parameter"])
+        parameter_start_value    = float(form_data["parameter_start_value"])
+        parameter_end_value      = float(form_data["parameter_end_value"])
+        parameter_steps          = 20*24 #int(form_data["parameter_steps"])
+        l = int(form_data["l"])
+        m = int(form_data["m"])
 
-    #     q = float(form_data["q"])
-    #     chiAx = float(form_data["chiAx"])
-    #     chiAy = float(form_data["chiAy"])
-    #     chiAz = float(form_data["chiAz"])
-    #     chiBx = float(form_data["chiBx"])
-    #     chiBy = float(form_data["chiBy"])
-    #     chiBz = float(form_data["chiBz"])
+        q     = float(form_data["q"])
+        chiAx = float(form_data["chiAx"])
+        chiAy = float(form_data["chiAy"])
+        chiAz = float(form_data["chiAz"])
+        chiBx = float(form_data["chiBx"])
+        chiBy = float(form_data["chiBy"])
+        chiBz = float(form_data["chiBz"])
 
-    #     f_low = float(form_data["f_low"])
-    #     delta_t = float(form_data["delta_t"])
-    #     sur_name = str(form_data["sur_name"])
+        f_low    = 0 #float(form_data["f_low"])
+        delta_t  = 1 #float(form_data["delta_t"])
+        sur_name = "NRSur7dq4" #str(form_data["sur_name"])
 
-    #     video_width = int(form_data["video_width"])
-    #     video_height = int(form_data["video_height"])
-    #     video_fps = float(form_data["video_fps"])
-    #     video_name = str(form_data["video_name"])
+        video_width  = 1500 #int(form_data["video_width"])
+        video_height = 700 #int(form_data["video_height"])
+        video_fps    = 24.0 #float(form_data["video_fps"])
+        video_name   = "h_lm_video.mp4" #str(form_data["video_name"])
 
-    #     user_input = {"q":q, 
-    #           "chiAx":chiAx, "chiAy":chiAy, "chiAz":chiAz, 
-    #           "chiBx":chiBx, "chiBy":chiBy, "chiBz":chiBz, 
-    #           "choose_parameter_to_vary":choose_parameter_to_vary, 
-    #           "parameter_start_value":parameter_start_value, "parameter_end_value":parameter_end_value, 
-    #           "parameter_steps":parameter_steps, "l":l, "m":m}
-    #     surrogate_params = {"sur_name":sur_name, "f_low":f_low, "delta_t":delta_t }
-    #     video_params = {"video_width":video_width, "video_height":video_height, "video_fps":video_fps, "video_name":video_name }
-    #     figure_params = {}
-    #     input_dict = {"user_input":user_input, "surrogate_params":surrogate_params, "video_params":video_params,"figure_params":figure_params}
+        user_input = {"q":q, 
+              "chiAx":chiAx, "chiAy":chiAy, "chiAz":chiAz, 
+              "chiBx":chiBx, "chiBy":chiBy, "chiBz":chiBz, 
+              "choose_parameter_to_vary":choose_parameter_to_vary, 
+              "parameter_start_value":parameter_start_value, "parameter_end_value":parameter_end_value, 
+              "parameter_steps":parameter_steps, "l":l, "m":m}
+        surrogate_params = {"sur_name":sur_name, "f_low":f_low, "delta_t":delta_t }
+        video_params = {"video_width":video_width, "video_height":video_height, "video_fps":video_fps, "video_name":video_name }
+        figure_params = {}
+        input_dict = {"user_input":user_input, "surrogate_params":surrogate_params, "video_params":video_params,"figure_params":figure_params}
         
-    #     video_download_link = generate_video_for_h_lm_varying_param(input_dict)
-    #     print("=================")
-    #     print("Done!!!")
-    #     print("=================")
-    #     return render_template('video_download_link.html', video_download_link=video_download_link)
-
-    # else:
-        # return render_template('download_h_lm.html')
-    return render_template('download_h_lm.html')
-    
+        video_download_link = generate_video_for_h_lm_varying_param(input_dict)
+        print("=================")
+        print("Done!!!")
+        print("=================")
+        #return render_template('video_download_link.html', video_download_link=video_download_link)
+        return render_template('download_h_lm.html',)
+    else:
+        return render_template('download_h_lm.html')    
     
 #______________________________________________________________________
-
-
-

@@ -9,8 +9,18 @@
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/headerbar.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/homepage.css') }}">
     <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/interactive_base.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/download_videos.css') }}">
-    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/download_base.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/download_strain_hlm_base.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.js"></script>
 
 
     <title>Interactive GW</title>
@@ -29,16 +39,6 @@
 </head>
 
 <body>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <div class="container-fluid">
 
@@ -79,7 +79,593 @@
     </div>
 
 
+    <div class="loading-container" id="loading">
+        <img class="loading-gif" src="https://svs.gsfc.nasa.gov/vis/a010000/a013000/a013043/SMBH_Sim_ThinTilt_Palindrome.gif" alt="Loading...">
+        <p class="loading-text"> Hang tight! Universe is processing your request (around 4-10 minutes)...</p>
+    </div>
 
+    <div class="warning-container" id="warning">
+        !! Warning!! <br> Magnitude of  <br> ChiA and ChiB  <br>should be less that 1 
+    </div>
+
+    <form class="container-fluid" id="Download_Strain_Form" method="post" onsubmit="return submitForm();">
+
+        <div class="row super_containers text-center" >
+
+            <div class="col-md-2 col-sm-12 question text-center" id="question_choose_param">
+                <p>Choose Parameter</p>
+            </div>
+
+            <div class="col-md-10 col-sm-12 text-center" id="h_lm_choose_param_super_container">
+
+                <div class="col-md-12 col-sm-12 text-center" id="chi_superbox">
+                    <div class="row" id="choose_param_button_superbox" >
+                        <div class="col-md-3 col-sm-12 choose_param_button_box text-center ">
+                            <label class="choose_param_button">
+                                <input type="radio" name="choose_parameter" value="q">
+                                <span>q</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-sm-12 choose_param_button_box text-center ">
+                            <label class="choose_param_button">
+                                <input type="radio" name="choose_parameter" value="chiAx">
+                                <span>\( \mathbf{\chi^A_x} \)</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-sm-12 choose_param_button_box text-center ">
+                            <label class="choose_param_button">
+                                <input type="radio" name="choose_parameter" value="chiAy">
+                                <span>\( \mathbf{\chi^A_y} \)</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-sm-12 choose_param_button_box text-center ">
+                            <label class="choose_param_button">
+                                <input type="radio" name="choose_parameter" value="chiAz">
+                                <span>\( \mathbf{\chi^A_z} \)</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-sm-12 choose_param_button_box text-center ">
+                        </div>
+                        <div class="col-md-3 col-sm-12 choose_param_button_box text-center ">
+                            <label class="choose_param_button">
+                                <input type="radio" name="choose_parameter" value="chiBx">
+                                <span>\( \mathbf{\chi^B_x} \)</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-sm-12 choose_param_button_box text-center ">
+                            <label class="choose_param_button">
+                                <input type="radio" name="choose_parameter" value="chiBy">
+                                <span>\( \mathbf{\chi^B_y} \)</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-sm-12 choose_param_button_box text-center ">
+                            <label class="choose_param_button">
+                                <input type="radio" name="choose_parameter" value="chiBz">
+                                <span>\( \mathbf{\chi^B_z} \)</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="row super_containers text-center" >
+            <div class="col-md-2 col-sm-12 question text-center" id="question_param_range">
+                <p>Specify Range</p>
+            </div>
+
+            <div class="col-md-10 col-sm-12 choose_param_button_box text-center ">
+                <div class="row">
+                    <div class="col-md-11 col-sm-12 param_range_slider_container" id="param_range_slider_container">
+                        <div class="param_range_slider_row">
+                            <label class="slider_text" id="param_range_start_value_label_container">
+                                <span id="param_range_start_value_label"></span>
+                            </label>
+        
+                            <div class="param_range_slider" id="param_range_slider"></div>
+                            <input type="hidden" id="param_range_slider_min" name="parameter_start_value">
+                            <input type="hidden" id="param_range_slider_max" name="parameter_end_value">
+        
+                            <label class="slider_value_box" id="param_range_display_container">
+                                <span id="param_range_display"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row super_containers text-center" >
+            <div class="col-md-2 col-sm-12 question text-center" id="question_specify_other_params">
+                <p>Other Parameters </p>
+            </div>
+
+            <div class="col-md-10 col-sm-12 choose_param_button_box text-center ">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12 sliders-container" id="sliders_container">
+ 
+                        <div class="custom-row" id="l_slider_container">
+                            <label for="l_slider" class="slider_text" id="l_slider_text">\( \mathbf{\ell} \)</label>
+                            <input type="range" min="2" max="4" value="2" step="1" class="slider l_slider" id="l_slider">
+                            <span id="l_slider_value" class="slider_value_box">2</span>
+                            <div class="info_box_for_slider_names" id="info_box_l">
+                                <p> l-mode in the −2 weighted spherical harmonics expansion of h(t)</p>
+                            </div>
+                            <input type="hidden" id="l" name="l">
+                        </div>
+        
+                        <div class="custom-row" id="m_slider_container">
+                            <label for="m_slider" class="slider_text" id="m_slider_text">\( \textit{m} \)</label>
+                            <input type="range" min="-4" max="4" value="2" step="1" class="slider m_slider" id="m_slider">
+                            <span id="m_slider_value" class="slider_value_box" >2</span>
+                            <div class="info_box_for_slider_names" id="info_box_m">
+                                <p> m-mode in the −2 weighted spherical harmonics expansion of h(t)</p>
+                            </div>
+                            <input type="hidden" id="m" name="m">
+                        </div>
+        
+                        <div class="custom-row" id="mass_ratio_slider_container">
+                            <label for="mass_ratio_slider" class="slider_text" id="mass_ratio_slider_text">\( \textbf{q} \)</label>
+                            <input type="range" min="1" max="6" value="2.4" step="0.1" class="slider mass_ratio_slider" id="mass_ratio_slider">
+                            <span id="mass_ratio_slider_value" class="slider_value_box" >2.4</span>
+                            <div class="info_box_for_slider_names" id="info_box_mass_ratio">
+                                <p> Mass ratio, mA/mB >= 1.</p>
+                            </div>
+                            <input type="hidden" id="q" name="q">
+                        </div>
+        
+                        <div class="custom-row" id="chiAx_slider_container">
+                            <label for="chiAx_slider" class="slider_text" id="chiAx_slider_text">\( \mathbf{\chi^A_x} \)</label>
+                            <input type="range" min="-1" max="1" value="0" step="0.05" class="slider chiAx_slider" id="chiAx_slider">
+                            <span id="chiAx_slider_value" class="slider_value_box" >0</span>
+                            <div class="info_box_for_slider_names" id="info_box_chiAx">
+                                <p> x-component of dimensionless spin vector of the heavier black hole</p>
+                            </div>
+                            <input type="hidden" id="chiAx" name="chiAx">
+                        </div>
+        
+                        <div class="custom-row" id="chiAy_slider_container">
+                            <label for="chiAy_slider" class="slider_text" id="chiAy_slider_text">\( \mathbf{\chi^A_y} \)</label>
+                            <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiAy_slider" id="chiAy_slider">
+                            <span id="chiAy_slider_value" class="slider_value_box" >0.5</span>
+                            <div class="info_box_for_slider_names" id="info_box_chiAy">
+                                <p> y-component dimensionless spin vector of the heavier black hole</p>
+                            </div>
+                            <input type="hidden" id="chiAy" name="chiAy">
+                        </div>
+        
+                        <div class="custom-row" id="chiAz_slider_container">
+                            <label for="chiAz_slider" class="slider_text" id="chiAz_slider_text">\( \mathbf{\chi^A_z} \)</label>
+                            <input type="range" min="-1" max="1" value="0.6" step="0.05" class="slider chiAz_slider" id="chiAz_slider">
+                            <span id="chiAz_slider_value" class="slider_value_box" >0.6</span>
+                            <div class="info_box_for_slider_names" id="info_box_chiAz">
+                                <p> z-component dimensionless spin vector of the heavier black hole</p>
+                            </div>
+                            <input type="hidden" id="chiAz" name="chiAz">
+                        </div>
+        
+                        <div class="custom-row" id="chiBx_slider_container">
+                            <label for="chiBx_slider" class="slider_text" id="chiBx_slider_text">\( \mathbf{\chi^B_x} \)</label>
+                            <input type="range" min="-1" max="1" value="0.3" step="0.05" class="slider chiBx_slider" id="chiBx_slider">
+                            <span id="chiBx_slider_value" class="slider_value_box" >0.3</span>
+                            <div class="info_box_for_slider_names" id="info_box_chiBx">
+                                <p> x-component dimensionless spin vector of the lighter black hole</p>
+                            </div>
+                            <input type="hidden" id="chiBx" name="chiBx">
+                        </div>
+        
+                        <div class="custom-row" id="chiBy_slider_container">
+                            <label for="chiBy_slider" class="slider_text" id="chiBy_slider_text">\( \mathbf{\chi^B_y} \)</label>
+                            <input type="range" min="-1" max="1" value="-0.3" step="0.05" class="slider chiBy_slider" id="chiBy_slider">
+                            <span id="chiBy_slider_value" class="slider_value_box" >-0.3</span>
+                            <div class="info_box_for_slider_names" id="info_box_chiBy">
+                                <p> y-component dimensionless spin vector of the lighter black hole</p>
+                            </div>
+                            <input type="hidden" id="chiBy" name="chiBy">
+                        </div>
+        
+                        <div class="custom-row" id="chiBz_slider_container">
+                            <label for="chiBz_slider" class="slider_text" id="chiBz_slider_text">\(\mathbf{\chi^B_z} \)</label>
+                            <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiBz_slider" id="chiBz_slider">
+                            <span id="chiBz_slider_value" class="slider_value_box" >0.5</span>
+                            <div class="info_box_for_slider_names" id="info_box_chiBz">
+                                <p> z-component dimensionless spin vector of the lighter black hole</p>
+                            </div>
+                            <input type="hidden" id="chiBz" name="chiBz">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row super_containers text-center" >
+            <div class="col-md-2 col-sm-12 question text-center" id="question_download_video">
+                <p>Download Video? </p>
+            </div>
+
+            <div class="col-md-10 col-sm-12 choose_param_button_box text-center" id="download_video_button_box">
+                <button class="choose_param_button" id="download_video_button" type="submit" value="Submit"> Download Video?</button>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const options = document.querySelectorAll('input[name="choose_parameter"]');
+            let min_param_val = 0;
+            let max_param_val = 0;
+            let slider_stepsize = 1;
+            let rangeSlider;
+            let slider_color = 0;
+            var l_slider = document.getElementById("l_slider");
+            var m_slider = document.getElementById("m_slider");
+            var mass_ratio_slider   = document.getElementById("mass_ratio_slider");
+            var chiAx_slider        = document.getElementById("chiAx_slider");
+            var chiAy_slider        = document.getElementById("chiAy_slider");
+            var chiAz_slider        = document.getElementById("chiAz_slider");
+            var chiBx_slider        = document.getElementById("chiBx_slider");
+            var chiBy_slider        = document.getElementById("chiBy_slider");
+            var chiBz_slider        = document.getElementById("chiBz_slider");
+            const param_range_slider_min = document.getElementById('param_range_slider_min');
+            const param_range_slider_max = document.getElementById('param_range_slider_max');
+            const l = document.getElementById('l');
+            const m = document.getElementById('m');
+            const q = document.getElementById('q');
+            const chiAx = document.getElementById('chiAx');
+            const chiAy = document.getElementById('chiAy');
+            const chiAz = document.getElementById('chiAz');
+            const chiBx = document.getElementById('chiBx');
+            const chiBy = document.getElementById('chiBy');
+            const chiBz = document.getElementById('chiBz');
+            const warning = document.getElementById('warning');
+
+
+            l.value     = parseInt(l_slider.value);
+            m.value     = parseInt(m_slider.value);
+            q.value     = parseFloat(mass_ratio_slider.value);
+            chiAx.value = parseFloat(chiAx_slider.value);
+            chiAy.value = parseFloat(chiAy_slider.value);
+            chiAz.value = parseFloat(chiAz_slider.value);
+            chiBx.value = parseFloat(chiBx_slider.value);
+            chiBy.value = parseFloat(chiBy_slider.value);
+            chiBz.value = parseFloat(chiBz_slider.value);
+
+            let chiAmag = Math.sqrt(Math.pow(parseFloat(chiAx.value), 2) + Math.pow(parseFloat(chiAy.value), 2) + Math.pow(parseFloat(chiAz.value), 2));
+            let chiBmag = Math.sqrt(Math.pow(parseFloat(chiBx.value), 2) + Math.pow(parseFloat(chiBy.value), 2) + Math.pow(parseFloat(chiBz.value), 2));
+
+            if (chiAmag > 1 || chiBmag > 1) {
+                warning.style.display = 'block';
+            } else {
+                warning.style.display = 'none';
+            }
+
+            options.forEach(option => {
+                option.addEventListener('change', function() {
+                    const selectedParam = document.getElementById('param_range_start_value_label');
+                    const question_param_range = document.getElementById('question_param_range');
+                    const question_download_video = document.getElementById('question_download_video');
+                    const download_video_button_box = document.getElementById('download_video_button_box');
+
+                    switch (this.value) {
+                        case 'q':
+                            document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{red} \\textbf{q} \\)';
+                            min_param_val = 1;
+                            max_param_val = 6;
+                            ini_param_val_min = 2;
+                            ini_param_val_max = 4.5;
+                            slider_stepsize = 0.1;
+                            question_param_range.style.display = 'block';
+                            question_specify_other_params.style.display = 'block';
+
+                            sliders_container.style.display           = 'block';
+                            l_slider_container.style.display          = 'flex';
+                            m_slider_container.style.display          = 'flex';
+                            mass_ratio_slider_container.style.display = 'none';
+                            chiAx_slider_container.style.display = 'flex';
+                            chiAy_slider_container.style.display = 'flex';
+                            chiAz_slider_container.style.display = 'flex';
+                            chiBx_slider_container.style.display = 'flex';
+                            chiBy_slider_container.style.display = 'flex';
+                            chiBz_slider_container.style.display = 'flex';
+                            slider_color = 'red';
+                            MathJax.typesetPromise();
+                            break;
+                        case 'chiAx':
+                            document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{cyan} \\mathbf{\\chi^A_x} \\)';
+                            min_param_val = -1;
+                            max_param_val = 1;
+                            ini_param_val_min = -0.5;
+                            ini_param_val_max = 0.5;
+                            slider_stepsize = 0.1;
+                            question_param_range.style.display = 'block';
+                            question_specify_other_params.style.display = 'block';
+
+                            sliders_container.style.display = 'block';
+                            l_slider_container.style.display = 'flex';
+                            m_slider_container.style.display     = 'flex';
+                            mass_ratio_slider_container.style.display  = 'flex';
+                            chiAx_slider_container.style.display = 'none';
+                            chiAy_slider_container.style.display = 'flex';
+                            chiAz_slider_container.style.display = 'flex';
+                            chiBx_slider_container.style.display = 'flex';
+                            chiBy_slider_container.style.display = 'flex';
+                            chiBz_slider_container.style.display = 'flex';
+                            slider_color = 'cyan';
+                            MathJax.typesetPromise();
+                            break;
+                        case 'chiAy':
+                            document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{cyan} \\mathbf{\\chi^A_y} \\)';
+                            min_param_val = -1;
+                            max_param_val = 1;
+                            ini_param_val_min = -0.5;
+                            ini_param_val_max = 0.5;
+                            slider_stepsize = 0.1;
+                            question_param_range.style.display = 'block';
+                            question_specify_other_params.style.display = 'block';
+
+                            sliders_container.style.display = 'block';
+                            l_slider_container.style.display = 'flex';
+                            m_slider_container.style.display = 'flex';
+                            mass_ratio_slider_container.style.display  = 'flex';
+                            chiAx_slider_container.style.display = 'flex';
+                            chiAy_slider_container.style.display = 'none';
+                            chiAz_slider_container.style.display = 'flex';
+                            chiBx_slider_container.style.display = 'flex';
+                            chiBy_slider_container.style.display = 'flex';
+                            chiBz_slider_container.style.display = 'flex';
+                            slider_color = 'cyan';
+                            MathJax.typesetPromise();
+                            break;
+                        case 'chiAz':
+                            document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{cyan} \\mathbf{\\chi^A_z} \\)';                            
+                            min_param_val = -1;
+                            max_param_val = 1;
+                            ini_param_val_min = -0.5;
+                            ini_param_val_max = 0.5;
+                            slider_stepsize = 0.1;
+                            question_param_range.style.display = 'block';
+                            question_specify_other_params.style.display = 'block';
+
+                            sliders_container.style.display = 'block';
+                            l_slider_container.style.display = 'flex';
+                            m_slider_container.style.display = 'flex';
+                            mass_ratio_slider_container.style.display  = 'flex';
+                            chiAx_slider_container.style.display = 'flex';
+                            chiAy_slider_container.style.display = 'flex';
+                            chiAz_slider_container.style.display = 'none';
+                            chiBx_slider_container.style.display = 'flex';
+                            chiBy_slider_container.style.display = 'flex';
+                            chiBz_slider_container.style.display = 'flex';
+                            slider_color = 'cyan';
+                            MathJax.typesetPromise();
+                            break;
+                        case 'chiBx':
+                            document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{orange} \\mathbf{\\chi^B_x} \\)';
+                            min_param_val = -1;
+                            max_param_val = 1;
+                            ini_param_val_min = -0.5;
+                            ini_param_val_max = 0.5;
+                            slider_stepsize = 0.1;
+                            question_param_range.style.display = 'block';
+                            question_specify_other_params.style.display = 'block';
+
+                            sliders_container.style.display = 'block';
+                            l_slider_container.style.display = 'flex';
+                            m_slider_container.style.display = 'flex';
+                            mass_ratio_slider_container.style.display  = 'flex';
+                            chiAx_slider_container.style.display = 'flex';
+                            chiAy_slider_container.style.display = 'flex';
+                            chiAz_slider_container.style.display = 'flex';
+                            chiBx_slider_container.style.display = 'none';
+                            chiBy_slider_container.style.display = 'flex';
+                            chiBz_slider_container.style.display = 'flex';
+                            slider_color = 'orange';
+                            MathJax.typesetPromise();
+                            break;
+                        case 'chiBy':
+                            document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{orange} \\mathbf{\\chi^B_y} \\)';
+                            min_param_val = -1;
+                            max_param_val = 1;
+                            ini_param_val_min = -0.5;
+                            ini_param_val_max = 0.5;
+                            slider_stepsize = 0.1;
+                            
+                            question_param_range.style.display = 'block';
+                            question_specify_other_params.style.display = 'block';
+
+                            sliders_container.style.display = 'block';
+                            l_slider_container.style.display = 'flex';
+                            m_slider_container.style.display = 'flex';
+                            mass_ratio_slider_container.style.display  = 'flex';
+                            chiAx_slider_container.style.display = 'flex';
+                            chiAy_slider_container.style.display = 'flex';
+                            chiAz_slider_container.style.display = 'flex';
+                            chiBx_slider_container.style.display = 'flex';
+                            chiBy_slider_container.style.display = 'none';
+                            chiBz_slider_container.style.display = 'flex';
+                            slider_color = 'orange';
+                            MathJax.typesetPromise();
+                            break;
+                        case 'chiBz':
+                            document.getElementById('param_range_start_value_label').innerHTML = '\\(\\color{orange} \\mathbf{\\chi^B_z} \\)';
+                            min_param_val = -1;
+                            max_param_val = 1;
+                            ini_param_val_min = -0.5;
+                            ini_param_val_max = 0.5;
+                            slider_stepsize = 0.1;
+
+                            question_param_range.style.display = 'block';
+                            question_specify_other_params.style.display = 'block';
+
+                            sliders_container.style.display = 'block';
+                            l_slider_container.style.display = 'flex';
+                            m_slider_container.style.display = 'flex';
+                            mass_ratio_slider_container.style.display  = 'flex';
+                            chiAx_slider_container.style.display = 'flex';
+                            chiAy_slider_container.style.display = 'flex';
+                            chiAz_slider_container.style.display = 'flex';
+                            chiBx_slider_container.style.display = 'flex';
+                            chiBy_slider_container.style.display = 'flex';
+                            chiBz_slider_container.style.display = 'none';
+                            slider_color = 'orange';
+                            MathJax.typesetPromise();
+                            break;                      
+                    }
+
+                    question_download_video.style.display = 'block';
+                    download_video_button_box.style.display = 'block';
+
+                    // Remove existing slider if any
+                    if (rangeSlider && rangeSlider.noUiSlider) {
+                        rangeSlider.noUiSlider.destroy();
+                    }
+
+                    // Initialize the slider
+                    rangeSlider = document.getElementById('param_range_slider');
+                    noUiSlider.create(rangeSlider, {
+                        start: [ini_param_val_min, ini_param_val_max],
+                        step: slider_stepsize,
+                        connect: true,
+                        range: {
+                            'min': min_param_val,
+                            'max': max_param_val
+                        },
+                    });
+
+                    var connectElements = document.querySelectorAll('.noUi-connect');
+                    var sliderHandles = document.querySelectorAll('.noUi-handle');
+
+                    connectElements.forEach(function(connect) {
+                        connect.style.backgroundColor = 'gray';
+                    });
+                    
+                    sliderHandles.forEach(function(handle) {
+                        handle.style.backgroundColor = slider_color; // Apply the color to the slider handle
+                        document.getElementById("param_range_display").style.color = slider_color;
+                    });
+
+                    rangeSlider.noUiSlider.on('update', function(values, handle) {
+                        document.getElementById('param_range_display').textContent = `(${parseFloat(values[0]).toFixed(1)}, ${parseFloat(values[1]).toFixed(1)})`;
+                        param_range_slider_min.value = values[0];
+                        param_range_slider_max.value = values[1];
+                    });
+                });
+            });
+
+
+            l_slider.addEventListener('input', function () {
+                l_slider_value.textContent = l_slider.value;
+                l.value = parseInt(l_slider.value);
+            });
+
+            m_slider.addEventListener('input', function () {
+                m_slider_value.textContent = m_slider.value; 
+                m.value = parseInt(m_slider.value);
+            });
+
+            mass_ratio_slider.addEventListener('input', function () {
+                    mass_ratio_slider_value.textContent = mass_ratio_slider.value;
+                    q.value = parseFloat(mass_ratio_slider.value);
+                });
+
+            chiAx_slider.addEventListener('input', function () {
+                    chiAx_slider_value.textContent = chiAx_slider.value;
+                    chiAx.value = parseFloat(chiAx_slider.value);
+                    chiAmag = Math.sqrt(Math.pow(parseFloat(chiAx.value), 2) + Math.pow(parseFloat(chiAy.value), 2) + Math.pow(parseFloat(chiAz.value), 2));
+                    chiBmag = Math.sqrt(Math.pow(parseFloat(chiBx.value), 2) + Math.pow(parseFloat(chiBy.value), 2) + Math.pow(parseFloat(chiBz.value), 2));
+
+                    if (chiAmag > 1 || chiBmag > 1) {
+                        warning.style.display = 'block';
+                    } else {
+                        warning.style.display = 'none';
+                    }
+                });
+
+            chiAy_slider.addEventListener('input', function () {
+                    chiAy_slider_value.textContent = chiAy_slider.value;
+                    chiAy.value = parseFloat(chiAy_slider.value);
+                    chiAmag = Math.sqrt(Math.pow(parseFloat(chiAx.value), 2) + Math.pow(parseFloat(chiAy.value), 2) + Math.pow(parseFloat(chiAz.value), 2));
+                    chiBmag = Math.sqrt(Math.pow(parseFloat(chiBx.value), 2) + Math.pow(parseFloat(chiBy.value), 2) + Math.pow(parseFloat(chiBz.value), 2));
+
+                    if (chiAmag > 1 || chiBmag > 1) {
+                        warning.style.display = 'block';
+                    } else {
+                        warning.style.display = 'none';
+                    }
+                });
+
+            chiAz_slider.addEventListener('input', function () {
+                    chiAz_slider_value.textContent = chiAz_slider.value;
+                    chiAz.value = parseFloat(chiAz_slider.value);
+                    chiAmag = Math.sqrt(Math.pow(parseFloat(chiAx.value), 2) + Math.pow(parseFloat(chiAy.value), 2) + Math.pow(parseFloat(chiAz.value), 2));
+                    chiBmag = Math.sqrt(Math.pow(parseFloat(chiBx.value), 2) + Math.pow(parseFloat(chiBy.value), 2) + Math.pow(parseFloat(chiBz.value), 2));
+
+                    if (chiAmag > 1 || chiBmag > 1) {
+                        warning.style.display = 'block';
+                    } else {
+                        warning.style.display = 'none';
+                    }
+                });
+
+            chiBx_slider.addEventListener('input', function () {
+                    chiBx_slider_value.textContent = chiBx_slider.value;
+                    chiBx.value = parseFloat(chiBx_slider.value);
+                    chiAmag = Math.sqrt(Math.pow(parseFloat(chiAx.value), 2) + Math.pow(parseFloat(chiAy.value), 2) + Math.pow(parseFloat(chiAz.value), 2));
+                    chiBmag = Math.sqrt(Math.pow(parseFloat(chiBx.value), 2) + Math.pow(parseFloat(chiBy.value), 2) + Math.pow(parseFloat(chiBz.value), 2));
+
+                    if (chiAmag > 1 || chiBmag > 1) {
+                        warning.style.display = 'block';
+                    } else {
+                        warning.style.display = 'none';
+                    }
+                });
+
+            chiBy_slider.addEventListener('input', function () {
+                    chiBy_slider_value.textContent = chiBy_slider.value;
+                    chiBy.value = parseFloat(chiBy_slider.value);
+                    chiAmag = Math.sqrt(Math.pow(parseFloat(chiAx.value), 2) + Math.pow(parseFloat(chiAy.value), 2) + Math.pow(parseFloat(chiAz.value), 2));
+                    chiBmag = Math.sqrt(Math.pow(parseFloat(chiBx.value), 2) + Math.pow(parseFloat(chiBy.value), 2) + Math.pow(parseFloat(chiBz.value), 2));
+
+                    if (chiAmag > 1 || chiBmag > 1) {
+                        warning.style.display = 'block';
+                    } else {
+                        warning.style.display = 'none';
+                    }
+                });
+
+            chiBz_slider.addEventListener('input', function () {
+                    chiBz_slider_value.textContent = chiBz_slider.value;
+                    chiBz.value = parseFloat(chiBz_slider.value);
+                    chiAmag = Math.sqrt(Math.pow(parseFloat(chiAx.value), 2) + Math.pow(parseFloat(chiAy.value), 2) + Math.pow(parseFloat(chiAz.value), 2));
+                    chiBmag = Math.sqrt(Math.pow(parseFloat(chiBx.value), 2) + Math.pow(parseFloat(chiBy.value), 2) + Math.pow(parseFloat(chiBz.value), 2));
+
+                    if (chiAmag > 1 || chiBmag > 1) {
+                        warning.style.display = 'block';
+                    } else {
+                        warning.style.display = 'none';
+                    }
+                });
+        });
+    </script>
+
+    <script>
+        function submitForm() {
+            // Show loading image
+            $("#loading").show();
+            
+            // Make post request
+            var form = document.getElementById('parameter_form');
+            var formData = new FormData(form);
+            fetch('/download_strain', {
+                method: 'POST',
+                body: formData
+            })
+        }
+    </script>
 
 </body>
 </html>
+
