@@ -88,6 +88,10 @@
         !! Warning!! <br> Magnitude of  <br> ChiA and ChiB  <br>should be less that 1 
     </div>
 
+    <div class="warning-container" id="warning_lm">
+        !! Warning!! <br> \(\textit{m}\) has to be between <br> (\(-\mathbf{\ell},\mathbf{\ell} \))
+    </div>
+
     <form class="container-fluid" id="Download_Strain_Form" method="post" onsubmit="return submitForm();">
 
         <div class="row super_containers text-center" >
@@ -321,7 +325,7 @@
             const chiBy = document.getElementById('chiBy');
             const chiBz = document.getElementById('chiBz');
             const warning = document.getElementById('warning');
-
+            const warning_lm = document.getElementById('warning_lm');
 
             l.value     = parseInt(l_slider.value);
             m.value     = parseInt(m_slider.value);
@@ -340,6 +344,12 @@
                 warning.style.display = 'block';
             } else {
                 warning.style.display = 'none';
+            }
+
+            if (parseInt(m.value) > parseInt(l.value) || parseInt(m.value) < -parseInt(l.value)) {
+            warning_lm.style.display = 'block';
+            } else {
+                warning_lm.style.display = 'none';
             }
 
             options.forEach(option => {
@@ -555,15 +565,26 @@
                 });
             });
 
-
             l_slider.addEventListener('input', function () {
                 l_slider_value.textContent = l_slider.value;
                 l.value = parseInt(l_slider.value);
+
+                if (parseInt(m.value) > parseInt(l.value) || parseInt(m.value) < -parseInt(l.value)) {
+                    warning_lm.style.display = 'block';
+                } else {
+                    warning_lm.style.display = 'none';
+                }
             });
 
             m_slider.addEventListener('input', function () {
                 m_slider_value.textContent = m_slider.value; 
                 m.value = parseInt(m_slider.value);
+
+                if (parseInt(m.value) > parseInt(l.value) || parseInt(m.value) < -parseInt(l.value)) {
+                    warning_lm.style.display = 'block';
+                } else {
+                    warning_lm.style.display = 'none';
+                }
             });
 
             mass_ratio_slider.addEventListener('input', function () {
