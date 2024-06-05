@@ -141,34 +141,34 @@
 /* Styles for the loading container */
 .loading-container {
     position: absolute;
-    top: 62%;
+    top: 58%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
     z-index: 9999; /* Ensure it appears above other content */
     padding: 100%;
-    background-color:rgba(0, 0, 0, 0.596);
+    background-color:rgba(0, 0, 0, 0.733);
     border-radius: 3px;
 }
 /* Styles for the loading GIF */
 .loading-gif {
-    width: 750px; /* Adjust as needed */
+    width: auto; /* Adjust as needed */
     height: auto; /* Maintain aspect ratio */
 }
 /* Styles for the text below the loading GIF */
 .loading-text {
-    margin-top: 20px; /* Adjust as needed */
-    font-size: 48px; /* Adjust as needed */
+    font-size: 2em; /* Adjust as needed */
     font-weight: bold;
-    color: white;
+    color: cyan;
     background-color:rgba(0, 0, 0, 0.822);
+    width: auto;
+    height:auto;
 }
 
 div#loading {
 display: none;
 cursor: wait;
 }
-
 
 .warning-container{
     display: none;
