@@ -173,14 +173,14 @@ cursor: wait;
 .warning-container{
     display: none;
     position: absolute;
-    top: 10%;
+    top: auto;
     left: 33.33%;
     z-index: 9999;
     width: auto;
     max-width: 300px;
     height: auto;
     margin-top: 10px;
-    margin-left: 15px;
+    margin-left: auto;
     background-color: rgb(252, 75, 75);
     border: 5px solid black;
     border-radius: 15px;
