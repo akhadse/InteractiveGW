@@ -1,0 +1,198 @@
+.super_containers{
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+    /*border: 1px solid white;*/
+    margin: 30px;
+}
+#choose_param_button_superbox{
+    /*border: 1px solid red;*/
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+    padding: 0;
+
+}
+.choose_param_button_box{
+    margin-top: 10px;
+}
+#q_choose_param_button_box{
+    width: 100%;
+}
+.choose_param_button {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    /*border: 2px solid cyan;*/
+    height: 100%;
+    width: 50%;
+    padding: 5px;
+    margin: 0px;
+    border: 1px solid #d6ebb8;
+}
+.choose_param_button input[type="radio"] {
+    display: none;
+    border: 1px solid red;
+}
+.choose_param_button span {
+    display: block;
+    color: greenyellow;
+    font-weight: bold;
+    font-size: 1.5em;
+    text-align: center;
+}
+.choose_param_button:hover {
+    transform: scale(1.05);
+    background-color: #575e50;
+}
+.choose_param_button input[type="radio"]:checked + span {
+    background-color: gray;
+    border-radius: 5px;
+}
+.question{
+    font-size: 25px;
+    /*border: 1px solid skyblue;*/
+    color: #c2f37e;
+}
+.choose_param_button_box{
+    margin-top: 10px;
+}
+.param_range_slider_container {
+    background-color:black;
+    font-size: 20px;
+    font-weight: bold;
+    color: greenyellow;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-right: 5px;
+}
+
+.param_range_slider_row {
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    justify-content: space-between; /* Distribute items evenly along the row */
+    align-items: center; /* Center items vertically */
+}
+
+.param_range_slider_row .slider_text,
+.param_range_slider_row .slider_value_box{
+    flex: 0.8; /* Each item occupies equal space */
+}
+
+.param_range_slider_row .param_range_slider{
+    flex: 2; /* Each item occupies equal space */
+}
+
+.noUi-base {
+    background-color: black; /* This colors the base (track) behind the sliders */
+    border-radius: 15px;
+    height: 200%;
+    min-height: 120%;
+    border: 1px solid greenyellow;
+}
+
+/* Adding a border to the entire slider */
+.noUi-target {
+    border: 2px solid cyan; /* Cyan border around the slider */
+}
+
+.slider_value_box#param_range_display_container {
+    display: inline-block;
+    width: 150px; /* Adjust this width as needed */
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow if the text is too long */
+    text-align: left; /* Center the text */
+    max-width: 1000px;
+    margin-left: 50px;
+}
+
+#question_param_range, #question_specify_other_params, #sliders_container{
+    display: none;
+}
+
+#param_range_slider{
+    background: black;
+    border: black;
+}
+
+.slider {
+    border: 1px solid #d6ebb8;
+}
+
+#question_download_video, #download_video_button_box{
+    display: none;
+}
+#download_video_button_box{
+}
+
+#download_video_button{
+    color: cyan;
+    width: 90%;
+    font-size: 1.5em;
+    border: 1px solid cyan;
+    background:black;
+}
+
+#download_video_button:hover {
+    background-color: rgb(66, 77, 77);
+}
+
+
+/* Styles for the loading container */
+.loading-container {
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 9999; /* Ensure it appears above other content */
+    padding: 100%;
+    background-color:rgba(0, 0, 0, 0.733);
+    border-radius: 3px;
+}
+/* Styles for the loading GIF */
+.loading-gif {
+    width: auto; /* Adjust as needed */
+    height: auto; /* Maintain aspect ratio */
+}
+/* Styles for the text below the loading GIF */
+.loading-text {
+    font-size: 2em; /* Adjust as needed */
+    font-weight: bold;
+    color: cyan;
+    background-color:rgba(0, 0, 0, 0.822);
+    width: auto;
+    height:auto;
+}
+
+div#loading {
+display: none;
+cursor: wait;
+}
+
+.warning-container{
+    display: none;
+    position: absolute;
+    top: auto;
+    left: 33.33%;
+    z-index: 9999;
+    width: auto;
+    max-width: 300px;
+    height: auto;
+    margin-top: 10px;
+    margin-left: auto;
+    background-color: rgb(252, 75, 75);
+    border: 5px solid black;
+    border-radius: 15px;
+    color: white;
+    font-size: 2em;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    line-height: 175%;
+    font-weight: bold;
+    padding: 1em;
+}

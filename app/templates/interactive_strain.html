@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/base.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/headerbar.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/interactive_base.css') }}">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <title>Interactive GW</title>
+
+</head>
+
+<body>
+    <div class="container-fluid">
+
+        <header>
+            <nav class="navbar navbar-expand-md navbar-light" id="navbar">
+                
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <div class="container-fluid">
+                        <ul class="navbar-nav row w-100"> 
+                            <li class="nav-item col">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="nav-item col"> 
+                                <a class="nav-link" href="/interactive_strain" style="color: #86e600;">GW strain</a>
+                            </li>
+                            <li class="nav-item col">
+                                <a class="nav-link" href="/interactive_h_lm">\( h_{lm}\) modes</a>
+                            </li>
+                            <li class="nav-item col">
+                                <a class="nav-link" href="/download_videos">Download Videos</a>
+                            </li>
+                            <li class="nav-item col">
+                                <a class="nav-link" href="/about_page">About</a>
+                            </li>
+                            <!-- <li class="nav-item col">
+                                <a class="nav-link" href="/test_page">==Test Page==</a>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </div>
+
+    <div class="container-fluid">
+
+        <div class="row">
+            
+            <div class="col-md-12 col-sm-12 interactive-plot-container" id="interactive-plot-container">
+  
+                <div class="warning-container" id="warning">
+                    !! Warning!! <br> Magnitude of  <br> ChiA and ChiB  <br>should be less that 1 
+                </div>
+
+                <div id="GW_interactive_graph">
+                    <div class="reset_buttons" id="reset_axis_button_container">
+                        <button type="submit" class="button" id="reset_axis_button">Reset Y-axis?</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 col-sm-12 sliders-container" id="sliders_container">
+                
+                <div class="custom-row">
+                    <label for="inclination_slider" class="slider_text" id="inclination_slider_text">\( \mathbf{\iota} \)</label>
+                    <input type="range" min="0" max="180" value="0" step="1" class="slider inclination_slider" id="inclination_slider">
+                    <span id="inclination_slider_value" class="slider_value_box">0&deg;</span>
+                    <div class="info_box_for_slider_names" id="info_box_inclination">
+                        <p> Inclination angle between the orbital angular momentum direction at the reference epoch and the line-of-sight to the observer.<br> The complex strain (h =hplus -i hcross) evaluated at (inclination, pi/2 - phi_ref) on the sky of the reference frame is returned.</p>
+                    </div>
+                </div>
+
+                <div class="custom-row">
+                    <label for="phi_ref_slider" class="slider_text" id="phi_ref_slider_text">\( \mathbf{\phi_{ref}} \)</label>
+                    <input type="range" min="0" max="360" value="0" step="1" class="slider phi_ref_slider" id="phi_ref_slider">
+                    <span id="phi_ref_slider_value" class="slider_value_box" >0&deg;</span>
+                    <div class="info_box_for_slider_names" id="info_box_phi_ref">
+                        <p> The azimuthal angle on the sky of the source frame following the LAL convention. <br> The complex strain (h =hplus -i hcross) evaluated at (inclination, pi/2 - phi_ref) on the sky of the reference frame is returned.</p>
+                    </div>
+                </div>
+
+                <div class="custom-row">
+                    <label for="mass_ratio_slider" class="slider_text" id="mass_ratio_slider_text">\( \textbf{q} \)</label>
+                    <input type="range" min="1" max="6" value="2.4" step="0.1" class="slider mass_ratio_slider" id="mass_ratio_slider">
+                    <span id="mass_ratio_slider_value" class="slider_value_box" >2.4</span>
+                    <div class="info_box_for_slider_names" id="info_box_mass_ratio">
+                        <p> Mass ratio, mA/mB >= 1.</p>
+                    </div>
+                </div>
+
+                <div class="custom-row">
+                    <label for="chiAx_slider" class="slider_text" id="chiAx_slider_text">\( \mathbf{\chi^A_x} \)</label>
+                    <input type="range" min="-1" max="1" value="0" step="0.05" class="slider chiAx_slider" id="chiAx_slider">
+                    <span id="chiAx_slider_value" class="slider_value_box" >0</span>
+                    <div class="info_box_for_slider_names" id="info_box_chiAx">
+                        <p> x-component of dimensionless spin vector of the heavier black hole</p>
+                    </div>
+                </div>
+
+                <div class="custom-row">
+                    <label for="chiAy_slider" class="slider_text" id="chiAy_slider_text">\( \mathbf{\chi^A_y} \)</label>
+                    <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiAy_slider" id="chiAy_slider">
+                    <span id="chiAy_slider_value" class="slider_value_box" >0.5</span>
+                    <div class="info_box_for_slider_names" id="info_box_chiAy">
+                        <p> y-component dimensionless spin vector of the heavier black hole</p>
+                    </div>
+                </div>
+
+                <div class="custom-row">
+                    <label for="chiAz_slider" class="slider_text" id="chiAz_slider_text">\( \mathbf{\chi^A_z} \)</label>
+                    <input type="range" min="-1" max="1" value="0.6" step="0.05" class="slider chiAz_slider" id="chiAz_slider">
+                    <span id="chiAz_slider_value" class="slider_value_box" >0.6</span>
+                    <div class="info_box_for_slider_names" id="info_box_chiAz">
+                        <p> z-component dimensionless spin vector of the heavier black hole</p>
+                        </div>
+                </div>
+
+                <div class="custom-row">
+                    <label for="chiBx_slider" class="slider_text" id="chiBx_slider_text">\( \mathbf{\chi^B_x} \)</label>
+                    <input type="range" min="-1" max="1" value="0.3" step="0.05" class="slider chiBx_slider" id="chiBx_slider">
+                    <span id="chiBx_slider_value" class="slider_value_box" >0.3</span>
+                    <div class="info_box_for_slider_names" id="info_box_chiBx">
+                        <p> x-component dimensionless spin vector of the lighter black hole</p>
+                    </div>
+                </div>
+
+                <div class="custom-row">
+                    <label for="chiBy_slider" class="slider_text" id="chiBy_slider_text">\( \mathbf{\chi^B_y} \)</label>
+                    <input type="range" min="-1" max="1" value="-0.3" step="0.05" class="slider chiBy_slider" id="chiBy_slider">
+                    <span id="chiBy_slider_value" class="slider_value_box" >-0.3</span>
+                    <div class="info_box_for_slider_names" id="info_box_chiBy">
+                        <p> y-component dimensionless spin vector of the lighter black hole</p>
+                    </div>
+                </div>
+
+                <div class="custom-row">
+                    <label for="chiBz_slider" class="slider_text" id="chiBz_slider_text">\(\mathbf{\chi^B_z} \)</label>
+                    <input type="range" min="-1" max="1" value="0.5" step="0.05" class="slider chiBz_slider" id="chiBz_slider">
+                    <span id="chiBz_slider_value" class="slider_value_box" >0.5</span>
+                    <div class="info_box_for_slider_names" id="info_box_chiBz">
+                        <p> z-component dimensionless spin vector of the lighter black hole</p>
+                    </div>
+                </div>
+
+                <div class="custom-row">
+                    <label for="t_start" class="slider_text" id="t_start_slider_text">\( \mathbf{t_{min}} \)</label>
+                    <input type="range" min="-1000" max="99" value="-200" step="1" class="slider t_start" id="t_start">
+                    <span id="t_start_slider_value" class="slider_value_box" >-200</span>
+                    <div class="info_box_for_slider_names" id="info_box_t_start">
+                        <p> Start time of the zoomed plot on the right</p>
+                    </div>
+                </div>
+
+                <div class="custom-row">
+                    <label for="t_end" class="slider_text" id="t_end_slider_text">\( \mathbf{t_{max}} \)</label>
+                    <input type="range" min="-1000" max="99" value="50" step="1" class="slider t_end" id="t_end">
+                    <span id="t_end_slider_value" class="slider_value_box" >50</span>
+                    <div class="info_box_for_slider_names" id="info_box_t_end">
+                        <p> End time of the zoomed plot on the right</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 col-sm-12 interactive-BHs-container">
+
+                <div id="animation_container">
+                    <div class="reset_buttons" id="reset_camera_button_container">
+                        <button type="submit" class="button" id="reset_camera_button">Reset Camera?</button>
+                    </div>
+                </div>
+            </div>
+           
+        </div>      
+
+    </div>
+
+    <script> //Get initial plot of GW strain
+        var graphDiv = document.getElementById('GW_interactive_graph');
+        const inclination = 0;
+        const phi_ref     = 0;
+        const mass_ratio = 2.4;
+        const chiAx = 0;
+        const chiAy = 0.5;
+        const chiAz = 0.6;
+        const chiBx = 0.3;
+        const chiBy = -0.3;
+        const chiBz = 0.5;
+
+        const graph_background_color = 'black';
+        const h_plus_color = 'orange';
+        const h_cross_color = 'cyan';
+        const axis_color = 'white';
+        const grid_color = 'gray';
+        const axis2_color = 'red';
+        const grid2_color = 'gray';
+        const abs_color = 'yellowgreen';
+
+        fetch('/interactive_strain_update_route', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&inclination=' + inclination + '&phi_ref=' + phi_ref
+        })
+        .then(response => response.json())
+        .then(data => {
+
+            h_abs = data.h_abs;
+            y_max = 1.2 * Math.max(...h_abs);
+            y_min = -y_max;
+
+            var trace1 = {
+                x: data.times,
+                y: data.h_plus,
+                type: 'scatter',
+                name: 'h_plus',
+                marker: {
+                    color: h_plus_color,  // Set color for trace1
+                    },
+                showlegend: true
+            };
+            var trace2 = {
+                x: data.times,
+                y: data.h_plus,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                name: 'h_cross',
+                marker: {
+                color: h_plus_color,  // Set color for trace1
+                    },
+                showlegend: false
+            };
+            var trace3 = {
+                x: data.times,
+                y: data.h_cross,
+                type: 'scatter',
+                name: 'h_cross',
+                marker: {
+                color: h_cross_color,  // Set color for trace1
+                    },
+                showlegend: true
+            };
+            var trace4 = {
+                x: data.times,
+                y: data.h_cross,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                name: 'h_cross',
+                marker: {
+                color: h_cross_color,  // Set color for trace1
+                    },
+                showlegend: false
+            };
+            var trace5 = {
+                x: data.times,
+                y: data.h_abs,
+                type: 'scatter',
+                name: 'Abs',
+                marker: {
+                color: abs_color,  // Set color for trace1
+                    },
+                showlegend: true
+            };
+            var trace6 = {
+                x: data.times,
+                y: data.h_abs,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                name: 'Abs',
+                marker: {
+                color: abs_color,  // Set color for trace1
+                    },
+                showlegend: false
+            };
+
+            var data = [trace4,trace5, trace6,trace1, trace2,trace3];
+            var layout = {
+                title: {
+                    text: "rh/M",
+                    font: {
+                        size: 40,
+                        color:'white',
+                        bold:true
+                        }, 
+                },
+                xaxis: {
+                        domain: [0, 0.7],title: {
+                            text: 'Time before merger (M)',
+                            font: {
+                                size:18,
+                                color: axis_color }},
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid_color},
+
+                yaxis: {range:[y_min, y_max],
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid_color},
+
+                yaxis2: {range: [y_min, y_max],
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid2_color},
+
+                xaxis2: {domain: [0.7, 1], range: [-200, 50],
+                        title: {
+                            text: 'Time before merger (M)',
+                            font: { 
+                                size:18,
+                                color: axis_color }
+                        },
+                        tickfont: { color: axis_color },
+                        linecolor: axis2_color,
+                        gridcolor: grid2_color
+                        },
+                plot_bgcolor: graph_background_color,
+                paper_bgcolor: graph_background_color,
+                legend: {
+                        font: {
+                            size: 22,
+                            color: axis_color,
+                            family: 'Arial',
+                            weight: 'bold'
+                            }
+                        }
+            };
+
+            Plotly.newPlot(graphDiv, data, layout);
+
+            });
+    </script>
+
+    <script> // make the strain plot interactive with slider
+
+        var inclination_slider  = document.getElementById("inclination_slider");
+        var phi_ref_slider      = document.getElementById("phi_ref_slider");
+        var mass_ratio_slider   = document.getElementById("mass_ratio_slider");
+        var chiAx_slider        = document.getElementById("chiAx_slider");
+        var chiAy_slider        = document.getElementById("chiAy_slider");
+        var chiAz_slider        = document.getElementById("chiAz_slider");
+        var chiBx_slider        = document.getElementById("chiBx_slider");
+        var chiBy_slider        = document.getElementById("chiBy_slider");
+        var chiBz_slider        = document.getElementById("chiBz_slider");
+        var t_start             = document.getElementById("t_start");
+        var t_end               = document.getElementById("t_end");
+        var reset_axis_button   = document.getElementById("reset_axis_button");
+        var reset_camera_button   = document.getElementById("reset_camera_button");
+        const warning = document.getElementById('warning');
+    
+        var inclination_slider_text = document.getElementById("inclination_slider_text")
+        var info_box_inclination = document.getElementById("info_box_inclination")
+        inclination_slider_text.addEventListener('mouseover', function() {
+            info_box_inclination.style.display = 'block';
+        });
+        inclination_slider_text.addEventListener('mouseout', function() {
+            info_box_inclination.style.display = 'none';
+        });
+
+        var phi_ref_slider_text = document.getElementById("phi_ref_slider_text")
+        var info_box_phi_ref = document.getElementById("info_box_phi_ref")
+        phi_ref_slider_text.addEventListener('mouseover', function() {
+            info_box_phi_ref.style.display = 'block';
+        });
+        phi_ref_slider_text.addEventListener('mouseout', function() {
+            info_box_phi_ref.style.display = 'none';
+        });
+
+        var mass_ratio_slider_text = document.getElementById("mass_ratio_slider_text")
+        var info_box_mass_ratio = document.getElementById("info_box_mass_ratio")
+        mass_ratio_slider_text.addEventListener('mouseover', function() {
+            info_box_mass_ratio.style.display = 'block';
+        });
+        mass_ratio_slider_text.addEventListener('mouseout', function() {
+            info_box_mass_ratio.style.display = 'none';
+        });
+
+        var chiAx_slider_text = document.getElementById("chiAx_slider_text")
+        var info_box_chiAx = document.getElementById("info_box_chiAx")
+        chiAx_slider_text.addEventListener('mouseover', function() {
+            info_box_chiAx.style.display = 'block';
+        });
+        chiAx_slider_text.addEventListener('mouseout', function() {
+            info_box_chiAx.style.display = 'none';
+        });
+
+        var chiAy_slider_text = document.getElementById("chiAy_slider_text")
+        var info_box_chiAy = document.getElementById("info_box_chiAy")
+        chiAy_slider_text.addEventListener('mouseover', function() {
+            info_box_chiAy.style.display = 'block';
+        });
+        chiAy_slider_text.addEventListener('mouseout', function() {
+            info_box_chiAy.style.display = 'none';
+        });
+
+        var chiAz_slider_text = document.getElementById("chiAz_slider_text")
+        var info_box_chiAz = document.getElementById("info_box_chiAz")
+        chiAz_slider_text.addEventListener('mouseover', function() {
+            info_box_chiAz.style.display = 'block';
+        });
+        chiAz_slider_text.addEventListener('mouseout', function() {
+            info_box_chiAz.style.display = 'none';
+        });
+
+        var chiBx_slider_text = document.getElementById("chiBx_slider_text")
+        var info_box_chiBx = document.getElementById("info_box_chiBx")
+        chiBx_slider_text.addEventListener('mouseover', function() {
+            info_box_chiBx.style.display = 'block';
+        });
+        chiBx_slider_text.addEventListener('mouseout', function() {
+            info_box_chiBx.style.display = 'none';
+        });
+
+        var chiBy_slider_text = document.getElementById("chiBy_slider_text")
+        var info_box_chiBy = document.getElementById("info_box_chiBy")
+        chiBy_slider_text.addEventListener('mouseover', function() {
+            info_box_chiBy.style.display = 'block';
+        });
+        chiBy_slider_text.addEventListener('mouseout', function() {
+            info_box_chiBy.style.display = 'none';
+        });
+
+        var chiBz_slider_text = document.getElementById("chiBz_slider_text")
+        var info_box_chiBz = document.getElementById("info_box_chiBz")
+        chiBz_slider_text.addEventListener('mouseover', function() {
+            info_box_chiBz.style.display = 'block';
+        });
+        chiBz_slider_text.addEventListener('mouseout', function() {
+            info_box_chiBz.style.display = 'none';
+        });
+
+        var t_start_slider_text = document.getElementById("t_start_slider_text")
+        var info_box_t_start = document.getElementById("info_box_t_start")
+        t_start_slider_text.addEventListener('mouseover', function() {
+            info_box_t_start.style.display = 'block';
+        });
+        t_start_slider_text.addEventListener('mouseout', function() {
+            info_box_t_start.style.display = 'none';
+        });
+
+        var t_end_slider_text = document.getElementById("t_end_slider_text")
+        var info_box_t_end = document.getElementById("info_box_t_end")
+        t_end_slider_text.addEventListener('mouseover', function() {
+            info_box_t_end.style.display = 'block';
+        });
+        t_end_slider_text.addEventListener('mouseout', function() {
+            info_box_t_end.style.display = 'none';
+        });
+
+        var graphDiv = document.getElementById('GW_interactive_graph');
+       
+        inclination_slider.addEventListener('input', function () {
+            inclination_slider_value.textContent = inclination_slider.value + '°';
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        phi_ref_slider.addEventListener('input', function () {
+            phi_ref_slider_value.textContent = phi_ref_slider.value + '°';
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        mass_ratio_slider.addEventListener('input', function () {
+            mass_ratio_slider_value.textContent = mass_ratio_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        chiAx_slider.addEventListener('input', function () {
+            chiAx_slider_value.textContent = chiAx_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        chiAy_slider.addEventListener('input', function () {
+            chiAy_slider_value.textContent = chiAy_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        chiAz_slider.addEventListener('input', function () {
+            chiAz_slider_value.textContent = chiAz_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        chiBx_slider.addEventListener('input', function () {
+            chiBx_slider_value.textContent = chiBx_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        chiBy_slider.addEventListener('input', function () {
+            chiBy_slider_value.textContent = chiBy_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        chiBz_slider.addEventListener('input', function () {
+            chiBz_slider_value.textContent = chiBz_slider.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        t_start.addEventListener('input', function () {
+            t_start_slider_value.textContent = t_start.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        t_end.addEventListener('input', function () {
+            t_end_slider_value.textContent = t_end.value;
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+        });
+
+        reset_axis_button.addEventListener('click', function () {
+            reset_axis_function({
+                inclination: inclination_slider.value,
+                phi_ref: phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start: t_start.value,
+                t_end: t_end.value,
+            });
+        });
+
+        reset_camera_button.addEventListener('click', function () {
+            gsap.to(camera.position, {
+                x: -4,
+                y: -6,
+                z: 2.5,
+                duration: 1, // Adjust the duration as needed
+                onUpdate: function() {
+                    camera.lookAt(0, 0, 0); // Ensure the camera always looks at the center
+                },
+                ease: "power1.inOut" // Easing function for the animation
+            });
+        });
+
+        // Setup scene
+        const container  = document.getElementById('animation_container');
+        const sliders_container  = document.getElementById('sliders_container');
+        
+        const fov    = 22.5;
+        let width_  = container.clientWidth*0.98;
+        let height_ = Math.min(sliders_container.clientHeight * 0.99, 450);
+        let aspect = width_/height_;
+        const near   = 0.1;
+        const far    = 1000;
+
+        window.addEventListener('resize', function() {
+            updateGraph({
+                inclination : inclination_slider.value,
+                phi_ref     : phi_ref_slider.value,
+                mass_ratio: mass_ratio_slider.value,
+                chiAx: chiAx_slider.value,
+                chiAy: chiAy_slider.value,
+                chiAz: chiAz_slider.value,
+                chiBx: chiBx_slider.value,
+                chiBy: chiBy_slider.value,
+                chiBz: chiBz_slider.value,
+                t_start:t_start.value,
+                t_end  :t_end.value,
+            });
+
+            width_  = container.clientWidth*0.98;
+            height_ = Math.min(sliders_container.clientHeight * 0.99, 450);
+            aspect = width_/height_;
+            camera.aspect = aspect;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width_, height_);
+        });
+    
+        const scene      = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000); // White background
+        const camera     = new THREE.PerspectiveCamera(fov, aspect, near, far );
+        const renderer   = new THREE.WebGLRenderer();
+
+        // Camera setup
+        camera.position.set(50, 50, 50);//camera.position.set(-4,-6,2.5);
+        camera.lookAt(0, 0, 0);
+        camera.up.set(0, 0, 1);
+
+        BHA_x_center = 1;
+        BHB_x_center = -1;
+
+        // Setup controls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+
+        renderer.setSize(width_, height_);
+        container.appendChild(renderer.domElement);
+        
+        // Create axes
+        const axesHelper = new THREE.AxesHelper(5);
+        scene.add(axesHelper);
+
+        const size_      = 40;// The size of the grid
+        const divisions_ = 80;// The number of divisions across the grid
+        const gridX = new THREE.GridHelper(size_, divisions_);
+        gridX.rotation.x = Math.PI / 2;
+        gridX.material.linewidth = 0.0001;
+        scene.add(gridX);
+
+        // Create a canvas texture for circular stars
+        const starCanvas = document.createElement('canvas');
+        starCanvas.width = 64;
+        starCanvas.height = 64;
+        const starContext = starCanvas.getContext('2d');
+
+        // Draw a circular shape
+        starContext.fillStyle = 'white';
+        starContext.beginPath();
+        starContext.arc(32, 32, 30, 0, Math.PI * 2);
+        starContext.fill();
+
+        // Create a texture from the canvas
+        const starTexture = new THREE.CanvasTexture(starCanvas);
+
+        // Create the star material with the circular texture
+        const starMaterial = new THREE.PointsMaterial({
+            size: 0.7, // Adjust the size as needed
+            map: starTexture,
+            transparent: true,
+            alphaTest: 0.5
+        });
+
+        // Add stars
+        const starGeometry = new THREE.BufferGeometry();
+        const starCount = 3000;
+        const starVertices = [];
+
+        for (let i = 0; i < starCount; i++) {
+            const x = THREE.MathUtils.randFloatSpread(2*size_); // Randomly spread stars within 2000 units
+            const y = THREE.MathUtils.randFloatSpread(2*size_);
+            const z = THREE.MathUtils.randFloatSpread(2*size_);
+            starVertices.push(x, y, z);
+        }
+
+        starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+
+        const stars = new THREE.Points(starGeometry, starMaterial);
+        scene.add(stars);
+
+        gsap.to(camera.position, {
+            x: -4,
+            y: -6,
+            z: 2.5,
+            duration: 5, // Duration of the animation in seconds
+            onUpdate: function() {
+                camera.lookAt(0, 0, 0); // Ensure the camera always looks at the center
+            },
+            ease: "power1.inOut" // Easing function for the animation 
+        });
+
+        axis_name_arrow_color = 0xffffff;
+
+        // X axis
+        const x_axis_color = axis_name_arrow_color;
+        let X_axis_vec = new THREE.ArrowHelper(new THREE.Vector3(1,0,0), new THREE.Vector3(-size_/2,0,0), size_, x_axis_color, 0.007, 0.007); // Adjusted initial vector
+        X_axis_vec.line.material.linewidth = 4;
+        scene.add(X_axis_vec);
+
+
+        // Y axis
+        const y_axis_color = axis_name_arrow_color;
+        let Y_axis_vec = new THREE.ArrowHelper(new THREE.Vector3(0,1,0), new THREE.Vector3(0,-size_/2,0), size_, y_axis_color , 0.007, 0.007); // Adjusted initial vector
+        Y_axis_vec.line.material.linewidth = 4;
+        scene.add(Y_axis_vec);
+
+
+        // Z axis
+        const z_axis_color = axis_name_arrow_color;
+        let Z_axis_vec = new THREE.ArrowHelper(new THREE.Vector3(0,0,1), new THREE.Vector3(0,0,-size_/2), size_, z_axis_color, 0.007, 0.007); // Adjusted initial vector
+        Z_axis_vec.line.material.linewidth = 4;
+        scene.add(Z_axis_vec);
+
+        const axis_arrow_head_length = 0.3; //The length of the head of the arrow
+        const axis_arrow_head_width  = 0.2; //The width of the head of the arrow
+
+        // X axis arrow
+        const X_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(1,0,0), new THREE.Vector3(3,0,0), 0, axis_name_arrow_color, axis_arrow_head_length, axis_arrow_head_width);
+        X_axis_arrow.line.material.linewidth = 4;
+        scene.add(X_axis_arrow);
+
+        // Y axis arrow
+        const Y_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(0,1,0), new THREE.Vector3(0,2,0), 0, axis_name_arrow_color, axis_arrow_head_length, axis_arrow_head_width);
+        Y_axis_arrow.line.material.linewidth = 4;
+        scene.add(Y_axis_arrow);
+
+        // Z axis arrow
+        const Z_axis_arrow = new THREE.ArrowHelper(new THREE.Vector3(0,0,1), new THREE.Vector3(0,0,1.5), 0, axis_name_arrow_color, axis_arrow_head_length, axis_arrow_head_width);
+        Z_axis_arrow.line.material.linewidth = 4;
+        scene.add(Z_axis_arrow);
+
+        // X axis Name 1
+        const X_axis_name_1 = new THREE.ArrowHelper(new THREE.Vector3(.5,.7,0), new THREE.Vector3(1.8,-.7,0), .5, axis_name_arrow_color, 0.007, 0.007);
+        X_axis_name_1.line.material.linewidth = 5;
+        scene.add(X_axis_name_1);
+
+        // X axis  Name 2
+        const X_axis_name_2 = new THREE.ArrowHelper(new THREE.Vector3(-.5,.7,0), new THREE.Vector3(2.2,-.7,0), .5, axis_name_arrow_color, 0.007, 0.007);
+        X_axis_name_2.line.material.linewidth = 5;
+        scene.add(X_axis_name_2);
+
+        // Y axis Name 1
+        const Y_axis_name_1 = new THREE.ArrowHelper(new THREE.Vector3(.5,.9,0), new THREE.Vector3(-.55,1.25,0), .8, axis_name_arrow_color, 0.007, 0.007);
+        Y_axis_name_1.line.material.linewidth = 5;
+        scene.add(Y_axis_name_1);
+
+        // Y axis  Name 2
+        const Y_axis_name_2 = new THREE.ArrowHelper(new THREE.Vector3(-.5,.7,0), new THREE.Vector3(-.35,1.7,0), .3, axis_name_arrow_color, 0.007, 0.007);
+        Y_axis_name_2.line.material.linewidth = 5;
+        scene.add(Y_axis_name_2);
+
+        // Z axis Name 1
+        const Z_axis_name_1 = new THREE.ArrowHelper(new THREE.Vector3(.5,0,0), new THREE.Vector3(0,.89,1), .4, axis_name_arrow_color, 0.007, 0.007);
+        Z_axis_name_1.line.material.linewidth = 5;
+        scene.add(Z_axis_name_1);
+
+        // Z axis Name 2
+        let Z_axis_name_2 = new THREE.ArrowHelper(new THREE.Vector3(-.5,-.8,0), new THREE.Vector3(.4,.9,1), .7, axis_name_arrow_color, 0.007, 0.007);
+        Z_axis_name_2.line.material.linewidth = 5;
+        scene.add(Z_axis_name_2);
+
+        // Z axis Name 3
+        const Z_axis_name_3 = new THREE.ArrowHelper(new THREE.Vector3(.5,0,0), new THREE.Vector3(0,.36,1), .4, axis_name_arrow_color, 0.007, 0.007);
+        Z_axis_name_3.line.material.linewidth = 5;
+        scene.add(Z_axis_name_3);
+
+        //________________________________________________________________________________________________________________________________
+
+        BHA_spin_vec_color = 0x00FFFF;
+        BHB_spin_vec_color = 0xFFA500;
+        scale_chi_mag = 1.5;
+
+        // Initial vector
+        let BHASpinVec = new THREE.ArrowHelper(new THREE.Vector3(0,0.64018,0.7682), new THREE.Vector3(BHA_x_center,0,0), scale_chi_mag*0.78102, BHA_spin_vec_color, axis_arrow_head_length, axis_arrow_head_width);
+        BHASpinVec.line.material.linewidth = 5;
+        scene.add(BHASpinVec);
+
+        // Initial vector
+        let BHBSpinVec = new THREE.ArrowHelper(new THREE.Vector3(0.45749,-0.45749,0.76249), new THREE.Vector3(BHB_x_center,0,0), scale_chi_mag*0.65574, BHB_spin_vec_color, axis_arrow_head_length, axis_arrow_head_width);
+        BHBSpinVec.line.material.linewidth = 5;
+        scene.add(BHBSpinVec);
+
+        //________________________________________________________________________________________________________________________________
+
+        const mass_ratio_ini = 2.4;
+        const initial_BHA_radius = mass_ratio_ini/(1+mass_ratio_ini);
+        const initial_BHB_radius = 1/(1+mass_ratio_ini);
+
+        BHA_sphere_color = 0x00FFFF;
+        BHB_sphere_color = 0xFFA500;
+        BH_sphere_opacity = 0.7;
+
+        // Initial sphere
+        let BHAsphere = new THREE.Mesh(new THREE.SphereGeometry(initial_BHA_radius, 32, 32), new THREE.MeshBasicMaterial({ color: BHA_sphere_color, transparent: true, opacity: BH_sphere_opacity }));
+        BHAsphere.position.set(BHA_x_center, 0, 0);
+        scene.add(BHAsphere);
+
+        // Initial sphere2
+        let BHBsphere = new THREE.Mesh(new THREE.SphereGeometry(initial_BHB_radius, 32, 32), new THREE.MeshBasicMaterial({ color: BHB_sphere_color, transparent: true, opacity: BH_sphere_opacity }));
+        BHBsphere.position.set(BHB_x_center, 0, 0);
+        scene.add(BHBsphere);
+
+        // Render loop
+        function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+        }
+        animate();
+
+        function reset_axis_function(sliderValues) {
+            const inclination = sliderValues.inclination;
+            const phi_ref = sliderValues.phi_ref;
+            const mass_ratio = sliderValues.mass_ratio;
+            const chiAx = sliderValues.chiAx;
+            const chiAy = sliderValues.chiAy;
+            const chiAz = sliderValues.chiAz;
+            const chiBx = sliderValues.chiBx;
+            const chiBy = sliderValues.chiBy;
+            const chiBz = sliderValues.chiBz;
+            const t_start = sliderValues.t_start;
+            const t_end = sliderValues.t_end;
+
+            fetch('/interactive_strain_update_route', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&inclination=' + inclination + '&phi_ref=' + phi_ref
+            })
+            .then(response => response.json())
+            .then(data => {
+                h_abs = data.h_abs;
+                y_max = 1.2 * Math.max(...h_abs);
+                y_min = -y_max;
+
+                updateGraph(sliderValues);
+            });
+        }
+
+        function updateGraph(sliderValues) {
+            const inclination = parseFloat(sliderValues.inclination);
+            const phi_ref     = parseFloat(sliderValues.phi_ref);
+            const mass_ratio  = parseFloat(sliderValues.mass_ratio);
+            const chiAx       = parseFloat(sliderValues.chiAx);
+            const chiAy       = parseFloat(sliderValues.chiAy);
+            const chiAz       = parseFloat(sliderValues.chiAz);
+            const chiBx       = parseFloat(sliderValues.chiBx);
+            const chiBy       = parseFloat(sliderValues.chiBy);
+            const chiBz       = parseFloat(sliderValues.chiBz);
+            const t_start     = parseFloat(sliderValues.t_start);
+            const t_end       = parseFloat(sliderValues.t_end);
+
+            const chiAmag = Math.sqrt(Math.pow(chiAx, 2) + Math.pow(chiAy, 2) + Math.pow(chiAz, 2));
+            const chiBmag = Math.sqrt(Math.pow(chiBx, 2) + Math.pow(chiBy, 2) + Math.pow(chiBz, 2));
+
+            if (chiAmag > 1 || chiBmag > 1) {
+                warning.style.display = 'block';
+            } else {
+                warning.style.display = 'none';
+            }
+
+            fetch('/interactive_strain_update_route', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: '&mass_ratio=' + mass_ratio + '&chiAx=' + chiAx + '&chiAy=' + chiAy + '&chiAz=' + chiAz + '&chiBx=' + chiBx + '&chiBy=' + chiBy + '&chiBz=' + chiBz + '&inclination=' + inclination + '&phi_ref=' + phi_ref
+            })
+            .then(response => response.json())
+            .then(data => {
+
+                var trace1 = {
+                x: data.times,
+                y: data.h_plus,
+                type: 'scatter',
+                name: 'h_plus',
+                marker: {
+                color: h_plus_color,  // Set color for trace1
+                    },
+                showlegend: true
+            };
+            var trace2 = {
+                x: data.times,
+                y: data.h_plus,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                name: 'h_cross',
+                marker: {
+                color: h_plus_color,  // Set color for trace1
+                    },
+                showlegend: false
+            };
+            var trace3 = {
+                x: data.times,
+                y: data.h_cross,
+                type: 'scatter',
+                name: 'h_cross',
+                marker: {
+                color: h_cross_color,  // Set color for trace1
+                    },
+                showlegend: true
+            };
+            var trace4 = {
+                x: data.times,
+                y: data.h_cross,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                name: 'h_cross',
+                marker: {
+                color: h_cross_color,  // Set color for trace1
+                    },
+                showlegend: false
+            };
+            var trace5 = {
+                x: data.times,
+                y: data.h_abs,
+                type: 'scatter',
+                name: 'Abs',
+                marker: {
+                color: abs_color,  // Set color for trace1
+                    },
+                showlegend: true
+            };
+            var trace6 = {
+                x: data.times,
+                y: data.h_abs,
+                xaxis: 'x2',
+                yaxis: 'y2',
+                type: 'scatter',
+                name: 'Abs',
+                marker: {
+                color: abs_color,  // Set color for trace1
+                    },
+                showlegend: false
+            };
+
+            var data = [trace1, trace2,trace3,trace4,trace5,trace6];
+            var layout = {
+                title: {
+                    text: "rh/M",
+                    font: {
+                        size: 40,
+                        color:'white',
+                        bold:true
+                        }, 
+                },
+                xaxis: {
+                        domain: [0, 0.7],title: {
+                            text: 'Time before merger (M)',
+                            font: {
+                                size:18,
+                                color: axis_color }},
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid_color},
+
+                yaxis: {range:[y_min, y_max],
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid_color},
+
+                yaxis2: {range: [y_min, y_max],
+                        tickfont: { color: axis_color },
+                        linecolor: axis_color,
+                        gridcolor: grid2_color},
+
+                xaxis2: {domain: [0.7, 1], range: [t_start, t_end],
+                        title: {
+                            text: 'Time before merger (M)',
+                            font: { 
+                                size:18,
+                                color: axis_color }
+                        },
+                        tickfont: { color: axis_color },
+                        linecolor: axis2_color,
+                        gridcolor: grid2_color
+                        },
+                plot_bgcolor: graph_background_color,
+                paper_bgcolor: graph_background_color,
+                legend: {
+                        font: {
+                            size: 22,
+                            color: axis_color,
+                            family: 'Arial',
+                            weight: 'bold'
+                            }
+                        }
+            };
+
+            Plotly.newPlot(graphDiv, data, layout);
+            });
+
+            scene.remove(BHASpinVec);
+            scene.remove(BHBSpinVec);
+            scene.remove(BHAsphere);
+            scene.remove(BHBsphere);
+              
+            const chiAx_unit = chiAx/chiAmag;
+            const chiAy_unit = chiAy/chiAmag;
+            const chiAz_unit = chiAz/chiAmag;
+        
+            // Create a BHA spin vector
+            let BHASpinVec_  = new THREE.Vector3(chiAx_unit,chiAy_unit,chiAz_unit);
+            BHASpinVec       = new THREE.ArrowHelper(BHASpinVec_, new THREE.Vector3(BHA_x_center,0,0), scale_chi_mag*chiAmag, BHA_spin_vec_color, axis_arrow_head_length, axis_arrow_head_width);
+            BHASpinVec.line.material.linewidth = 5;
+            scene.add(BHASpinVec);
+        
+            const chiBx_unit = chiBx/chiBmag;
+            const chiBy_unit = chiBy/chiBmag;
+            const chiBz_unit = chiBz/chiBmag;
+
+            // Create a BHB spin vector
+            let BHBSpinVec_      = new THREE.Vector3(chiBx_unit,chiBy_unit,chiBz_unit); // Adjusted end point
+            BHBSpinVec       = new THREE.ArrowHelper(BHBSpinVec_, new THREE.Vector3(BHB_x_center,0,0), scale_chi_mag*chiBmag, BHB_spin_vec_color, axis_arrow_head_length, axis_arrow_head_width);
+            BHBSpinVec.line.material.linewidth = 5;
+            scene.add(BHBSpinVec);
+
+            const BHA_radius=mass_ratio/(1+mass_ratio);
+            const BHB_radius=1/(1+mass_ratio);
+
+            BHAsphere = new THREE.Mesh(new THREE.SphereGeometry(BHA_radius, 32, 32), new THREE.MeshBasicMaterial({ color: BHA_sphere_color, transparent: true, opacity: BH_sphere_opacity }));
+            BHAsphere.position.set(BHA_x_center, 0, 0);
+            scene.add(BHAsphere);
+
+            BHBsphere = new THREE.Mesh(new THREE.SphereGeometry(BHB_radius, 32, 32), new THREE.MeshBasicMaterial({ color: BHB_sphere_color, transparent: true, opacity: BH_sphere_opacity }));
+            BHBsphere.position.set(BHB_x_center, 0, 0);
+            scene.add(BHBsphere);
+
+        };
+    </script>
+
+    
+      <!-- jQuery (Bootstrap JS plugins depend on it) -->
+
+</body>
+</html>
+

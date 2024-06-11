@@ -1,0 +1,30 @@
+## Installation Instructions
+
+Please install the following packages:
+
+- `numpy`
+- `matplotlib`
+- `wheel`
+- `gwsurrogate`
+- `flask`
+- `opencv-python`
+- `ffmpeg`
+
+```bash
+pip install numpy
+pip install matplotlib
+pip install wheel
+pip install gwsurrogate
+pip install flask
+pip install opencv-python
+sudo apt install ffmpeg
+```
+
+## Running the Website
+
+To begin the website:
+
+```bash
+python run.py
+```
+Open the link created in a browser (e.g., "http://127.0.0.1:5000/")

@@ -1,0 +1,7 @@
+- numpy
+- matplotlib
+- wheel
+- gwsurrogate
+- flask
+- opencv-python
+- ffmpeg

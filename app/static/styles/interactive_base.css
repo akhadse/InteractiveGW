@@ -1,0 +1,251 @@
+.interactive-plot-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    background-color: black;
+    margin: 0;
+    padding: 0;
+}
+
+#GW_interactive_graph{
+    position: relative;
+    max-width: 100%;
+    height: 100%;
+    overflow: hide;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.reset_buttons{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9998;
+    width: 20%;
+    max-width: 300px;
+    height: 15%;
+    margin-top: 10px;
+    margin-left: 15px;
+}
+
+#reset_axis_button_container{
+    top: 10px;
+    left: 10px;
+}
+
+#reset_camera_button{
+    top: 10px;
+    left: 10px;
+}
+
+.button {
+    width: 100%;
+    height: 100%;
+    border: 3px solid black;
+    border-radius: 20px;
+    background-color: gold;
+    font-size: min(3vw, 24px);
+  }
+
+  .warning-container{
+    display: none;
+    position: absolute;
+    top: 30%;
+    left: 33.33%;
+    z-index: 9999;
+    width: 40%;
+    max-width: 300px;
+    height: 33.33%;
+    margin-top: 10px;
+    margin-left: 15px;
+    background-color: rgb(252, 75, 75);
+    border: 5px solid black;
+    border-radius: 15px;
+    color: white;
+    font-size: min(3.6vw, 18px);
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    line-height: 175%;
+    font-weight: bold;
+}
+
+.sliders-container {
+    background-color:black;
+    font-size: 20px;
+    font-weight: bold;
+    color: greenyellow;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    padding-right: 5px;
+}
+
+.slider {
+    vertical-align: middle;
+    -webkit-appearance: none;
+    background: black; /* Remove the default track color */
+    outline: blue; /* Remove the outline */
+    width: 60%;
+    height: 20%;
+    max-height: 25px;
+    margin: 5px;
+    border-radius: 15px;
+    border: 1px solid greenyellow;
+  }
+
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px; /* Set width of the slider thumb */
+    height: 20px; /* Set height of the slider thumb */
+    border-radius: 50%; /* Make the slider thumb circular */
+    cursor: e-resize; /* Change cursor to pointer when hovering over the slider thumb */
+  }
+
+    .slider_value_box{
+        display: inline-block;
+        vertical-align: middle;
+        max-width: 45px;
+        width: 15%; /* Adjust the width as needed */
+        max-height: 30px;
+        padding: 0px;
+        background-color: black;
+        font-size: min(5vw, 20px); /* Adjust the font size as needed */
+        text-align: center;
+        border: 1px solid black;
+        border-radius: 5px;
+        margin: 5px;
+    }
+
+    .slider_text{
+        margin: 5px;
+        display: flex;
+        font-size:min(5vw, 20px);
+        align-items: center;
+        align-items: center; 
+        justify-content: center;
+    }
+
+    .slider-row{
+        display: flex;
+        flex-wrap: nowrap; /* Prevent wrapping */
+        justify-content: space-between; /* Distribute items evenly along the row */
+        align-items: center; /* Center items vertically */
+    }
+
+    .custom-row {
+        position: relative;
+        display: flex;
+        flex-wrap: nowrap; /* Prevent wrapping */
+        justify-content: space-between; /* Distribute items evenly along the row */
+        align-items: center; /* Center items vertically */
+    }
+    
+    .custom-row .slider_text,
+    .custom-row .slider_value_box{
+        flex: 1; /* Each item occupies equal space */
+    }
+
+    .custom-row .slider{
+        flex: 2; /* Each item occupies equal space */
+    }
+
+    .info_box_for_slider_names {
+        position: fixed;
+        display: none;
+        top: 50%; /* Position it 50% from the top */
+        left: 50%; /* Position it 50% from the left */
+        transform: translate(-50%, -50%);
+        background-color: black;
+        border: 4px solid gold;
+        font-size: min(2.5vw, 28px);
+        color: cyan;
+        text-align: center; /* Center text horizontally */
+        padding: 2vw;
+        z-index: 9999;
+        line-height: 1.5; /* Center text vertically */
+    }
+
+
+    .interactive-BHs-container {
+        position: relative;
+        margin: 0;
+        padding: 0;
+    }
+
+    #animation_container{
+        position: relative;
+        border: 5px solid black;
+        width: 100%;
+        height: max(100%, 500px);
+        margin: 0;
+        padding: 0;
+        background-color:black;
+    }
+
+    #inclination_slider_text, #phi_ref_slider_text,
+    #inclination_slider_value, #phi_ref_slider_value,
+    #l_slider_text, #m_slider_text,
+    #l_slider_value, #m_slider_value {
+    color: yellow;
+    }
+
+    .inclination_slider::-webkit-slider-thumb,
+    .phi_ref_slider::-webkit-slider-thumb,
+    .l_slider::-webkit-slider-thumb,
+    .m_slider::-webkit-slider-thumb {
+        background:yellow;
+        border: 1px solid greenyellow; /* Add a border around the slider thumb */
+    }
+
+    #mass_ratio_slider_text,#mass_ratio_slider_value{
+        color: #ff5454;
+        }
+
+    .mass_ratio_slider::-webkit-slider-thumb {
+        background: #ff5454;
+        border: 1px solid greenyellow; /* Add a border around the slider thumb */
+    }
+
+    #chiAx_slider_text, #chiAy_slider_text, #chiAz_slider_text,
+    #chiAx_slider_value, #chiAy_slider_value, #chiAz_slider_value{
+    color: cyan;
+    }
+
+    .chiAx_slider::-webkit-slider-thumb,
+    .chiAy_slider::-webkit-slider-thumb,
+    .chiAz_slider::-webkit-slider-thumb {
+        background: cyan;
+        border: 1px solid greenyellow; /* Add a border around the slider thumb */
+    }
+
+    #chiBx_slider_text, #chiBy_slider_text, #chiBz_slider_text,
+    #chiBx_slider_value, #chiBy_slider_value, #chiBz_slider_value {
+    color: orange;
+    }
+
+    .chiBx_slider::-webkit-slider-thumb,
+    .chiBy_slider::-webkit-slider-thumb,
+    .chiBz_slider::-webkit-slider-thumb {
+        background: orange;
+        border: 1px solid greenyellow; /* Add a border around the slider thumb */
+    }
+
+    .t_start::-webkit-slider-thumb,
+    .t_end::-webkit-slider-thumb {
+        background: white;
+        border: 1px solid greenyellow;
+    }
+
+    #t_end_slider_text,#t_start_slider_text, #t_end_slider_value, #t_start_slider_value{
+        color: white;
+    }
+
+    #t_end_slider_value, #t_start_slider_value{
+        font-size: min(5vw, 16px);
+    }
+

@@ -1,0 +1,64 @@
+.navbar {
+    height: auto; /* Set the height to 10% of the viewport height */
+    vertical-align: bottom;
+    /* border: 5px solid green; */
+    background-color: black;
+    padding: 10px;
+    margin: 0;
+    margin-left: -15px;
+    margin-right: -15px;
+    border-bottom: 2px solid #86E600; /* Example color */
+
+}
+
+.navbar-nav .nav-item {
+    /* background-color: pink; */
+    margin: 0px;
+    padding: 0px;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: red;
+    font-size: 32px;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    /* background-color: aqua; */
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: rgba(2, 183, 255, 0.925);
+}
+
+.navbar-toggler {
+    background-color: pink;
+    margin: 0px;
+    padding: 0px;
+    border: 5px solid black;
+    background-color: white; 
+    border-radius: 15px;
+    padding: 10px 30px;
+    transition: background-color 0.3s, color 0.3s;
+    color: red;
+}
+
+.navbar-toggler:hover {
+    background-color: #005cb3; /* Darker blue on hover */
+    color: #ffffff; /* White text on hover */
+}
+
+
+.navbar-nav .nav-item .nav-link {
+    color: rgb(238, 255, 213);
+}
+
+
+
+.horizontal-line{
+    border-top: 1px solid black;
+    padding: 0;
+    margin: 5px;
+}
+

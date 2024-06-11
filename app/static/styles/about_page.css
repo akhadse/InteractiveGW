@@ -1,0 +1,40 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Ensure HTML and body take up full viewport height */
+}
+
+.about_page_animation_container {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Make sure it fills the viewport vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#about_page_animation {
+    position: relative;
+    border: 5px solid black;
+    width: 100%;
+    height: 100%; /* Fill the entire height of the parent container */
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+
+.about_text_1 {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    margin: 200px;
+    color: black;
+    font-weight: bold;
+    background-color: white;
+    opacity: 90%;
+    text-align: center;
+    max-width: 50%;
+    font-size: 2em;
+    padding: 20px;
+}

@@ -1,0 +1,16 @@
+#download_button_row{
+    justify-content: space-around;
+    margin-top: 30vh;
+}
+
+.button{
+    width: 40vw;
+    height: 15vh;
+    font-size: 2em;
+    font-weight: bold;
+    padding: 5px;
+    justify-content: center;
+}
+.button:hover {
+    background-color: rgb(134, 230, 0);
+  }

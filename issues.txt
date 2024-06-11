@@ -1,0 +1,23 @@
+*****Styling******
+
+- Warning container not at always at the center of the screen
+- not able to blur the background when info_box_parameter is being displayed
+- not able to blur the background when warning is being displayed
+
+
+
+
+
+*****html******
+
+
+
+
+
+
+*****Code******
+
+
+
+
+
