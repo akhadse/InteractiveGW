@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/base.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/headerbar.css') }}">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/about_page.css') }}">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.10.4/gsap.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <title>Interactive GW</title>
+
+</head>
+
+<body>
+
+
+    <div class="container-fluid">
+
+        <header>
+            <nav class="navbar navbar-expand-md navbar-light" id="navbar">
+                
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <div class="container-fluid">
+                        <ul class="navbar-nav row w-100"> 
+                            <li class="nav-item col">
+                                <a class="nav-link" href="/">Home</a>
+                            </li>
+                            <li class="nav-item col"> 
+                                <a class="nav-link" href="/interactive_strain">GW strain</a>
+                            </li>
+                            <li class="nav-item col">
+                                <a class="nav-link" href="/interactive_h_lm">\( h_{lm}\) modes</a>
+                            </li>
+                            <li class="nav-item col">
+                                <a class="nav-link" href="/download_videos">Download Videos</a>
+                            </li>
+                            <li class="nav-item col">
+                                <a class="nav-link" href="/about_page" style="color:  rgb(134, 230, 0);">About</a>
+                            </li>
+
+                            <!-- <li class="nav-item col">
+                                <a class="nav-link" href="/test_page">==Test Page==</a>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </div>
+
+
+<div class="row">
+
+    <div class="col-md-12 col-sm-12 about_page_animation_container">
+
+        <div id="about_page_animation">
+            <p class="about_text_1" id="about_text_1">
+                This website is currently under development. <br>
+                Any suggestions to improve the website are most welcome! <br>
+                akhadse@go.olemiss.edu
+            </p>
+        </div>
+    </div>
+   
+</div>      
+
+
+<script>
+        // Setup scene
+        const container  = document.getElementById('about_page_animation');
+        
+        const fov    = 100;
+        let width_  = container.clientWidth;
+        let height_ = container.clientHeight;
+        let aspect = width_/height_;
+        const near   = 0.01;
+        const far    = 1000;
+
+
+        window.addEventListener('resize', function() {
+            width_  = container.clientWidth;
+            height_ = container.clientHeight;
+            aspect = width_/height_;
+            camera.aspect = aspect;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width_, height_);
+        });
+
+
+        const scene      = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000);
+        const camera     = new THREE.PerspectiveCamera(fov, aspect, near, far );
+        const renderer   = new THREE.WebGLRenderer();
+
+        renderer.setSize(width_, height_);
+        container.appendChild(renderer.domElement);
+        
+        const size_      = 40;// The size of the grid
+     
+        // Create a canvas texture for circular stars
+        const starCanvas = document.createElement('canvas');
+        starCanvas.width = 64;
+        starCanvas.height = 64;
+        const starContext = starCanvas.getContext('2d');
+
+        // Draw a circular shape
+        starContext.fillStyle = 'white';
+        starContext.beginPath();
+        starContext.arc(32, 32, 30, 0, Math.PI * 2);
+        starContext.fill();
+
+        // Create a texture from the canvas
+        const starTexture = new THREE.CanvasTexture(starCanvas);
+
+        // Create the star material with the circular texture
+        const starMaterial = new THREE.PointsMaterial({
+            size: 0.5, // Adjust the size as needed
+            map: starTexture,
+            transparent: true,
+            alphaTest: 0.5
+        });
+
+
+        // Add stars
+        const starGeometry = new THREE.BufferGeometry();
+        const starCount = 5000;
+        const starVertices = [];
+
+        for (let i = 0; i < starCount; i++) {
+            const x = THREE.MathUtils.randFloatSpread(5*size_); // Randomly spread stars within 2000 units
+            const y = THREE.MathUtils.randFloatSpread(5*size_);
+            const z = THREE.MathUtils.randFloatSpread(5*size_);
+            starVertices.push(x, y, z);
+        }
+
+        starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+
+        const stars = new THREE.Points(starGeometry, starMaterial);
+        scene.add(stars);
+
+        // Variables to control rotation
+        let angle = 0;
+        const radius = size_/2; // Radius of the circular path
+        const rotationSpeed = 0.002; // Adjust the speed of rotation
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Calculate the new camera position
+            angle += rotationSpeed;
+            const x = radius * Math.cos(angle);
+            const y = radius * Math.sin(angle);
+            const z = 50 * Math.sin(angle * 0.5); // Optional: Add some vertical movement
+
+            camera.position.set(x, y, z);
+
+            // Calculate the look-at position slightly ahead of the current position
+            const lookAtX = radius * Math.cos(angle + rotationSpeed);
+            const lookAtY = radius * Math.sin(angle + rotationSpeed);
+            const lookAtZ = 50 * Math.sin((angle + rotationSpeed) * 0.5);
+
+            camera.lookAt(lookAtX, lookAtY, lookAtZ);
+
+            renderer.render(scene, camera);
+        }
+
+        // Start the animation
+        animate();
+</script>
+
+</body>
+</html>
