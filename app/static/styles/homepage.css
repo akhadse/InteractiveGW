@@ -1,5 +1,39 @@
-.homepage-nasa-gif img{
-    width: 100%;
-    max-width: 100%;
-    padding: 20px;
-  }
+.row{
+  box-sizing: border-box;
+  border: 5px solid white;
+  border-radius: 20px;
+  margin: 20px;
+  display: flex;
+justify-content: center;
+}
+
+.rowboxes{
+  box-sizing: border-box;
+  background:pink;
+  border: 5px solid orange;
+  padding: 10px;
+  border-radius: 20px;
+  margin: 10px;
+  max-width: 45%;
+}
+
+.rowboxtext{
+  display: block;
+  box-sizing: border-box;
+  border: 5px solid red;
+  margin: 0;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.rowboximage{
+  display: flex;
+  box-sizing: border-box;
+  border: 5px solid red;
+  margin: 0;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
