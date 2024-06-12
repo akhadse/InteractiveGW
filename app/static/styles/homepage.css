@@ -1,39 +1,87 @@
-.row{
+.row {
   box-sizing: border-box;
-  border: 5px solid white;
+  /* border: 5px solid white; */
   border-radius: 20px;
-  margin: 20px;
+  margin: 20px auto; /* Sets top and bottom margin to 20px, and auto centers horizontally */
   display: flex;
-justify-content: center;
+  justify-content: space-between;
+  width: 80%;
+  align-items: center;
 }
+
+.row2, .row3, .row4{
+  margin-bottom: 40px;
+  border: 2px solid white;
+  padding: 10px;
+}
+
 
 .rowboxes{
   box-sizing: border-box;
-  background:pink;
-  border: 5px solid orange;
+  background:black;
+  /* border: 5px solid orange; */
   padding: 10px;
   border-radius: 20px;
-  margin: 10px;
-  max-width: 45%;
+  margin: auto;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+}
+
+#row1box1{
+  /* border: 5px solid green; */
+  width: 80%;
 }
 
 .rowboxtext{
   display: block;
   box-sizing: border-box;
-  border: 5px solid red;
+  /* border: 5px solid red; */
   margin: 0;
   padding: 20px;
   justify-content: center;
   align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+  overflow-x: auto;
+
+}
+
+h1{
+  text-align: center;
+  font-size: 3em;
+  font-weight: bold;
+  color: yellowgreen;
+}
+
+h2{
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: bold;
+  color: skyblue;
+}
+
+p{
+  /* background: skyblue; */
+  text-align: center;
+  font-size: 1.5em;
+}
+.highlight {
+  color:skyblue;
+  font-weight: bold;
 }
 
 .rowboximage{
   display: flex;
   box-sizing: border-box;
-  border: 5px solid red;
+  border: 2px solid skyblue;
+  border-radius: 20px;
   margin: 0;
-  padding: 20px;
   justify-content: center;
   align-items: center;
 }
 
+.rowboximage img{
+  border-radius: 20px;
+  max-width: 100%;
+}
