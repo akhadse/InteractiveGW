@@ -1,40 +1,55 @@
 html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%; /* Ensure HTML and body take up full viewport height */
+    /* border: 5px solid white; */
+}
+
+.row{
+    /* border: 5px solid red; */
 }
 
 .about_page_animation_container {
     position: relative;
-    margin: 0;
-    padding: 0;
-    height: 100vh; /* Make sure it fills the viewport vertically */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    /* border: 5px solid cyan; */
+    display: flex; /* Establishes this container as a flex container */
+    justify-content: center; /* Centers children horizontally in the container */
+    align-items: center; /* Centers children vertically in the container */
+    height: 100vh; /* Makes the container take at least the full height of the viewport */
+    text-align: center;
 }
 
-#about_page_animation {
-    position: relative;
-    border: 5px solid black;
+#about_page_animation{
+    /* border: 5px solid yellowgreen; */
+    height: 100%;
     width: 100%;
-    height: 100%; /* Fill the entire height of the parent container */
-    margin: 0;
-    padding: 0;
-    background-color: black;
+    overflow: hidden;
 }
 
 .about_text_1 {
     position: absolute;
-    top: 10%;
-    left: 10%;
-    margin: 200px;
-    color: black;
-    font-weight: bold;
-    background-color: white;
+    /* border: 5px solid yellowgreen; */
+    color: white;
+    background-color: rgba(0, 0, 0, 0.8);
     opacity: 90%;
     text-align: center;
-    max-width: 50%;
-    font-size: 2em;
-    padding: 20px;
+    padding: 30px;
+    width: 60%;
+    border-radius: 20px;
+    font-size: 1.6em;
+    color: cyan;
+    border-radius: 50px;
+    overflow: auto;
+    max-height: 80%;
 }
+
+.about_text_1  h2{
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+}
+.thankyoutext {
+    font-size: 1.7em;
+}
+
+.about_text_1  ul li{
+    font-size: 1em;
+}
+

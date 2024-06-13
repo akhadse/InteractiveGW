@@ -65,20 +65,45 @@
     </div>
 
 
-<div class="row">
+    <div class="container-fluid centered-image">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="about_page_animation_container">
+                    <div id="about_page_animation">
+                    </div>
 
-    <div class="col-md-12 col-sm-12 about_page_animation_container">
 
-        <div id="about_page_animation">
-            <p class="about_text_1" id="about_text_1">
-                This website is currently under development. <br>
-                Any suggestions to improve the website are most welcome! <br>
-                akhadse@go.olemiss.edu
-            </p>
+                    <div class="about_text_1" id="about_text_1">
+
+                        <h2 class="thankyoutext">Thank you visiting InteractiveGW! </h2>
+
+                        <p>
+                            <br>
+                            InteractiveGW was created and maintained by Akshay Khadse.<br>
+                            Any suggestions to improve the website are most welcome! <br>
+                            <a href="mailto:akhadse@go.olemiss.edu">akhadse@go.olemiss.edu</a>
+                            <br>
+                        </p>
+
+                        <h2>Acknowlegement</h2>
+
+                        <p>
+                            We would like to thank Dr.Leo Stein, Dr.Anuradha Gupta, Gauree Wathodkar, 
+                            Subhayu Bagchi for their valuable suggestions.
+                        </p>
+    
+                        <h2>References</h2>
+                        <ul>
+                            <li>Varma, Vijay, et al. "Surrogate models for precessing binary black hole simulations with unequal masses." <em>Physical Review Research</em>, vol. 1, no. 3, 2019, p. 033015.</li>
+                            <li> BH merger GIF Credit : https://science.nasa.gov/universe/a-mesmerizing-model-of-monster-black-holes/ </li>
+                        </ul>
+
+                    </div>
+                    
+                </div>
+            </div>
         </div>
     </div>
-   
-</div>      
 
 
 <script>
@@ -91,7 +116,6 @@
         let aspect = width_/height_;
         const near   = 0.01;
         const far    = 1000;
-
 
         window.addEventListener('resize', function() {
             width_  = container.clientWidth;

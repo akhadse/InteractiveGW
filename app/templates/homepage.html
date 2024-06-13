@@ -67,7 +67,7 @@
 
         <div class="row row1">
 
-            <div class="col-lg-12 col-md-12 col-sm-12 rowboxes" id="row1box1"> 
+            <div class="col-lg-10 col-md-10 col-sm-10 rowboxes" id="row1box1"> 
                 <div class="rowboxtext text_row1">
                     <h1>Welcome to InteractiveGW!</h1>
                     <p> </p>
@@ -79,9 +79,53 @@
                         Generate real-time gravitational wave signals and download videos!
                     </p>
                     <p>
-                        InteractiveGW uses state of the art SXS Surrogate model NRSur7dq4, signals
-                        so its almost as accurate as numerical relativity generated signals. <span class="highlight">Learn more...</span>
+                        InteractiveGW uses state of the art <a href="https://arxiv.org/abs/1905.09300" target="_blank">NRSur7dq4 surrogate model</a> to generate gravitational waveforms,
+                        so it's almost as accurate as numerical relativity generated waveforms.
                     </p>
+
+                    <p>
+                        <span class="highlight" id="learnMore" onclick="toggleText()">Learn more...</span>
+                    </p>
+                    <div id="moreText" class="hidden">
+                        <br>
+
+                        <hr class="custom-hr">
+
+                        <h2 class="moreText">NRSur7dq4 surrogate model</h2>
+
+                        <p class="moreText">
+                            <br>
+                            <span style="color: #b94444; font-weight: bold;">For the strain data,</span>  the complex strain \( h = h_{+} - i h_\times  \) evaluated 
+                            at \( ( \mathbf{\iota}, \pi/2 - \mathbf{\phi_{ref}}) \),  on the sky of the reference frame is returned.
+                        </p>
+
+                        <p class="moreText">
+                            <br>
+                            <span style="color: #b94444;font-weight: bold;">For the \(h_{lm} \) mode data,</span> the strain is expressed as sum of spin-weighted spherical harmonic modes, \( h(t, \iota, \phi_0) \, = \sum_{l=2}^{\infty} \sum_{m=-l}^{l} \, h_{lm}(t) \, \sideset{_{-2}}{_{lm}} Y(\iota, \phi_0) \)
+                        </p>
+
+                        <h3> <br> Parameters:</h3>
+                        <p class="moreText">
+                            q : Mass ratio, mA/mB >= 1 <br>
+                            \( \chi_{A} \) : Dimensionless spin vector of the heavier black hole at reference epoch.<br>
+                            \( \chi_{B} \) : Dimensionless spin vector of the lighter black hole at reference epoch.<br>
+                            \( \mathbf{\iota} \) : Inclination angle between the orbital angular momentum direction at the reference epoch and the line-of-sight to the observer.<br>
+                            \( \mathbf{\phi_{ref}} \) : The azimuthal angle on the sky of the source frame following the LAL convention.<br>
+                            \( (\ell,m) \) : Indicate the spin-weighted spherical harmonic mode coefficients in the expansion \( \sum_{l=2}^{\infty} \sum_{m=-l}^{l} \, h_{lm} \, \sideset{_{-2}}{_{lm}} Y \) 
+                        </p>
+
+                        <h3> <br> Assumptions:</h3>
+                        <p class="moreText">
+                            f_low = 0 ,i.e, the entire waveform is returned.<br>
+                        </p>
+
+                        <hr class="custom-hr">
+                        <p>
+                            <span class="highlight" onclick="toggleText()">Show less...</span>
+                        </p>
+                        
+                        
+                    </div>
                 </div>
             </div>
 
@@ -98,7 +142,7 @@
 
                             <p> <br> Make interactive plots for gravitational wave strain \( {\color{yellowgreen}h(t)} \), </p>
                             <p>
-                                \( {\color{yellowgreen}{h(t, \iota, \phi_0)}} {\color{skyblue} \, = \sum_{l=2}^{\infty} \sum_{m=-l}^{l} h_{lm}(t) \, Y_{lm}(\iota, \phi_0)} \)
+                                \( {\color{yellowgreen}{h(t, \iota, \phi_0)}} {\color{skyblue} \, = \sum_{l=2}^{\infty} \sum_{m=-l}^{l} \, h_{lm}(t) \, \sideset{_{-2}}{_{lm}} Y(\iota, \phi_0)} \)
                             </p>
                             <p>
                                 Vary the parameters of binary black holes, inclination, azimuthal angle to see how the strain depends on these paramters.
@@ -131,7 +175,7 @@
                             <p> </p>
                             <p> <br> Make interactive plots for gravitational wave \({\color{yellowgreen}h_{lm}} \) modes when expanded as </p>
                             <p>
-                                \( {\color{skyblue} h(t, \iota, \phi_0) \, = \sum_{l=2}^{\infty} \sum_{m=-l}^{l} {\color{yellowgreen}h_{lm}(t)} \, Y_{lm}(\iota, \phi_0)} \)
+                                \( {\color{skyblue} h(t, \iota, \phi_0) \, = \sum_{l=2}^{\infty} \sum_{m=-l}^{l} \, {\color{yellowgreen}h_{lm}(t)} \, \sideset{_{-2}}{_{lm}} Y(\iota, \phi_0)} \)
                             </p>
                             <p>
                                 Vary the parameters of binary black holes and spherical harmonic modes to see how the strain depends on these paramters.
@@ -182,9 +226,21 @@
 
         </div>
 
-
-
     </div>
+
+    <script>
+        function toggleText() {
+            var moreText = document.getElementById("moreText");
+            var learnMore = document.getElementById("learnMore");
+            if (moreText.classList.contains("hidden")) {
+                moreText.classList.remove("hidden");
+                learnMore.style.display = "none";
+            } else {
+                moreText.classList.add("hidden");
+                learnMore.style.display = "inline";
+            }
+        }
+    </script>
 
 </body>
 </html>

@@ -10,7 +10,7 @@
 }
 
 .row2, .row3, .row4{
-  margin-bottom: 40px;
+  margin-bottom: 60px;
   border: 2px solid white;
   padding: 10px;
 }
@@ -84,4 +84,38 @@ p{
 .rowboximage img{
   border-radius: 20px;
   max-width: 100%;
+}
+
+.hidden {
+  display: none;
+}
+.highlight {
+  cursor: pointer;
+  color: skyblue;
+  text-decoration: underline;
+}
+
+a{
+  color: skyblue;
+}
+
+.moreText{
+  text-align: left;
+  color: bisque;
+}
+
+.custom-hr {
+  border: 0;
+  height: 1px;
+  background-color: bisque;
+}
+
+h3{
+  color: rgb(185, 68, 68);
+  font-weight: bold;
+}
+
+#moreText h2{
+  text-align: center;
+  color: #b94444;
 }

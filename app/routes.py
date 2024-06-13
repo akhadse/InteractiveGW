@@ -31,9 +31,9 @@ def download_videos():
 def about_page():
     return render_template('about_page.html')
 
-@routes.route('/test_page', methods=['GET', 'POST'])
-def test_page():
-    return render_template('test_page.html')
+# @routes.route('/test_page', methods=['GET', 'POST'])
+# def test_page():
+#     return render_template('test_page.html')
 
 @routes.route('/interactive_strain_update_route', methods=['POST'])
 def interactive_strain_update_route():
