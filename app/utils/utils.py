@@ -14,7 +14,16 @@ sur   = gwsurrogate.LoadSurrogate("NRSur7dq4")
 times = np.arange(-4299,99,1)
 f_low = 0
 #######################################################
-
+import boto3
+s3=boto3.client('s3', region_name='us-east-2')
+###
+def generate_presigned_url(filename):
+    bucket_name = 'playgw-bucket'
+    key_name = filename
+    s3.upload_file('/home/akshay/play_GW/'+filename, bucket_name, key_name)
+    presigned_url = s3.generate_presigned_url('get_object',Params={'Bucket': bucket_name, 'Key': key_name},ExpiresIn=300)
+    return presigned_url
+#######################################################
 
 def generate_strain_for_param(input_dict):
 
@@ -239,8 +248,8 @@ def generate_video_for_strain_for_varying_param(input_dict):
     # Release video writer
     video.release()
     cv2.destroyAllWindows()
-    #video_download_link = generate_presigned_url(video_name)
-    #return video_download_link
+    video_download_link = generate_presigned_url(video_name)
+    return video_download_link
 
 
 def generate_video_for_h_lm_varying_param(input_dict):

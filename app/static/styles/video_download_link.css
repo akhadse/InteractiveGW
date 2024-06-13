@@ -1,0 +1,48 @@
+html, body {
+    /* border: 5px solid white; */
+}
+
+.row{
+    /* border: 5px solid red; */
+}
+
+.about_page_animation_container {
+    position: relative;
+    /* border: 5px solid cyan; */
+    display: flex; /* Establishes this container as a flex container */
+    justify-content: center; /* Centers children horizontally in the container */
+    align-items: center; /* Centers children vertically in the container */
+    height: 100vh; /* Makes the container take at least the full height of the viewport */
+    text-align: center;
+}
+
+.about_text_1 {
+    position: absolute;
+    /* border: 5px solid yellowgreen; */
+    color: white;
+    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 90%;
+    text-align: center;
+    padding: 30px;
+    width: 60%;
+    border-radius: 20px;
+    font-size: 1.6em;
+    color: cyan;
+    border-radius: 50px;
+    overflow: auto;
+    max-height: 80%;
+}
+
+.about_text_1  h2{
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+}
+.thankyoutext {
+    font-size: 1.7em;
+}
+
+.about_text_1  ul li{
+    font-size: 1em;
+}
+
