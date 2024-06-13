@@ -10,7 +10,9 @@
     font-weight: bold;
     padding: 5px;
     justify-content: center;
+    background: rgb(218, 185, 0);
+    overflow: auto;
 }
 .button:hover {
-    background-color: rgb(134, 230, 0);
+    background-color: rgb(119, 204, 1);
   }
