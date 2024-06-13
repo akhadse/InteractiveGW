@@ -49,16 +49,13 @@
     color: #ffffff; /* White text on hover */
 }
 
-
 .navbar-nav .nav-item .nav-link {
     color: rgb(238, 255, 213);
+    font-family: 'Lato', sans-serif;
 }
-
-
 
 .horizontal-line{
     border-top: 1px solid black;
     padding: 0;
     margin: 5px;
 }
-

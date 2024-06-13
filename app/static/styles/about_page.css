@@ -38,6 +38,7 @@ html, body {
     border-radius: 50px;
     overflow: auto;
     max-height: 80%;
+    font-family: 'Lato', sans-serif;
 }
 
 .about_text_1  h2{
@@ -45,8 +46,9 @@ html, body {
     font-weight: bold;
     color: white;
 }
-.thankyoutext {
-    font-size: 1.7em;
+
+#thankyoutext {
+    font-size: 2em;
 }
 
 .about_text_1  ul li{
