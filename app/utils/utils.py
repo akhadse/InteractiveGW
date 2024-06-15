@@ -83,7 +83,6 @@ def generate_video_for_strain_for_varying_param_method_2(input_dict):
     figure_height = video_height/DPI
     figsize       = (figure_width,figure_height)
 
-
     # Get user input values
     choose_parameter_to_vary     = user_input["choose_parameter_to_vary"]     # Choose from 'q', 'chiAx', 'chiAy', 'chiAz', 'chiBx', 'chiBy', 'chiBz'
     parameter_start_value        = user_input["parameter_start_value"]
@@ -161,8 +160,6 @@ def generate_video_for_strain_for_varying_param_method_2(input_dict):
     a0.set_ylim((y_min,y_max))
     a0.set_xlabel("Time (M)")
     a0.set_ylabel(r"$h_{+}$")
-    a0.legend()
-    a0.legend(loc='upper left')
     a0.grid(axis='x')
 
     a1.plot(t,data_h_plus[0,:], label='real_initial_parameter', color='red', linewidth='0.8')
@@ -204,15 +201,16 @@ def generate_video_for_strain_for_varying_param_method_2(input_dict):
     initial_param_text = f.text(0.025, 0.885,  f"Initial    -----> q = {all_parameter_values[0,0]:.2f}, chiA = ({all_parameter_values[0,1]:.2f} ,{all_parameter_values[0,2]:.2f} ,{all_parameter_values[0,3]:.2f}), chiB = ({all_parameter_values[0,4]:.2f} ,{all_parameter_values[0,5]:.2f} ,{all_parameter_values[0,6]:.2f}), inclination = {all_parameter_values[0,7]*180/np.pi:.0f}, phi_ref ={all_parameter_values[0,8]*180/np.pi:.0f}°",ha="left", va="center", fontsize=18, color='red')
     final_param_text   = f.text(0.025, 0.845 ,  f"Current -----> q = {  all_parameter_values[0,0]:.2f}, chiA = ({all_parameter_values[0,1]:.2f} ,{all_parameter_values[0,2]:.2f} ,{all_parameter_values[0,3]:.2f}), chiB = ({all_parameter_values[0,4]:.2f} ,{all_parameter_values[0,5]:.2f} ,{all_parameter_values[0,6]:.2f}), inclination = {all_parameter_values[0,7]*180/np.pi:.0f}, phi_ref ={all_parameter_values[0,8]*180/np.pi:.0f}°",ha="left", va="center", fontsize=18, color='#1f77b4')
     
-    f.tight_layout()
-    
     # Plot and store the line objects
     line0, = a0.plot(t, data_h_plus[0, :], label='Current_parameter')
     line1, = a1.plot(t, data_h_plus[0, :] )
     line2, = a2.plot(t, data_h_cross[0, :])
     line3, = a3.plot(t, data_h_cross[0, :])
     line4, = a4.plot(t, data_h_abs[0, :]  )
-    line5, = a5.plot(t, data_h_abs[0, :]  )    
+    line5, = a5.plot(t, data_h_abs[0, :]  )
+    
+    a0.legend(loc='upper left')
+    f.tight_layout()
 
     def update(frame):
         # Update the data for each line object
@@ -339,7 +337,6 @@ def generate_video_for_strain_for_varying_param(input_dict):
             a0.set_ylim((y_min,y_max))
             a0.set_xlabel("Time (M)")
             a0.set_ylabel(r"$h_{+}$")
-            a0.legend()
             a0.legend(loc='upper left')
             a0.grid(axis='x')
             
@@ -382,25 +379,7 @@ def generate_video_for_strain_for_varying_param(input_dict):
             a5.set_xlabel("Time (M)")
             a5.grid(axis='x')
 
-
-            # plt.suptitle(f"rh/M for {choose_parameter_to_vary} \n = {param_val:.2f}", fontsize=26)
             plt.suptitle(f"rh/M for {choose_parameter_to_vary} = {param_val:.2f} \n \n", fontsize=28, color='black', weight='bold')
-            #f.text(0.5, 0.98, "rh/M \n", ha="right", va="top", fontsize=26, color='blue', weight='bold')
-
-            # f.text(0.01, 0.89,  "Current -----> ", ha="left", va="center", fontsize=18, color='#1f77b4')
-            # f.text(0.13, 0.89,  f"q = {round(q,2)}"                                                      , ha="left", va="center", fontsize=18, color='#1f77b4')
-            # f.text(0.23, 0.89,  f"chiA0 = ({round(chiA0[0],2)},{round(chiA0[1],2)},{round(chiA0[2],2)})" , ha="left", va="center", fontsize=18, color='#1f77b4')
-            # f.text(0.47, 0.89,  f"chiB0 = ({round(chiB0[0],2)},{round(chiB0[1],2)},{round(chiB0[2],2)})" , ha="left", va="center", fontsize=18, color='#1f77b4')
-            # f.text(0.66, 0.89, f"inclination = {round(inclination*180/np.pi,2)}"                        , ha="left", va="center", fontsize=18, color='#1f77b4')
-            # f.text(0.855, 0.89, f"phi_ref ={round(phi_ref*180/np.pi,2)}"                                 , ha="left", va="center", fontsize=18, color='#1f77b4')
-
-            # f.text(0.01, 0.85,  "Initial    -----> ", ha="left", va="center", fontsize=18, color='red')
-            # f.text(0.13, 0.85,  f"q = {round(q_0,2)}"                                                      , ha="left", va="center", fontsize=18, color='red')
-            # f.text(0.23, 0.85,  f"chiA0 = ({round(chiA0_0[0],2)},{round(chiA0_0[1],2)},{round(chiA0_0[2],2)})" , ha="left", va="center", fontsize=18, color='red')
-            # f.text(0.47, 0.85,  f"chiB0 = ({round(chiB0_0[0],2)},{round(chiB0_0[1],2)},{round(chiB0_0[2],2)})" , ha="left", va="center", fontsize=18, color='red')
-            # f.text(0.66, 0.85, f"inclination = {round(inclination*180/np.pi,2)}"                        , ha="left", va="center", fontsize=18, color='red')
-            # f.text(0.855,0.85, f"phi_ref ={round(phi_ref*180/np.pi,2)}"                                , ha="left", va="center", fontsize=18, color='red')   
-
             f.text(0.025, 0.885,  f"Initial    -----> q = {q_0:.2f}, chiA = ({chiA0_0[0]:.2f} ,{chiA0_0[1]:.2f} ,{chiA0_0[2]:.2f}), chiB = ({chiB0_0[0]:.2f} ,{chiB0_0[1]:.2f} ,{chiB0_0[2]:.2f}), inclination = {inclination_0*180/np.pi:.0f}, phi_ref ={phi_ref_0*180/np.pi:.0f}",ha="left", va="center", fontsize=18, color='red'    )
             f.text(0.025, 0.845 ,  f"Current -----> q = {    q:.2f}, chiA = ({  chiA0[0]:.2f} ,{  chiA0[1]:.2f} ,{  chiA0[2]:.2f}), chiB = ({  chiB0[0]:.2f} ,{  chiB0[1]:.2f} ,{  chiB0[2]:.2f}), inclination = {  inclination*180/np.pi:.0f}, phi_ref ={  phi_ref*180/np.pi:.0f}",ha="left", va="center", fontsize=18, color='#1f77b4')
 
@@ -521,8 +500,6 @@ def generate_video_for_h_lm_varying_param_method_2(input_dict):
     a0.set_ylim((y_min,y_max))
     a0.set_xlabel("Time")
     a0.set_ylabel(r"$\Re(h_{" + str(l) + str(m) + "})$")
-    a0.legend()
-    a0.legend(loc='upper left')
     a0.grid(axis='x')
 
     a1.plot(t,data_h_lm_real[0,:], label='real_initial_parameter', color='red', linewidth='0.8')
@@ -561,18 +538,19 @@ def generate_video_for_h_lm_varying_param_method_2(input_dict):
 
     plot_title = plt.suptitle(r"$h_{" + str(l) + str(m) + "}$" + f" for {choose_parameter_to_vary} = {varying_param_values[0]:.2f} \n \n", fontsize=28, color='black')
     
-    initial_param_text = f.text(0.025, 0.885,  f"Initial    -----> q = {all_parameter_values[0,0]:.2f}, chiA = ({all_parameter_values[0,1]:.2f} ,{all_parameter_values[0,2]:.2f} ,{all_parameter_values[0,3]:.2f}), chiB = ({all_parameter_values[0,4]:.2f} ,{all_parameter_values[0,5]:.2f} ,{all_parameter_values[0,6]:.2f})",ha="left", va="center", fontsize=18, color='red')
-    final_param_text   = f.text(0.025, 0.845 ,  f"Current -----> q = {  all_parameter_values[0,0]:.2f}, chiA = ({all_parameter_values[0,1]:.2f} ,{all_parameter_values[0,2]:.2f} ,{all_parameter_values[0,3]:.2f}), chiB = ({all_parameter_values[0,4]:.2f} ,{all_parameter_values[0,5]:.2f} ,{all_parameter_values[0,6]:.2f})",ha="left", va="center", fontsize=18, color='#1f77b4')
-    
-    f.tight_layout()
-    
+    initial_param_text = f.text(0.19, 0.885,  f"Initial    -----> q = {all_parameter_values[0,0]:.2f}, chiA = ({all_parameter_values[0,1]:.2f} ,{all_parameter_values[0,2]:.2f} ,{all_parameter_values[0,3]:.2f}), chiB = ({all_parameter_values[0,4]:.2f} ,{all_parameter_values[0,5]:.2f} ,{all_parameter_values[0,6]:.2f})",ha="left", va="center", fontsize=18, color='red')
+    final_param_text   = f.text(0.19, 0.845 ,  f"Current -----> q = {  all_parameter_values[0,0]:.2f}, chiA = ({all_parameter_values[0,1]:.2f} ,{all_parameter_values[0,2]:.2f} ,{all_parameter_values[0,3]:.2f}), chiB = ({all_parameter_values[0,4]:.2f} ,{all_parameter_values[0,5]:.2f} ,{all_parameter_values[0,6]:.2f})",ha="left", va="center", fontsize=18, color='#1f77b4')
+        
     # Plot and store the line objects
     line0, = a0.plot(t, data_h_lm_real[0, :], label='Current_parameter')
     line1, = a1.plot(t, data_h_lm_real[0, :] )
     line2, = a2.plot(t, data_h_lm_imag[0, :])
     line3, = a3.plot(t, data_h_lm_imag[0, :])
     line4, = a4.plot(t, data_h_abs[0, :]  )
-    line5, = a5.plot(t, data_h_abs[0, :]  )    
+    line5, = a5.plot(t, data_h_abs[0, :]  )
+
+    a0.legend(loc='upper left')
+    f.tight_layout()
 
     def update(frame):
         # Update the data for each line object
@@ -583,7 +561,7 @@ def generate_video_for_h_lm_varying_param_method_2(input_dict):
         line4.set_ydata(data_h_abs[frame, :])
         line5.set_ydata(data_h_abs[frame, :])
         
-        plot_title.set_text(r"$h_{" + str(l) + str(m) + "}$" + f" for {choose_parameter_to_vary} = {varying_param_values[0]:.2f} \n \n")
+        plot_title.set_text(r"$h_{" + str(l) + str(m) + "}$" + f" for {choose_parameter_to_vary} = {varying_param_values[frame]:.2f} \n \n")
         final_param_text.set_text(f"Current -----> q = {  all_parameter_values[frame,0]:.2f}, chiA = ({all_parameter_values[frame,1]:.2f} ,{all_parameter_values[frame,2]:.2f} ,{all_parameter_values[frame,3]:.2f}), chiB = ({all_parameter_values[frame,4]:.2f} ,{all_parameter_values[frame,5]:.2f} ,{all_parameter_values[frame,6]:.2f})")
                
         return [line0, line1, line2, line3, line4, line5, plot_title,final_param_text ]
@@ -600,11 +578,6 @@ def generate_video_for_h_lm_varying_param_method_2(input_dict):
     print("Video Downloaded in : ",runtime)
     print("==========================================================")
     return
-
-
-
-
-
 
 def generate_video_for_h_lm_varying_param(input_dict):
     start_time = time.time()
@@ -691,7 +664,6 @@ def generate_video_for_h_lm_varying_param(input_dict):
             a0.set_ylim((y_min,y_max))
             a0.set_xlabel("Time")
             a0.set_ylabel(r"$\Re(h_{" + str(l) + str(m) + "})$")
-            a0.legend()
             a0.legend(loc='upper left')
             a0.grid(axis='x')
             
