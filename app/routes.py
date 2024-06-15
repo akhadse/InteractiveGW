@@ -154,7 +154,9 @@ def download_strain():
         figure_params = {}
         input_dict = {"user_input":user_input, "surrogate_params":surrogate_params, "video_params":video_params,"figure_params":figure_params}
         
-        video_download_link = generate_video_for_strain_for_varying_param(input_dict)
+        # video_download_link = generate_video_for_strain_for_varying_param(input_dict)
+        generate_video_for_strain_for_varying_param_method_2(input_dict)
+
         print("=================")
         print("Done!!!")
         print("=================")
@@ -211,7 +213,8 @@ def download_h_lm():
         figure_params = {}
         input_dict = {"user_input":user_input, "surrogate_params":surrogate_params, "video_params":video_params,"figure_params":figure_params}
         
-        video_download_link = generate_video_for_h_lm_varying_param(input_dict)
+        # video_download_link = generate_video_for_h_lm_varying_param(input_dict)
+        generate_video_for_h_lm_varying_param_method_2(input_dict)
         print("=================")
         print("Done!!!")
         print("=================")
