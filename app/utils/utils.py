@@ -187,7 +187,7 @@ def generate_video_for_strain_for_varying_param_method_2(input_dict):
     a4.set_xlim((t[0],t[-1]))
     a4.set_ylim((0.,y_max))   
     a4.set_xlabel("Time (M)")
-    a4.set_ylabel(r"$ \mid h_{+} - i h_{\times}\mid $")
+    a4.set_ylabel(r"$ \\mid h_{+} - i h_{\times}\\mid $")
     a4.grid(axis='x')
 
     a5.plot(t,data_h_abs[0,:], label='abs_initial_parameter', color='red', linewidth='0.8')
@@ -369,7 +369,7 @@ def generate_video_for_strain_for_varying_param(input_dict):
             a4.set_xlim((t[0],t[-1]))
             a4.set_ylim((0.,y_max))   
             a4.set_xlabel("Time (M)")
-            a4.set_ylabel(r"$ \mid h_{+} - i h_{\times}\mid $")
+            a4.set_ylabel(r"$ \\mid h_{+} - i h_{\times}\\mid $")
             a4.grid(axis='x')
             
             a5.plot(t,h_abs_0, label='abs_initial_parameter', color='red', linewidth='0.8')
@@ -527,7 +527,7 @@ def generate_video_for_h_lm_varying_param_method_2(input_dict):
     a4.set_xlim((t[0],t[-1]))
     a4.set_ylim((0.,y_max))   
     a4.set_xlabel("Time (M)")
-    a4.set_ylabel(r"$ \mid h_{" + str(l) + str(m) + "}\mid $")
+    a4.set_ylabel(r"$ \\mid h_{" + str(l) + str(m) + "}\\mid $")
     a4.grid(axis='x')
 
     a5.plot(t,data_h_abs[0,:], label='abs_initial_parameter', color='red', linewidth='0.8')
@@ -696,7 +696,7 @@ def generate_video_for_h_lm_varying_param(input_dict):
             a4.set_xlim((t[0],t[-1]))
             a4.set_ylim((0.,y_max))   
             a4.set_xlabel("Time (M)")
-            a4.set_ylabel(r"$ \mid h_{" + str(l) + str(m) + "}\mid $")
+            a4.set_ylabel(r"$ \\mid h_{" + str(l) + str(m) + "}\\mid $")
             a4.grid(axis='x')
             
             a5.plot(t,np.abs(h0[(l,m)]), label='abs_initial_parameter', color='red', linewidth='0.8')
