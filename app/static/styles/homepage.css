@@ -88,6 +88,7 @@ p{
 
 .hidden {
   display: none;
+  /* display:block; */
 }
 .highlight {
   cursor: pointer;
@@ -101,21 +102,35 @@ a{
 
 .moreText{
   text-align: left;
-  color: bisque;
+  /* color: rgb(255, 255, 156); */
+  color: white;
+  font-size: 1.5em;
 }
 
 .custom-hr {
   border: 0;
   height: 1px;
-  background-color: bisque;
+  background-color: white;
 }
 
 h3{
-  color: rgb(185, 68, 68);
-  font-weight: bold;
+  /* color: rgb(185, 68, 68); */
+  color: yellowgreen;
+  /* font-weight: bold; */
 }
 
 #moreText h2{
   text-align: center;
-  color: #b94444;
+  color: yellowgreen;
+}
+
+#learn_more_title{
+  font-size: 2em;
+  text-align: center;
+  color: yellowgreen;
+}
+
+.parameter_label{
+  font-size: 1.5em;
+  color: yellowgreen;
 }

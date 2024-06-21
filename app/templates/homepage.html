@@ -91,32 +91,55 @@
 
                         <hr class="custom-hr">
 
-                        <h2 class="moreText">NRSur7dq4 surrogate model</h2>
+                        <h1 class="moreText" id="learn_more_title">\(\underline{\text{NRSur7dq4 surrogate model}}\)</h1>
 
+                        <h3> <br> <span>\(\underline{\text{GW Strain}}\)</span>:</h3>
                         <p class="moreText">
-                            <br>
-                            <span style="color: #b94444; font-weight: bold;">For the strain data,</span>  the complex strain \( h = h_{+} - i h_\times  \) evaluated 
+                            For the strain data, the complex strain \( h = h_{+} - i h_\times  \) evaluated 
                             at \( ( \mathbf{\iota}, \pi/2 - \mathbf{\phi_{ref}}) \),  on the sky of the reference frame is returned.
                         </p>
 
+                        <h3> <br> <span>\(\underline{h_{lm} \text{ mode}}\)</span>:</h3>
                         <p class="moreText">
-                            <br>
-                            <span style="color: #b94444;font-weight: bold;">For the \(h_{lm} \) mode data,</span> the strain is expressed as sum of spin-weighted spherical harmonic modes, \( h(t, \iota, \phi_0) \, = \sum_{l=2}^{\infty} \sum_{m=-l}^{l} \, h_{lm}(t) \, \sideset{_{-2}}{_{lm}} Y(\iota, \phi_0) \)
+                            For the \(h_{lm} \) mode data, the strain is expressed as sum of spin-weighted spherical harmonic modes, \( h(t, \iota, \phi_0) \, = \sum_{l=2}^{\infty} \sum_{m=-l}^{l} \, h_{lm}(t) \, \sideset{_{-2}}{_{lm}} Y(\iota, \phi_0) \)
                         </p>
 
-                        <h3> <br> Parameters:</h3>
-                        <p class="moreText">
-                            q : Mass ratio, mA/mB >= 1 <br>
-                            \( \chi_{A} \) : Dimensionless spin vector of the heavier black hole at reference epoch.<br>
-                            \( \chi_{B} \) : Dimensionless spin vector of the lighter black hole at reference epoch.<br>
-                            \( \mathbf{\iota} \) : Inclination angle between the orbital angular momentum direction at the reference epoch and the line-of-sight to the observer.<br>
-                            \( \mathbf{\phi_{ref}} \) : The azimuthal angle on the sky of the source frame following the LAL convention.<br>
-                            \( (\ell,m) \) : Indicate the spin-weighted spherical harmonic mode coefficients in the expansion \( \sum_{l=2}^{\infty} \sum_{m=-l}^{l} \, h_{lm} \, \sideset{_{-2}}{_{lm}} Y \) 
-                        </p>
+                        <h3> <br> <span>\(\underline{h_{lm} \text{Parameters:}}\)</span>:</h3>
+                        <table>
+                            <tr>
+                                <td class="parameter_label"><span style="color: yellowgreen">q</span></td>
+                                <td class="moreText" >: Mass ratio, \( \frac{m_A}{m_B} \ge 1 \) , here \( m_A\) is the mass of the heavier BH and \( m_B\) is the mass of the lighter BH</td>
+                            </tr>
+                            <tr>
+                                <td class="parameter_label"><span style="color: yellowgreen">\( \chi_{A} \)</span></td>
+                                <td class="moreText" >: Initial dimensionless spin vector of the heavier black hole.</td>
+                            </tr>
+                            <tr>
+                                <td class="parameter_label"><span style="color: yellowgreen">\( \chi_{B} \)</span></td>
+                                <td class="moreText" >: Initial dimensionless spin vector of the lighter black hole.</td>
+                            </tr>
+                            <tr>
+                                <td class="parameter_label"><span style="color: yellowgreen">\( \mathbf{\iota} \)</span></td>
+                                <td class="moreText" >: Initial inclination angle between the orbital angular momentum direction and the line-of-sight to the observer.</td>
+                            </tr>
+                            <tr>
+                                <td class="parameter_label"><span style="color: yellowgreen">\( \mathbf{\phi_{ref}} \)</span></td>
+                                <td class="moreText" >: Initial azimuthal angle on the sky of the source frame following the LAL convention.</td>
+                            </tr>
+                            <tr>
+                                <td class="parameter_label"><span style="color: yellowgreen">\( (\ell,m) \)</span></td>
+                                <td class="moreText" >: Indicate the spin-weighted spherical harmonic mode coefficients in the expansion of \( h(t, \iota, \phi_0) \, \)</td>
+                            </tr>
+                        </table>
 
-                        <h3> <br> Assumptions:</h3>
+                        <h3> <br> <span>\(\underline{h_{lm} \text{Other fixed parameters:}}\)</span>:</h3>
                         <p class="moreText">
-                            f_low = 0 ,i.e, the entire waveform is returned.<br>
+                            f_low = 0 : This input in the NR7dq4 surrogate model implies that the entire waveform is returned.<br>
+                            times = np.arange(-4299,99,1) : This input in the NR7dq4 surrogate model fixes the time samples chosen for the waveforms.<br>
+                            <br> video_length = 20 sec : Downloaded videos are 20 seconds long.<br>
+                            video_fps = 24 : Downloaded videos have 24 fps.<br>
+                            video_width = 1500 px : Downloaded videos have width of 1500px.<br>
+                            video_height = 700 px : Downloaded videos have height of 700px.<br>
                         </p>
 
                         <hr class="custom-hr">
@@ -232,12 +255,16 @@
         function toggleText() {
             var moreText = document.getElementById("moreText");
             var learnMore = document.getElementById("learnMore");
+            var top_of_the_page = document.getElementById("navbar");
+
             if (moreText.classList.contains("hidden")) {
                 moreText.classList.remove("hidden");
                 learnMore.style.display = "none";
+                moreText.scrollIntoView({ behavior: "smooth" });
             } else {
                 moreText.classList.add("hidden");
                 learnMore.style.display = "inline";
+                top_of_the_page.scrollIntoView({ behavior: "smooth" });
             }
         }
     </script>
