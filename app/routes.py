@@ -19,13 +19,10 @@ def interactive_h_lm():
 def download_videos():
     return render_template('download_videos.html')
 
-# @routes.route('/download_h_lm_', methods=['GET', 'POST'])
-# def download_h_lm_():
-#     return redirect(url_for('routes.download_h_lm'))
-
-# @routes.route('/download_strain_', methods=['GET', 'POST'])
-# def download_strain_():
-#     return redirect(url_for('routes.download_strain'))
+@routes.route('/downloaded_video_link', methods=['GET'])
+def downloaded_video_link():
+    presigned_url = request.args.get('presigned_url')
+    return render_template('downloaded_video_link.html', presigned_url=presigned_url)
 
 @routes.route('/about_page', methods=['GET', 'POST'])
 def about_page():
@@ -141,7 +138,7 @@ def download_strain():
         video_width  = 1500 #int(form_data["video_width"])
         video_height = 700 #int(form_data["video_height"])
         video_fps    = 24.0 #float(form_data["video_fps"])
-        video_name   = "strain_video.mp4" #str(form_data["video_name"])
+        video_name   = "strain_video_" + ''.join(random.choices(string.ascii_letters + string.digits, k=10)) + ".mp4"
 
         user_input = {"q":q, 
               "chiAx":chiAx, "chiAy":chiAy, "chiAz":chiAz, 
@@ -154,14 +151,21 @@ def download_strain():
         figure_params = {}
         input_dict = {"user_input":user_input, "surrogate_params":surrogate_params, "video_params":video_params,"figure_params":figure_params}
         
-        # video_download_link = generate_video_for_strain_for_varying_param(input_dict)
-        generate_video_for_strain_for_varying_param_method_2(input_dict)
+        presigned_url = generate_video_for_strain_for_varying_param_method_2(input_dict)
 
         print("=================")
         print("Done!!!")
         print("=================")
-        #return render_template('video_download_link.html', video_download_link=video_download_link)
-        return render_template('download_strain.html',)
+
+        ################################################
+        # For local version
+        return render_template('download_strain.html')
+        ################################################
+
+        ################################################
+        # For website: 
+        # return redirect(url_for('routes.downloaded_video_link', presigned_url=presigned_url))
+        ################################################
     else:
         return render_template('download_strain.html')
     
@@ -200,7 +204,7 @@ def download_h_lm():
         video_width  = 1500 #int(form_data["video_width"])
         video_height = 700 #int(form_data["video_height"])
         video_fps    = 24.0 #float(form_data["video_fps"])
-        video_name   = "h_lm_video.mp4" #str(form_data["video_name"])
+        video_name   = "h_lm_video_" + ''.join(random.choices(string.ascii_letters + string.digits, k=10)) + ".mp4"
 
         user_input = {"q":q, 
               "chiAx":chiAx, "chiAy":chiAy, "chiAz":chiAz, 
@@ -213,13 +217,21 @@ def download_h_lm():
         figure_params = {}
         input_dict = {"user_input":user_input, "surrogate_params":surrogate_params, "video_params":video_params,"figure_params":figure_params}
         
-        # video_download_link = generate_video_for_h_lm_varying_param(input_dict)
-        generate_video_for_h_lm_varying_param_method_2(input_dict)
+        presigned_url = generate_video_for_h_lm_varying_param_method_2(input_dict)
         print("=================")
         print("Done!!!")
         print("=================")
-        #return render_template('video_download_link.html', video_download_link=video_download_link)
-        return render_template('download_h_lm.html',)
+    
+        ################################################
+        # For local version
+        return render_template('download_h_lm.html')
+        ################################################
+
+        ################################################
+        # For website: 
+        # return redirect(url_for('routes.downloaded_video_link', presigned_url=presigned_url))
+        ################################################
+
     else:
         return render_template('download_h_lm.html')    
     
