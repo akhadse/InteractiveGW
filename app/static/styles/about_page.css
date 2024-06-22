@@ -47,6 +47,7 @@ html, body {
     /* background: green; */
 }
 .about_text_1 p{
+    font-size: 1em;
     /* background: yellow; */
 }
 .about_text_1  h2{
@@ -58,7 +59,9 @@ html, body {
 }
 
 .about_text_1  ul li{
+    white-space: nowrap;
     font-size: 1em;
+    list-style-type: none;
     /* background: blue; */
 }
 

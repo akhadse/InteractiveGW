@@ -197,7 +197,7 @@
                             <input type="range" min="0" max="180" value="0" step="1" class="slider inclination_slider" id="inclination_slider">
                             <span id="inclination_slider_value" class="slider_value_box">0&deg;</span>
                             <div class="info_box_for_slider_names" id="info_box_inclination">
-                                <p> Inclination angle between the orbital angular momentum direction at the reference epoch and the line-of-sight to the observer.<br> The complex strain (h =hplus -i hcross) evaluated at (inclination, pi/2 - phi_ref) on the sky of the reference frame is returned.</p>
+                                <p> Inclination angle between the orbital angular momentum direction at the reference epoch and the line-of-sight to the observer.<br> The complex strain (\(h =h_+ -i h_\times \)) evaluated at (\(\iota, \pi/2 - \phi_{ref}\)) on the sky of the reference frame is returned.</p>
                             </div>
                             <input type="hidden" id="inclination" name="inclination">
                         </div>
@@ -207,7 +207,7 @@
                             <input type="range" min="0" max="360" value="0" step="1" class="slider phi_ref_slider" id="phi_ref_slider">
                             <span id="phi_ref_slider_value" class="slider_value_box" >0&deg;</span>
                             <div class="info_box_for_slider_names" id="info_box_phi_ref">
-                                <p> The azimuthal angle on the sky of the source frame following the LAL convention. <br> The complex strain (h =hplus -i hcross) evaluated at (inclination, pi/2 - phi_ref) on the sky of the reference frame is returned.</p>
+                                <p> The azimuthal angle on the sky of the source frame following the LAL convention. <br> The complex strain (\(h =h_+ -i h_\times \)) evaluated at (\(\iota, \pi/2 - \phi_{ref}\)) on the sky of the reference frame is returned.</p>
                             </div>
                             <input type="hidden" id="phi_ref" name="phi_ref">
                         </div>
@@ -217,7 +217,7 @@
                             <input type="range" min="1" max="6" value="2.4" step="0.1" class="slider mass_ratio_slider" id="mass_ratio_slider">
                             <span id="mass_ratio_slider_value" class="slider_value_box" >2.4</span>
                             <div class="info_box_for_slider_names" id="info_box_mass_ratio">
-                                <p> Mass ratio, mA/mB >= 1.</p>
+                                <p> Mass ratio, \(q = \frac{m_A}{m_B} , q \ge 1\) <br> \(m_A\): mass of heavier BH, and, <br> \(m_B\): mass of lighter BH<br> </p>
                             </div>
                             <input type="hidden" id="q" name="q">
                         </div>
