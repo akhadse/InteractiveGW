@@ -4,8 +4,6 @@ import sys
 
 app = create_app()
 
-logging.basicConfig(filename='/home/akshay/logs/flask_app.log', level=logging.INFO, format='%(asctime)s %(message)s')
-
 class LoggerWriter:
     def __init__(self, level):
         self.level = level
@@ -17,9 +15,11 @@ class LoggerWriter:
     def flush(self):
         pass  # This is required for the stream interface but can be a no-op
 
-# Redirect stdout and stderr
-sys.stdout = LoggerWriter(app.logger.info)
-sys.stderr = LoggerWriter(app.logger.error)
+# # Redirect stdout and stderr
+
+# logging.basicConfig(filename='/home/akshay/logs/flask_app.log', level=logging.INFO, format='%(asctime)s %(message)s')
+# sys.stdout = LoggerWriter(app.logger.info)
+# sys.stderr = LoggerWriter(app.logger.error)
 
 
 if __name__=='__main__':
