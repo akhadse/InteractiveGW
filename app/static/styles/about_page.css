@@ -27,7 +27,7 @@ html, body {
     position: absolute;
     /* border: 5px solid yellowgreen; */
     color: white;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0);
     opacity: 90%;
     text-align: center;
     padding: 30px;
@@ -41,17 +41,24 @@ html, body {
     font-family: 'Lato', sans-serif;
 }
 
+#thankyoutext {
+    font-size: 2em;
+    background: rgba(0, 0, 0, 0.75);
+    /* background: green; */
+}
+.about_text_1 p{
+    /* background: yellow; */
+}
 .about_text_1  h2{
     font-size: 1.5em;
     font-weight: bold;
     color: white;
-}
-
-#thankyoutext {
-    font-size: 2em;
+    background: rgba(0, 0, 0, 0.75);
+    /* background: red; */
 }
 
 .about_text_1  ul li{
     font-size: 1em;
+    /* background: blue; */
 }
 
