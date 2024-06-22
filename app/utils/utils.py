@@ -12,6 +12,9 @@ from datetime import date,timedelta
 from matplotlib.animation import FuncAnimation, writers
 import random
 import string
+
+from matplotlib.animation import FFMpegWriter
+plt.rcParams['animation.ffmpeg_path'] = '/usr/bin/ffmpeg'
 #######################################################
 sur   = gwsurrogate.LoadSurrogate("NRSur7dq4")
 times = np.arange(-4299,99,1)

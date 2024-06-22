@@ -119,7 +119,7 @@ def download_strain():
         choose_parameter_to_vary = str(form_data["choose_parameter"])
         parameter_start_value    = float(form_data["parameter_start_value"])
         parameter_end_value      = float(form_data["parameter_end_value"])
-        parameter_steps          = 20*24 #int(form_data["parameter_steps"])
+        parameter_steps          = 5#20*24 #int(form_data["parameter_steps"])
         inclination              = float(form_data["inclination"])
         phi_ref                  = float(form_data["phi_ref"])
 
@@ -159,12 +159,12 @@ def download_strain():
 
         ################################################
         # For local version
-        return render_template('download_strain.html')
+        #return render_template('download_strain.html')
         ################################################
 
         ################################################
         # For website: 
-        # return redirect(url_for('routes.downloaded_video_link', presigned_url=presigned_url))
+        return redirect(url_for('routes.downloaded_video_link', presigned_url=presigned_url))
         ################################################
     else:
         return render_template('download_strain.html')
@@ -185,7 +185,7 @@ def download_h_lm():
         choose_parameter_to_vary = str(form_data["choose_parameter"])
         parameter_start_value    = float(form_data["parameter_start_value"])
         parameter_end_value      = float(form_data["parameter_end_value"])
-        parameter_steps          = 20*24 #int(form_data["parameter_steps"])
+        parameter_steps          = 5#20*24 #int(form_data["parameter_steps"])
         l = int(form_data["l"])
         m = int(form_data["m"])
 
@@ -224,12 +224,12 @@ def download_h_lm():
     
         ################################################
         # For local version
-        return render_template('download_h_lm.html')
+        #return render_template('download_h_lm.html')
         ################################################
 
         ################################################
         # For website: 
-        # return redirect(url_for('routes.downloaded_video_link', presigned_url=presigned_url))
+        return redirect(url_for('routes.downloaded_video_link', presigned_url=presigned_url))
         ################################################
 
     else:
