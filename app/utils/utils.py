@@ -12,6 +12,7 @@ from datetime import date,timedelta
 from matplotlib.animation import FuncAnimation, writers
 import random
 import string
+import os
 
 from matplotlib.animation import FFMpegWriter
 plt.rcParams['animation.ffmpeg_path'] = '/usr/bin/ffmpeg'
@@ -20,10 +21,17 @@ sur   = gwsurrogate.LoadSurrogate("NRSur7dq4")
 times = np.arange(-4299,99,1)
 f_low = 0
 #######################################################
-#import boto3
-def generate_presigned_url(filename):
+import boto3
+s3=boto3.client('s3', region_name='us-east-2')
 
-    presigned_url = filename # will link to the video on S3
+def generate_presigned_url(video_name):
+    bucket_name = 'interactivegwbucket'
+    key_name = video_name 
+    s3.upload_file(os.getcwd()+'/downloaded_videos/'+ video_name, bucket_name, key_name)
+    presigned_url = s3.generate_presigned_url('get_object',Params={'Bucket': bucket_name, 'Key': key_name},ExpiresIn=300)
+    #presigned_url = filename # will link to the video on S3
+    filename = os.getcwd()+'/downloaded_videos/'+ video_name
+    os.system(f"rm -rf {filename}")
     return presigned_url
 #######################################################
 
@@ -240,7 +248,9 @@ def generate_video_for_strain_for_varying_param_method_2(input_dict):
 
     FFMpegWriter = writers['ffmpeg']
     writer = FFMpegWriter(fps=video_fps, metadata=dict(artist='Akshay Khadse'), bitrate=10000)
-    ani.save(video_name, writer=writer)
+    
+    video_filepath = os.getcwd()+'/downloaded_videos/'+video_name
+    ani.save(video_filepath, writer=writer)
 
     runtime = time.time()-start_time
     runtime = str(timedelta(seconds = runtime))
@@ -415,7 +425,9 @@ def generate_video_for_h_lm_varying_param_method_2(input_dict):
 
     FFMpegWriter = writers['ffmpeg']
     writer = FFMpegWriter(fps=video_fps, metadata=dict(artist='Akshay Khadse'), bitrate=10000)
-    ani.save(video_name, writer=writer)
+    
+    video_filepath = os.getcwd()+'/downloaded_videos/'+video_name
+    ani.save(video_filepath, writer=writer)
 
     runtime = time.time()-start_time
     runtime = str(timedelta(seconds = runtime))

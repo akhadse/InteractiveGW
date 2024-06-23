@@ -67,8 +67,11 @@
         <div class="row row1">
             <div class="col-lg-10 col-md-10 col-sm-10 rowboxes" id="row1box1"> 
                 <div class="rowboxtext text_row1">
-                    <h1>!!!! Sorry this page is still under construction !!!! <br> Your video is ready for download!</h1>
-                </div>
+			<h1>Your video is ready for download!</h1>
+			<p>Due to limited computational resources, videos are currently being limited to being only 3 seconds long.<br> For generating longer videos check <a href="https://github.com/akhadse/InteractiveGW" > our github repo - InteractiveGW</a> 
+			</p>
+
+		</div>
             </div>
         </div>
 
@@ -83,9 +86,8 @@
         <div class="row row3">
             <div class="col-lg-12 col-md-12 col-sm-12">
                 <p class="link_text">
-                    <u><a href="{{ video_download_link }}"> Click here to download your video!</a></u>
+                    <u><a href="{{ presigned_url }}"> Click here to download your video!</a></u>
                 </p>
-                <p style="color: white;">"{{ presigned_url }}"</p>
             </div>
         </div>
     </div>
