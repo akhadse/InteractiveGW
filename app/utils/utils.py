@@ -21,26 +21,34 @@ sur   = gwsurrogate.LoadSurrogate("NRSur7dq4")
 times = np.arange(-4299,99,1)
 f_low = 0
 #######################################################
-import boto3
-s3=boto3.client('s3', region_name='us-east-2')
 
+# For website uncomment below:
+# import boto3
+# s3=boto3.client('s3', region_name='us-east-2')
+
+# def generate_presigned_url(video_name):
+#     bucket_name = 'interactivegwbucket'
+#     key_name = video_name 
+#     s3.upload_file(os.getcwd()+'/downloaded_videos/'+ video_name, bucket_name, key_name)
+#     presigned_url = s3.generate_presigned_url('get_object',Params={'Bucket': bucket_name, 'Key': key_name},ExpiresIn=300)
+    
+#     filename = os.path.join(os.getcwd(), 'downloaded_videos', video_name)
+#     # Check if the file exists and delete it
+#     if os.path.exists(filename):
+#         try:
+#             os.remove(filename)
+#             print("File deleted:", filename)
+#         except Exception as e:
+#             print(f"Error deleting file: {e}")
+#     else:
+#         print("File does not exist:", filename)
+    
+#     return presigned_url
+#######################################################
+
+# For local use use below code:
 def generate_presigned_url(video_name):
-    bucket_name = 'interactivegwbucket'
-    key_name = video_name 
-    s3.upload_file(os.getcwd()+'/downloaded_videos/'+ video_name, bucket_name, key_name)
-    presigned_url = s3.generate_presigned_url('get_object',Params={'Bucket': bucket_name, 'Key': key_name},ExpiresIn=300)
-    
-    filename = os.path.join(os.getcwd(), 'downloaded_videos', video_name)
-    # Check if the file exists and delete it
-    if os.path.exists(filename):
-        try:
-            os.remove(filename)
-            print("File deleted:", filename)
-        except Exception as e:
-            print(f"Error deleting file: {e}")
-    else:
-        print("File does not exist:", filename)
-    
+    presigned_url = video_name
     return presigned_url
 #######################################################
 
