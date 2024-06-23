@@ -29,9 +29,18 @@ def generate_presigned_url(video_name):
     key_name = video_name 
     s3.upload_file(os.getcwd()+'/downloaded_videos/'+ video_name, bucket_name, key_name)
     presigned_url = s3.generate_presigned_url('get_object',Params={'Bucket': bucket_name, 'Key': key_name},ExpiresIn=300)
-    #presigned_url = filename # will link to the video on S3
-    filename = os.getcwd()+'/downloaded_videos/'+ video_name
-    os.system(f"rm -rf {filename}")
+    
+    filename = os.path.join(os.getcwd(), 'downloaded_videos', video_name)
+    # Check if the file exists and delete it
+    if os.path.exists(filename):
+        try:
+            os.remove(filename)
+            print("File deleted:", filename)
+        except Exception as e:
+            print(f"Error deleting file: {e}")
+    else:
+        print("File does not exist:", filename)
+    
     return presigned_url
 #######################################################
 
