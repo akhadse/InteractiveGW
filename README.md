@@ -1,4 +1,4 @@
-## Checkout the website - www.InteractiveGW.com
+## Checkout the website - [https://interactivegw.com/](https://interactivegw.com/)
 
 ## To run the package on your local machine (mainly to generate custom videos) see the installation instructions below:
 
