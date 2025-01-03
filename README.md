@@ -1,4 +1,6 @@
-## Installation Instructions
+## Checkout the website - www.InteractiveGW.com
+
+## To run the package on your local machine (mainly to generate custom videos) see the installation instructions below:
 
 Please install the following packages:
 
